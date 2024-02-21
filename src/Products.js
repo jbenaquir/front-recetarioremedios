@@ -1,9 +1,12 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import Button from 'react-bootstrap/Button';
+
 function Products() {
     return (
         <div>
             <h1>Products</h1>
             <p>
-                <button>Create</button>
+                <Button>Create</Button>
                 <input placeholder="Search"/>
             </p>
         </div>
