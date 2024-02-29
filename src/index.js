@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Products from './Products';
+import ProductView from './ProductView';
+import ProductForm from './ProductForm';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -16,6 +18,15 @@ const router = createBrowserRouter([
   {
     path: "/products", element: <Products />
   },
+  {
+    path: "/products/:id/:name", element: <ProductView />
+  },
+  {
+    path: "/products/create", element: <ProductForm />
+  },
+  {
+    path: "/products/:id/:name/edit", element: <ProductForm />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
