@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 
 function Products() {
     const [products, setProducts] = useState([]);
-    
+    const [productSearch, setProductSearch] = useState('');
+
     function GetProducts() {
         fetch('https://localhost:7222/api/Products/search',
         {
@@ -13,26 +14,72 @@ function Products() {
         .then(data => {
             setProducts(data);
         })
-        .catch((error)=> console.log("Something happened getting products: " + error));
+        .catch((error) => console.log("Something happened getting products: " + error));
     }
+
     //loads when component mounts
     useEffect(() => {
-        const fetchData = async ()=>{
+        const fetchData = async () => {
             GetProducts();
         }
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        Search();
+    }, [productSearch]);
     
     function GoToCreate () {
         console.log(`Go To Create`);
         window.location.href = `/products/create`;
     }
+
+    function GoToView (product) {
+        console.log(`Go To View`);
+        window.location.href = `/products/${product.id}/${product.name}`;
+    }
+
+    function GoToModify (product) {
+        console.log(`Go To Modify`);
+        window.location.href = `/products/${product.id}/${product.name}/edit`;
+    }
     
-    function GoToDelete (id) {
-        console.log(`Delete Product Id: ${id}`);
-    
-        //update products
+    function GoToDelete (product) {
+        if(!window.confirm(`Está a punto de borrar el producto ${product.name}`))
+            return;
+
+        console.log(`Delete Product Id: ${product.id}`);
+        fetch(`https://localhost:7222/api/Products/${product.id}`,
+        {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if(response.status === 200)
+                Search();
+        })
+        .catch((error)=> console.log("Something happened deleting product: " + error));
+    }
+
+    function OnChangeSearch(e) {
+        const searchValue = e.currentTarget.value;
+        console.log(searchValue);
+
+        setProductSearch(searchValue);
+    }
+
+    function Search() {
+        const searchValue = productSearch;
+
+        fetch(`https://localhost:7222/api/Products/search/${searchValue}`,
+        {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            setProducts(data);
+        })
+        .catch((error)=> console.log("Something happened getting products: " + error));
     }
 
     return (
@@ -41,14 +88,17 @@ function Products() {
                 <h1>Products</h1>
                 <p>
                     <button onClick={(e) => GoToCreate()}>Create</button>
-                    <input placeholder="Search"/>
+                    <input placeholder="Search" onChange={(e) => OnChangeSearch(e)}/>
                 </p>
             </div>
             {products.map(product => (
                 <div>
-                    <a href={`/products/${product.id}/${product.name}`} target="_blank" rel="noreferrer" >Ver {product.name}</a>
-                    <a href={`/products/${product.id}/${product.name}/edit`}>Modificar</a>
-                    <button onClick={(e) => GoToDelete(product.id)}>Eliminar</button>
+                    <div>
+                        {product.name}
+                    </div>
+                    <button onClick={(e) => GoToView(product)}>Ver</button>
+                    <button onClick={(e) => GoToModify(product)}>Modificar</button>
+                    <button onClick={(e) => GoToDelete(product)}>Eliminar</button>
                 </div>
             ))}
         </div>
