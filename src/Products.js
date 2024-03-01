@@ -28,6 +28,7 @@ function Products() {
 
     useEffect(() => {
         Search();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [productSearch]);
     
     function GoToCreate () {
@@ -83,7 +84,7 @@ function Products() {
     }
 
     return (
-        <div>
+        <>
             <div>
                 <h1>Products</h1>
                 <p>
@@ -91,17 +92,23 @@ function Products() {
                     <input placeholder="Search" onChange={(e) => OnChangeSearch(e)}/>
                 </p>
             </div>
-            {products.map(product => (
-                <div>
-                    <div>
-                        {product.name}
-                    </div>
-                    <button onClick={(e) => GoToView(product)}>Ver</button>
-                    <button onClick={(e) => GoToModify(product)}>Modificar</button>
-                    <button onClick={(e) => GoToDelete(product)}>Eliminar</button>
-                </div>
-            ))}
-        </div>
+            <table>
+                <tbody>
+                {products.map(product => (
+                    <tr key={product.id}>
+                        <td>
+                            {product.name}
+                        </td>
+                        <td>
+                            <button onClick={() => GoToView(product)}>Ver</button>
+                            <button onClick={() => GoToModify(product)}>Modificar</button>
+                            <button onClick={() => GoToDelete(product)}>Eliminar</button>
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </>
     )
 }
 

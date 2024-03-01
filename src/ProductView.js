@@ -19,20 +19,21 @@ function ProductView() {
 
     useEffect(() => {
         GetProduct(id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div>
+            <h1>Producto: </h1>
             <p>
-                <h1>Producto: </h1>
                 {product.name}
             </p>
+            <h3>Descripción:</h3>
             <p>
-                <h3>Descripción:</h3>
                 {product.description}
             </p>
+            <h3>Nutrients:</h3>
             <p>
-                <h3>Nutrients:</h3>
                 {product.nutrients}
             </p>
         </div>

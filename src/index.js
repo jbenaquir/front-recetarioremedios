@@ -5,6 +5,9 @@ import App from './App';
 import Products from './Products';
 import ProductView from './ProductView';
 import ProductForm from './ProductForm';
+import Recipes from './Recipes';
+import RecipeView from './RecipeView';
+import RecipeForm from './RecipeForm';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -26,6 +29,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/products/:id/:name/edit", element: <ProductForm />
+  },
+  {
+    path: "/recipes", element: <Recipes />
+  },
+  {
+    path: "/recipes/:id/:name", element: <RecipeView />
+  },
+  {
+    path: "/recipes/create", element: <RecipeForm />
+  },
+  {
+    path: "/recipes/:id/:name/edit", element: <RecipeForm />
   }
 ]);
 

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function ProductForm() {
+function RecipeForm() {
     const { id } = useParams();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [nutrients, setNutrients] = useState('');
+    const [preparation, setPreparation] = useState('');
 
-    function GetProduct(id) {
-        fetch(`https://localhost:7222/api/Products/${id}`,
+    function GetRecipe(id) {
+        fetch(`https://localhost:7222/api/Recipes/${id}`,
             {
                 method: 'GET'
             })
@@ -16,55 +16,55 @@ function ProductForm() {
             .then(data => {
                 setName(data.name);
                 setDescription(data.description);
-                setNutrients(data.nutrients);
+                setPreparation(data.preparation);
             })
-            .catch((error) => console.log("Something happened getting product: " + error));
+            .catch((error) => console.log("Something happened getting recipe: " + error));
     }
 
     useEffect(() => {
-        GetProduct(id);
+        GetRecipe(id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function Save() {
-        let product = {
+        let recipe = {
             name: name,
             description: description,
-            nutrients: nutrients,
+            preparation: preparation,
             image: "",
-            imagePath: ""
+            imagePath: "",
+            products: []
         };
 
         let saveType = "save";
 
         if(id){
             saveType = "update";
-            product.id = id;
+            recipe.id = id;
         }
-        debugger;
 
-        fetch(`https://localhost:7222/api/Products/${saveType}`,
+        fetch(`https://localhost:7222/api/Recipes/${saveType}`,
             {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(product)
+                body: JSON.stringify(recipe)
             })
             .then(response => {
                 if(response.status === 200)
-                    window.location.href = `/products`;
+                    window.location.href = `/recipes`;
             })
-            .catch((error) => console.log("Something happened saving product: " + error));
+            .catch((error) => console.log("Something happened saving recipe: " + error));
     }
     
     function Back() {
-        window.location.href = `/products`;
+        window.location.href = `/recipes`;
     }
 
     return (
         <>
-            <h1>Create/Edit Product</h1>
+            <h1>Create/Edit Recipe</h1>
             <div>
                 <label>
                     Name:
@@ -85,11 +85,11 @@ function ProductForm() {
                 </label>
                 <br />
                 <label>
-                    Nutrients:
+                    Preparación:
                     <br />
-                    <input name="nutrients" 
-                        value={nutrients} 
-                        onChange={ e => setNutrients(e.target.value)} 
+                    <input name="preparation" 
+                        value={preparation} 
+                        onChange={ e => setPreparation(e.target.value)} 
                         maxLength={100}/>
                 </label>
             </div>
@@ -101,4 +101,4 @@ function ProductForm() {
     )
 }
 
-export default ProductForm;
+export default RecipeForm;
