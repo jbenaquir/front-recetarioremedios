@@ -88,8 +88,8 @@ function Products() {
             <div>
                 <h1>Products</h1>
                 <p>
-                    <button onClick={(e) => GoToCreate()}>Create</button>
-                    <input placeholder="Search" onChange={(e) => OnChangeSearch(e)}/>
+                    <button class="btn btn-primary" onClick={(e) => GoToCreate()}>Create</button>
+                    <input class="form-control" placeholder="Search" onChange={(e) => OnChangeSearch(e)}/>
                 </p>
             </div>
             <table>
@@ -100,9 +100,9 @@ function Products() {
                             {product.name}
                         </td>
                         <td>
-                            <button onClick={() => GoToView(product)}>Ver</button>
-                            <button onClick={() => GoToModify(product)}>Modificar</button>
-                            <button onClick={() => GoToDelete(product)}>Eliminar</button>
+                            <button class="btn btn-primary" onClick={() => GoToView(product)}>Ver</button>
+                            <button class="btn btn-primary" onClick={() => GoToModify(product)}>Modificar</button>
+                            <button class="btn btn-primary" onClick={() => GoToDelete(product)}>Eliminar</button>
                         </td>
                     </tr>
                 ))}

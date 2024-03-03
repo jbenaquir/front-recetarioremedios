@@ -36,7 +36,9 @@ function RecipeProductsView ({recipeId}) {
                             {product.name}
                         </td>
                         <td>
-                            <button onClick={() => {ViewProduct(product)}}>Ver</button>
+                            <button
+                                class="btn btn-primary"
+                                onClick={() => {ViewProduct(product)}}>Ver</button>
                         </td>
                     </tr>
                 ))}

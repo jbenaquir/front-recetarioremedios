@@ -69,7 +69,9 @@ function ProductForm() {
                 <label>
                     Name:
                     <br />
-                    <input name="name" 
+                    <input
+                        class="form-control"
+                        name="name" 
                         value={name} 
                         onChange={ e => setName(e.target.value)} 
                         maxLength={100}/>
@@ -78,7 +80,9 @@ function ProductForm() {
                 <label>
                     Description:
                     <br />
-                    <input name="description" 
+                    <input 
+                        class="form-control"
+                        name="description" 
                         value={description} 
                         onChange={ e => setDescription(e.target.value)} 
                         maxLength={100}/>
@@ -87,15 +91,21 @@ function ProductForm() {
                 <label>
                     Nutrients:
                     <br />
-                    <input name="nutrients" 
+                    <input
+                        class="form-control"
+                        name="nutrients" 
                         value={nutrients} 
                         onChange={ e => setNutrients(e.target.value)} 
                         maxLength={100}/>
                 </label>
             </div>
             <div>
-                <button onClick={Save}>Save</button>
-                <button onClick={Back}>Back</button>
+                <button
+                    class="btn btn-primary"
+                    onClick={Save}>Save</button>
+                <button 
+                    class="btn btn-primary"
+                    onClick={Back}>Back</button>
             </div>
         </>
     )

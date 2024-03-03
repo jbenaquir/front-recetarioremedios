@@ -88,8 +88,12 @@ function Recipes() {
             <div>
                 <h1>Recipes</h1>
                 <p>
-                    <button onClick={() => GoToCreate()}>Create</button>
-                    <input placeholder="Search" onChange={(e) => OnChangeSearch(e)} />
+                    <button
+                        class="btn btn-primary"
+                        onClick={() => GoToCreate()}>Create</button>
+                    <input
+                        class="form-control"
+                        placeholder="Search" onChange={(e) => OnChangeSearch(e)} />
                 </p>
             </div>
 
@@ -101,9 +105,15 @@ function Recipes() {
                                 {recipe.name}
                             </td>
                             <td>
-                                <button onClick={() => GoToView(recipe)}>Ver</button>
-                                <button onClick={() => GoToModify(recipe)}>Modificar</button>
-                                <button onClick={() => GoToDelete(recipe)}>Eliminar</button>
+                                <button
+                                    class="btn btn-primary"
+                                    onClick={() => GoToView(recipe)}>Ver</button>
+                                <button 
+                                    class="btn btn-primary"
+                                    onClick={() => GoToModify(recipe)}>Modificar</button>
+                                <button 
+                                    class="btn btn-primary"
+                                    onClick={() => GoToDelete(recipe)}>Eliminar</button>
                             </td>
                         </tr>
                     ))}
