@@ -91,56 +91,56 @@ function RecipeForm() {
     }
 
     return (
-        <>
-            <h1>Create/Edit Recipe</h1>
-            <div>
-                <label>
-                    Name:
-                    <br />
-                    <input
-                        class="form-control"
-                        name="name" 
-                        value={name} 
-                        onChange={ e => setName(e.target.value)} 
-                        maxLength={100}/>
-                </label>
-                <br />
-                <label>
-                    Description:
-                    <br />
-                    <input 
-                        class="form-control"
-                        name="description" 
-                        value={description} 
-                        onChange={ e => setDescription(e.target.value)} 
-                        maxLength={100}/>
-                </label>
-                <br />
-                <label>
-                    Preparación:
-                    <br />
-                    <input
-                        class="form-control"
-                        name="preparation" 
-                        value={preparation} 
-                        onChange={ e => setPreparation(e.target.value)} 
-                        maxLength={100}/>
-                </label>
+        <div class="grid center">
+            <div class="row">
+                <h1 class="text-center">Create/Edit Recipe</h1>
+                <div class="row">
+                    <label>
+                        Name:
+                        <br />
+                        <input
+                            class="form-control"
+                            name="name" 
+                            value={name} 
+                            onChange={ e => setName(e.target.value)} 
+                            maxLength={100}/>
+                    </label>
+                    <label>
+                        Description:
+                        <br />
+                        <input 
+                            class="form-control"
+                            name="description" 
+                            value={description} 
+                            onChange={ e => setDescription(e.target.value)} 
+                            maxLength={100}/>
+                    </label>
+                    <label>
+                        Preparación:
+                        <br />
+                        <input
+                            class="form-control"
+                            name="preparation" 
+                            value={preparation} 
+                            onChange={ e => setPreparation(e.target.value)} 
+                            maxLength={100}/>
+                    </label>
+                </div>
+                <div class="row">
+                    <RecipeProductsCheck 
+                        recipeId={id}
+                        sendProducts={receiveProducts} />
+                </div>
+                <div class="row">
+                    <button 
+                        class="btn btn-primary col col-md-auto"
+                        onClick={Save}>Save</button>
+                    <button
+                        class="btn btn-primary col col-md-auto"
+                        onClick={Back}>Back</button>
+                </div>
             </div>
-            <div>
-                <RecipeProductsCheck 
-                    recipeId={id}
-                    sendProducts={receiveProducts} />
-            </div>
-            <div>
-                <button
-                    class="btn btn-primary"
-                    onClick={Save}>Save</button>
-                <button
-                    class="btn btn-primary"
-                    onClick={Back}>Back</button>
-            </div>
-        </>
+        </div>
     )
 }
 

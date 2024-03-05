@@ -50,9 +50,6 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
                 {products.map(product => (
                     <tr key={product.id}>
                         <td>
-                            <label htmlFor={`chkProduct${product.id}`}>{product.name}</label>
-                        </td>
-                        <td>
                             <input 
                                 type="checkbox" 
                                 name="chkProduct" 
@@ -61,6 +58,9 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
                                 defaultChecked={recipeProducts.some(rP => rP.name === product.name)}
                                 onChange={()=>CheckProduct()}
                                 />
+                        </td>
+                        <td>
+                            <label htmlFor={`chkProduct${product.id}`}>{product.name}</label>
                         </td>
                     </tr>
                 ))}

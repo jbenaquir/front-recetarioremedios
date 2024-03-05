@@ -47,9 +47,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <nav class="navbar bg-primary" data-bs-theme="dark">
+      <nav class="navbar bg-primary fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">RemeDios</a>
+          <a class="navbar-brand" href="/">RemeDios</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -74,7 +74,7 @@ root.render(
           </div>
         </div>
       </nav>
-      <div>
+      <div class="container-fluid" style={{"padding-top": "60px"}}>
         {/*jbenavides: This is a comment in a tag in React*/}
         <RouterProvider router={router} />
       </div>
