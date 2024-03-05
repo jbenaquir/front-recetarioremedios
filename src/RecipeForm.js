@@ -55,7 +55,6 @@ function RecipeForm() {
             })
             .then(response => response.json())
             .then(data => {
-                debugger;
                 if(saveType === "save"){
                     id = data.id;//load id
                 }
@@ -91,8 +90,8 @@ function RecipeForm() {
     }
 
     return (
-        <div class="grid center">
-            <div class="row">
+        <div class="grid text-center">
+            <div class="row justify-content-start">
                 <h1 class="text-center">Create/Edit Recipe</h1>
                 <div class="row">
                     <label>
@@ -128,6 +127,7 @@ function RecipeForm() {
                 </div>
                 <div class="row">
                     <RecipeProductsCheck 
+                        class="col col-md-7"
                         recipeId={id}
                         sendProducts={receiveProducts} />
                 </div>

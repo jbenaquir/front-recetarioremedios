@@ -37,11 +37,10 @@ function ProductForm() {
 
         let saveType = "save";
 
-        if(id){
+        if(id) {
             saveType = "update";
             product.id = id;
         }
-        debugger;
 
         fetch(`https://localhost:7222/api/Products/${saveType}`,
             {
