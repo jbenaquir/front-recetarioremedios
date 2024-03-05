@@ -87,10 +87,10 @@ function Products() {
         <>
             <div>
                 <h1>Products</h1>
-                <p>
+                <div>
                     <button class="btn btn-primary" onClick={(e) => GoToCreate()}>Create</button>
                     <input class="form-control" placeholder="Search" onChange={(e) => OnChangeSearch(e)}/>
-                </p>
+                </div>
             </div>
             <table>
                 <tbody>
