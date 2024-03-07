@@ -84,17 +84,20 @@ function Recipes() {
     }
 
     return (
-        <div>
-            <div>
-                <h1>Recipes</h1>
-                <p>
+        <div class="grid">
+            <div class="row">
+                <h1 class="col col-9">Recipes</h1>
+                <div class="col col-3">
                     <button
                         class="btn btn-primary"
-                        onClick={() => GoToCreate()}>Create</button>
-                    <input
-                        class="form-control"
-                        placeholder="Search" onChange={(e) => OnChangeSearch(e)} />
-                </p>
+                        onClick={() => GoToCreate()}
+                        title="Create"
+                        >Create</button>
+                </div>
+                <input
+                    style={{ "margin": "20px 0 20px 0" }}
+                    class="col col-3 form-control"
+                    placeholder="Search" onChange={(e) => OnChangeSearch(e)} />
             </div>
 
             <table>
@@ -106,13 +109,18 @@ function Recipes() {
                             </td>
                             <td>
                                 <button
+                                    style={{ "margin-right": "10px", "margin-left": "10px" }}
                                     class="btn btn-primary"
+                                    title="Ver"
                                     onClick={() => GoToView(recipe)}>Ver</button>
-                                <button 
+                                <button
+                                    style={{ "margin-right": "10px" }}
                                     class="btn btn-primary"
+                                    title="Modificar"
                                     onClick={() => GoToModify(recipe)}>Modificar</button>
-                                <button 
-                                    class="btn btn-primary"
+                                <button
+                                    class="btn btn-danger"
+                                    title="Eliminar"
                                     onClick={() => GoToDelete(recipe)}>Eliminar</button>
                             </td>
                         </tr>

@@ -45,12 +45,13 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
     return (
         <>
             <h3>Products:</h3>
-            <table>
+            <table class="form-check">
                 <tbody>
                 {products.map(product => (
                     <tr key={product.id}>
                         <td>
                             <input 
+                                class="form-check-input" 
                                 type="checkbox" 
                                 name="chkProduct" 
                                 id={`chkProduct${product.id}`} 
@@ -60,7 +61,9 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
                                 />
                         </td>
                         <td>
-                            <label htmlFor={`chkProduct${product.id}`}>{product.name}</label>
+                            <label 
+                                class="form-check-label" 
+                                htmlFor={`chkProduct${product.id}`}>{product.name}</label>
                         </td>
                     </tr>
                 ))}

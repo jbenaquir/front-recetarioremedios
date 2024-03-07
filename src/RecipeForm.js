@@ -90,53 +90,57 @@ function RecipeForm() {
     }
 
     return (
-        <div class="grid text-center">
+        <div class="grid">
             <div class="row justify-content-start">
                 <h1 class="text-center">Create/Edit Recipe</h1>
-                <div class="row">
-                    <label>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">
                         Name:
-                        <br />
+                    </label>
+                    <div class="col-sm-10">
                         <input
                             class="form-control"
                             name="name" 
                             value={name} 
                             onChange={ e => setName(e.target.value)} 
                             maxLength={100}/>
-                    </label>
-                    <label>
+                    </div>
+                    <label class="col-sm-2 col-form-label">
                         Description:
-                        <br />
+                    </label>
+                    <div class="col-sm-10">
                         <input 
                             class="form-control"
                             name="description" 
                             value={description} 
                             onChange={ e => setDescription(e.target.value)} 
                             maxLength={100}/>
-                    </label>
-                    <label>
+                    </div>
+                    <label class="col-sm-2 col-form-label">
                         Preparación:
-                        <br />
+                    </label>
+                    <div class="col-sm-10">
                         <input
                             class="form-control"
                             name="preparation" 
                             value={preparation} 
                             onChange={ e => setPreparation(e.target.value)} 
                             maxLength={100}/>
-                    </label>
+                    </div>
                 </div>
-                <div class="row">
+                <div class="form-group row" style={{"padding":"25px"}}>
                     <RecipeProductsCheck 
-                        class="col col-md-7"
+                        
                         recipeId={id}
                         sendProducts={receiveProducts} />
                 </div>
-                <div class="row">
-                    <button 
+                <div class="form-group row">
+                    <button
+                        style={{"margin-right": "10px", "margin-left": "10px"}} 
                         class="btn btn-primary col col-md-auto"
                         onClick={Save}>Save</button>
                     <button
-                        class="btn btn-primary col col-md-auto"
+                        class="btn btn-secondary col col-md-auto"
                         onClick={Back}>Back</button>
                 </div>
             </div>

@@ -74,7 +74,7 @@ root.render(
           </div>
         </div>
       </nav>
-      <div class="container-fluid" style={{"padding-top": "60px"}}>
+      <div class="container-sm" style={{"padding-top": "60px"}}>
         {/*jbenavides: This is a comment in a tag in React*/}
         <RouterProvider router={router} />
       </div>
