@@ -7,14 +7,14 @@ function Products() {
 
     function GetProducts() {
         fetch('https://localhost:7222/api/Products/search',
-        {
-            method: 'GET'
-        })
-        .then(response => response.json())
-        .then(data => {
-            setProducts(data);
-        })
-        .catch((error) => console.log("Something happened getting products: " + error));
+            {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                setProducts(data);
+            })
+            .catch((error) => console.log("Something happened getting products: " + error));
     }
 
     //loads when component mounts
@@ -30,36 +30,36 @@ function Products() {
         Search();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [productSearch]);
-    
-    function GoToCreate () {
+
+    function GoToCreate() {
         console.log(`Go To Create`);
         window.location.href = `/products/create`;
     }
 
-    function GoToView (product) {
+    function GoToView(product) {
         console.log(`Go To View`);
         window.location.href = `/products/${product.id}/${product.name}`;
     }
 
-    function GoToModify (product) {
+    function GoToModify(product) {
         console.log(`Go To Modify`);
         window.location.href = `/products/${product.id}/${product.name}/edit`;
     }
-    
-    function GoToDelete (product) {
-        if(!window.confirm(`Está a punto de borrar el producto ${product.name}`))
+
+    function GoToDelete(product) {
+        if (!window.confirm(`Está a punto de borrar el producto ${product.name}`))
             return;
 
         console.log(`Delete Product Id: ${product.id}`);
         fetch(`https://localhost:7222/api/Products/${product.id}`,
-        {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if(response.status === 200)
-                Search();
-        })
-        .catch((error)=> console.log("Something happened deleting product: " + error));
+            {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.status === 200)
+                    Search();
+            })
+            .catch((error) => console.log("Something happened deleting product: " + error));
     }
 
     function OnChangeSearch(e) {
@@ -73,42 +73,61 @@ function Products() {
         const searchValue = productSearch;
 
         fetch(`https://localhost:7222/api/Products/search/${searchValue}`,
-        {
-            method: 'GET'
-        })
-        .then(response => response.json())
-        .then(data => {
-            setProducts(data);
-        })
-        .catch((error)=> console.log("Something happened getting products: " + error));
+            {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                setProducts(data);
+            })
+            .catch((error) => console.log("Something happened getting products: " + error));
     }
 
     return (
-        <>
-            <div>
-                <h1>Products</h1>
-                <div>
-                    <button class="btn btn-primary" onClick={(e) => GoToCreate()}>Create</button>
-                    <input class="form-control" placeholder="Search" onChange={(e) => OnChangeSearch(e)}/>
+        <div class="grid">
+            <div class="row">
+                <h1 class="col col-9">Products</h1>
+                <div class="col col-3">
+                    <button
+                        class="btn btn-primary"
+                        onClick={() => GoToCreate()}
+                        title="Create"
+                    >Create</button>
                 </div>
+                <input
+                    style={{ "margin": "20px 0 20px 0" }}
+                    class="col col-3 form-control"
+                    placeholder="Search"
+                    onChange={(e) => OnChangeSearch(e)} />
             </div>
             <table>
                 <tbody>
-                {products.map(product => (
-                    <tr key={product.id}>
-                        <td>
-                            {product.name}
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" onClick={() => GoToView(product)}>Ver</button>
-                            <button class="btn btn-primary" onClick={() => GoToModify(product)}>Modificar</button>
-                            <button class="btn btn-primary" onClick={() => GoToDelete(product)}>Eliminar</button>
-                        </td>
-                    </tr>
-                ))}
+                    {products.map(product => (
+                        <tr key={product.id}>
+                            <td>
+                                {product.name}
+                            </td>
+                            <td>
+                                <button
+                                    style={{ "margin-right": "10px", "margin-left": "10px" }}
+                                    class="btn btn-primary"
+                                    title="Ver"
+                                    onClick={() => GoToView(product)}>Ver</button>
+                                <button
+                                    style={{ "margin-right": "10px", "margin-left": "10px" }}
+                                    class="btn btn-primary"
+                                    title="Modificar"
+                                    onClick={() => GoToModify(product)}>Modificar</button>
+                                <button
+                                    class="btn btn-danger"
+                                    title="Eliminar"
+                                    onClick={() => GoToDelete(product)}>Eliminar</button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 

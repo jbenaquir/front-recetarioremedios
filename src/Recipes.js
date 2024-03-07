@@ -97,7 +97,8 @@ function Recipes() {
                 <input
                     style={{ "margin": "20px 0 20px 0" }}
                     class="col col-3 form-control"
-                    placeholder="Search" onChange={(e) => OnChangeSearch(e)} />
+                    placeholder="Search" 
+                    onChange={(e) => OnChangeSearch(e)} />
             </div>
 
             <table>
