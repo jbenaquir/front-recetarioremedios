@@ -40,7 +40,7 @@ function RecipeForm() {
 
         let saveType = "save";
 
-        if(id){
+        if (id) {
             saveType = "update";
             recipe.id = id;
         }
@@ -55,7 +55,7 @@ function RecipeForm() {
             })
             .then(response => response.json())
             .then(data => {
-                if(saveType === "save"){
+                if (saveType === "save") {
                     id = data.id;//load id
                 }
                 SaveProducts();
@@ -63,7 +63,7 @@ function RecipeForm() {
             .catch((error) => console.log("Something happened saving recipe: " + error));
     }
 
-    function SaveProducts(){
+    function SaveProducts() {
         fetch(`https://localhost:7222/api/RecipeProducts/saveForRecipe/${id}`,
             {
                 method: 'POST',
@@ -73,19 +73,18 @@ function RecipeForm() {
                 body: JSON.stringify(products)
             })
             .then(response => {
-                if(response.status === 200)
-                {
+                if (response.status === 200) {
                     window.location.href = `/recipes`;
                 }
             })
             .catch((error) => console.log("Something happened saving recipe: " + error));
     }
-    
+
     function Back() {
         window.location.href = `/recipes`;
     }
 
-    function receiveProducts(values){
+    function receiveProducts(values) {
         setProducts(values);
     }
 
@@ -94,54 +93,68 @@ function RecipeForm() {
             <div class="row justify-content-start">
                 <h1 class="text-center">Create/Edit Recipe</h1>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">
-                        Name:
-                    </label>
-                    <div class="col-sm-10">
+                    <div class="col-md-8">
+                        <label class="form-label">
+                            Name
+                        </label>
                         <input
                             class="form-control"
-                            name="name" 
-                            value={name} 
-                            onChange={ e => setName(e.target.value)} 
-                            maxLength={100}/>
+                            name="name"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            maxLength={100} />
                     </div>
-                    <label class="col-sm-2 col-form-label">
-                        Description:
-                    </label>
-                    <div class="col-sm-10">
-                        <input 
-                            class="form-control"
-                            name="description" 
-                            value={description} 
-                            onChange={ e => setDescription(e.target.value)} 
-                            maxLength={100}/>
-                    </div>
-                    <label class="col-sm-2 col-form-label">
-                        Preparación:
-                    </label>
-                    <div class="col-sm-10">
+                    <div class="col-md-8">
+                        <label class="form-label">
+                            Description
+                        </label>
                         <input
                             class="form-control"
-                            name="preparation" 
-                            value={preparation} 
-                            onChange={ e => setPreparation(e.target.value)} 
-                            maxLength={100}/>
+                            name="description"
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
+                            maxLength={100} />
+                    </div>
+                    <div class="col-md-8">
+                        <label class="col-sm-2 col-form-label">
+                            Preparación:
+                        </label>
+                        <textarea
+                            class="form-control"
+                            name="preparation"
+                            value={preparation}
+                            onChange={e => setPreparation(e.target.value)}
+                            maxLength={100} />
                     </div>
                 </div>
-                <div class="form-group row" style={{"padding":"25px"}}>
-                    <RecipeProductsCheck 
-                        
+                <div class="form-group row" style={{ "padding": "25px" }}>
+                    <RecipeProductsCheck
+                        style={{ margin: "0px auto", border: "solid 1px #000" }}
                         recipeId={id}
                         sendProducts={receiveProducts} />
                 </div>
                 <div class="form-group row">
                     <button
-                        style={{"margin-right": "10px", "margin-left": "10px"}} 
+                        style={{
+                            minWidth: "100px",
+                            "margin-right": "10px", "margin-left": "10px"
+                        }}
                         class="btn btn-primary col col-md-auto"
-                        onClick={Save}>Save</button>
+                        onClick={Save}>
+                        <i class="bi-floppy2"></i>
+                        <div>
+                            Save
+                        </div>
+                    </button>
                     <button
+                        style={{ minWidth: "80px" }}
                         class="btn btn-secondary col col-md-auto"
-                        onClick={Back}>Back</button>
+                        onClick={Back}>
+                        <i class="bi-arrow-left-square"></i>
+                        <div>
+                            Back
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>

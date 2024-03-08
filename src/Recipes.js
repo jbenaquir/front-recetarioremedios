@@ -85,49 +85,76 @@ function Recipes() {
 
     return (
         <div class="grid">
-            <div class="row">
-                <h1 class="col col-9">Recipes</h1>
+            <div class="row" style={{ margin: "20px" }}>
+                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Recipes</h1>
                 <div class="col col-3">
                     <button
                         class="btn btn-primary"
                         onClick={() => GoToCreate()}
                         title="Create"
-                        >Create</button>
+                    >
+                        <i class="bi-plus-circle"></i>
+                        <div>
+                            Create
+                        </div>
+                    </button>
                 </div>
-                <input
-                    style={{ "margin": "20px 0 20px 0" }}
-                    class="col col-3 form-control"
-                    placeholder="Search" 
-                    onChange={(e) => OnChangeSearch(e)} />
+                <div class="input-group" style={{ "margin": "20px 0 20px 0" }}>
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="bi-search"></i>
+                    </span>
+                    <input
+                        class="col col-3 form-control"
+                        placeholder="Search"
+                        onChange={(e) => OnChangeSearch(e)} />
+                </div>
             </div>
-
-            <table>
-                <tbody>
-                    {recipes.map(recipe => (
-                        <tr key={recipe.id}>
-                            <td>
-                                {recipe.name}
-                            </td>
-                            <td>
-                                <button
-                                    style={{ "margin-right": "10px", "margin-left": "10px" }}
-                                    class="btn btn-primary"
-                                    title="Ver"
-                                    onClick={() => GoToView(recipe)}>Ver</button>
-                                <button
-                                    style={{ "margin-right": "10px" }}
-                                    class="btn btn-primary"
-                                    title="Modificar"
-                                    onClick={() => GoToModify(recipe)}>Modificar</button>
-                                <button
-                                    class="btn btn-danger"
-                                    title="Eliminar"
-                                    onClick={() => GoToDelete(recipe)}>Eliminar</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div>
+                <table style={{ margin: "0px auto" }}>
+                    <tbody>
+                        {recipes.length === 0 &&
+                            <tr>
+                                <td colSpan={2}>There are no elements to show</td>
+                            </tr>}
+                        {recipes.map(recipe => (
+                            <tr key={recipe.id}>
+                                <td style={{ textAlign: "center" }}>
+                                    {recipe.name}
+                                </td>
+                                <td style={{ textAlign: "center" }}>
+                                    <button
+                                        style={{ margin: "5px", minWidth: "62px" }}
+                                        class="btn btn-primary"
+                                        title="Ver"
+                                        onClick={() => GoToView(recipe)}>
+                                        <i class="bi-eye"></i>
+                                        <div>
+                                            Ver
+                                        </div>
+                                    </button>
+                                    <button
+                                        style={{ margin: "5px" }}
+                                        class="btn btn-primary"
+                                        title="Modificar"
+                                        onClick={() => GoToModify(recipe)}>
+                                        <i class="bi-pencil"></i>
+                                        <div>Modificar</div>
+                                    </button>
+                                    <button
+                                        style={{ magin: "5px" }}
+                                        class="btn btn-danger"
+                                        title="Eliminar"
+                                        onClick={() => GoToDelete(recipe)}>
+                                        <i class="bi-trash"></i>
+                                        <div>
+                                            Eliminar
+                                        </div></button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

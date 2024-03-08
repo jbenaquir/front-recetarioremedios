@@ -66,10 +66,10 @@ function ProductForm() {
             <div class="row justify-content-start">
                 <h1>Create/Edit Product</h1>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">
-                        Name:
-                    </label>
                     <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">
+                            Name
+                        </label>
                         <input
                             class="form-control"
                             name="name"
@@ -77,23 +77,22 @@ function ProductForm() {
                             onChange={e => setName(e.target.value)}
                             maxLength={100} />
                     </div>
-                    <label class="col-sm-2 col-form-label">
-                        Description:
-                    </label>
                     <div class="col-sm-10">
-
-                        <input
+                        <label class="col-sm-2 col-form-label">
+                            Description
+                        </label>
+                        <textarea
                             class="form-control"
                             name="description"
                             value={description}
                             onChange={e => setDescription(e.target.value)}
                             maxLength={100} />
                     </div>
-                    <label class="col-sm-2 col-form-label">
-                        Nutrients:
-                    </label>
                     <div class="col-sm-10">
-                        <input
+                        <label class="col-sm-2 col-form-label">
+                            Nutrients
+                        </label>
+                        <textarea
                             class="form-control"
                             name="nutrients"
                             value={nutrients}
@@ -101,14 +100,28 @@ function ProductForm() {
                             maxLength={100} />
                     </div>
                 </div>
-                <div class="form-group row">
-                    <button
-                        style={{"margin-right": "10px", "margin-left": "10px"}} 
+                <div class="form-group row" style={{ marginTop: "10px" }}>
+                <button
+                        style={{
+                            minWidth: "100px",
+                            "margin-right": "10px", "margin-left": "10px"
+                        }}
                         class="btn btn-primary col col-md-auto"
-                        onClick={Save}>Save</button>
+                        onClick={Save}>
+                        <i class="bi-floppy2"></i>
+                        <div>
+                            Save
+                        </div>
+                    </button>
                     <button
+                        style={{ minWidth: "80px" }}
                         class="btn btn-secondary col col-md-auto"
-                        onClick={Back}>Back</button>
+                        onClick={Back}>
+                        <i class="bi-arrow-left-square"></i>
+                        <div>
+                            Back
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
