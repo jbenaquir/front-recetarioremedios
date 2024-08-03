@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import './index.css';
+import reportWebVitals from './reportWebVitals';
 import App from './App';
 import Products from './Products';
 import ProductView from './ProductView';
@@ -8,15 +13,14 @@ import ProductForm from './ProductForm';
 import Recipes from './Recipes';
 import RecipeView from './RecipeView';
 import RecipeForm from './RecipeForm';
-import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import Users from './Users';
 
 const router = createBrowserRouter([
   {
     path: "/", element: <App />
+  },
+  {
+    path: "/users", element: <Users />
   },
   {
     path: "/products", element: <Products />
@@ -62,6 +66,9 @@ root.render(
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/users">Users</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/products">Products</a>
