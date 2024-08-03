@@ -14,6 +14,8 @@ import Recipes from './Recipes';
 import RecipeView from './RecipeView';
 import RecipeForm from './RecipeForm';
 import Users from './Users';
+import UserView from './UserView';
+import UserForm from './UserForm';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/users", element: <Users />
+  },
+  {
+    path: "/users/:id/view", element: <UserView />
+  },
+  {
+    path: "/users/create", element: <UserForm />
+  },
+  {
+    path: "/users/:id/edit", element: <UserForm />
   },
   {
     path: "/products", element: <Products />

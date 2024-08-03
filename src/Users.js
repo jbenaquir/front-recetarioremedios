@@ -38,12 +38,12 @@ function Users() {
 
     function GoToView(user) {
         console.log(`Go To View`);
-        window.location.href = `/users/${user.id}/${user.name}`;
+        window.location.href = `/users/${user.id}/view`;
     }
 
     function GoToModify(user) {
         console.log(`Go To Modify`);
-        window.location.href = `/users/${user.id}/${user.name}/edit`;
+        window.location.href = `/users/${user.id}/edit`;
     }
 
     function GoToDelete(user) {
