@@ -141,7 +141,7 @@ function Recipes() {
                                         <div>Modificar</div>
                                     </button>
                                     <button
-                                        style={{ magin: "5px" }}
+                                        style={{ margin: "5px" }}
                                         class="btn btn-danger"
                                         title="Eliminar"
                                         onClick={() => GoToDelete(recipe)}>
