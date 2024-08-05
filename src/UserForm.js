@@ -8,7 +8,7 @@ function ProductForm() {
     const [roleId, setRoleId] = useState('');
 
     function ChooseIfOption(id) {
-        if (id == roleId)
+        if (id === roleId)
             return "selected";
         else 
             return "";

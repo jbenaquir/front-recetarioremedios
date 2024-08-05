@@ -7,6 +7,7 @@ import {
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import Login from './Login';
 import Products from './Products';
 import ProductView from './ProductView';
 import ProductForm from './ProductForm';
@@ -20,6 +21,9 @@ import UserForm from './UserForm';
 const router = createBrowserRouter([
   {
     path: "/", element: <App />
+  },
+  {
+    path: "/login", element: <Login />
   },
   {
     path: "/users", element: <Users />
