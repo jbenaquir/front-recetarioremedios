@@ -6,6 +6,22 @@ function Login() {
 
     //Promises course
     //https://www.codecademy.com/courses/asynchronous-javascript/lessons/promises/exercises/introduction
+    
+    function Authorize(userToken){
+        //load this in cookie (request message required)
+        const datefinish = new Date(Date.now() + 500 * 86400);
+        console.log(JSON.stringify(userToken));
+        console.log(datefinish);
+        
+        SetTokenCookie(JSON.stringify(userToken), datefinish);
+        window.location.href = `/`;
+    }
+
+    function SetTokenCookie(token, datefinish){
+        const cookie = `token=${token};expires=${datefinish}`;
+
+        document.cookie = cookie;
+    }
 
     function Authenticate (){
         //check fields
@@ -23,19 +39,14 @@ function Login() {
                 body: JSON.stringify(userToken)
             })
             .then((response) => {
-                if (response.status === 200){
-                    window.location.href = `/`;
-                    return response.json();
-                }
-                if (response.status === 400){
-                    //gracias a:
-                    //https://stackoverflow.com/questions/43903767/read-the-body-of-a-fetch-promise
-                    return response.text();      
-                }
+                return response.json();
             })
-            .then((data) => {
-                
-                alert(data);
+            .then((convertedData) => {
+                if(convertedData.message !== ""){
+                    alert(convertedData.message);
+                }else{
+                    Authorize(convertedData.data);
+                }
             })
             .catch((error) => console.log("Something happened saving user: " + error));
     }
