@@ -6,7 +6,7 @@ function Login() {
 
     //Promises course
     //https://www.codecademy.com/courses/asynchronous-javascript/lessons/promises/exercises/introduction
-    
+
     function Authorize(userToken){
         //load this in cookie (request message required)
         const datefinish = new Date(Date.now() + 500 * 86400);
@@ -14,6 +14,9 @@ function Login() {
         console.log(datefinish);
         
         SetTokenCookie(JSON.stringify(userToken), datefinish);
+
+        //clean token
+        //SetTokenCookie("", new Date(Date.now() - 500 * 86400));
         window.location.href = `/`;
     }
 
