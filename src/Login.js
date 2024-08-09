@@ -1,8 +1,12 @@
+import { authentication } from './Logical/Authentication';
 import { useState } from 'react';
 
 function Login() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    if(authentication.authenticated()){
+        window.location.href = `/`;
+    }
 
     function SetTokenCookie(token, datefinish) {
         const cookie = `token=${token};expires=${datefinish}`;
@@ -15,8 +19,6 @@ function Login() {
     function Authorize(userToken) {
         //load this in cookie (request message required)
         const datefinish = new Date(Date.now() + 500 * 86400);
-        console.log(JSON.stringify(userToken));
-        console.log(datefinish);
 
         SetTokenCookie(JSON.stringify(userToken), datefinish);
 

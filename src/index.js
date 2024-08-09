@@ -18,94 +18,68 @@ import Users from './Users';
 import UserView from './UserView';
 import UserForm from './UserForm';
 import CloseSessionButton from './CloseSessionButton';
+import { authentication } from './Logical/Authentication';
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/", element: <App />
-  },
-  {
-    path: "/login", element: <Login />
-  },
-  {
+  }];
+
+routes.push({
+  path: "/login", element: <Login />
+});
+
+routes.push({
+  path: "/login", element: <Login />
+});
+
+if (authentication.authenticated()) {
+  routes.push({
     path: "/users", element: <Users />
-  },
-  {
+  });
+  routes.push({
     path: "/users/:id/view", element: <UserView />
-  },
-  {
+  });
+  routes.push({
     path: "/users/create", element: <UserForm />
-  },
-  {
+  });
+  routes.push({
     path: "/users/:id/edit", element: <UserForm />
-  },
-  {
+  });
+  routes.push({
     path: "/products", element: <Products />
-  },
-  {
+  });
+  routes.push({
     path: "/products/:id/:name", element: <ProductView />
-  },
-  {
+  });
+  routes.push({
     path: "/products/create", element: <ProductForm />
-  },
-  {
+  });
+  routes.push({
     path: "/products/:id/:name/edit", element: <ProductForm />
-  },
-  {
+  });
+  routes.push({
     path: "/recipes", element: <Recipes />
-  },
-  {
+  });
+  routes.push({
     path: "/recipes/:id/:name", element: <RecipeView />
-  },
-  {
+  });
+  routes.push({
     path: "/recipes/create", element: <RecipeForm />
-  },
-  {
+  });
+  routes.push({
     path: "/recipes/:id/:name/edit", element: <RecipeForm />
-  }
-]);
+  });
+}
+const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-////////////////
-//MOVE TO NEW .js
-//https://www.w3schools.com/js/js_cookies.asp
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-const GetToken = () => {
-  const cookieToken = getCookie("token");
-
-  return cookieToken === "" ? null : JSON.parse(cookieToken);
-}
-
-const authenticated = () => {
-  const token = GetToken();
-
-  return token != null;
-}
-//MOVE TO NEW .js
-/////////////////
 root.render(
   <React.StrictMode>
     <nav class="navbar bg-primary fixed-top">
       {
-        authenticated() &&
-        <div class="container-fluid"
-          style={{
-            display: authenticated() ? "" : "none"
-          }} >
+        authentication.authenticated() &&
+        <div class="container-fluid" >
           <a class="navbar-brand" href="/">RemeDios</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
