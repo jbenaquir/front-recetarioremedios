@@ -4,29 +4,26 @@ function Login() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
-    //Promises course
-    //https://www.codecademy.com/courses/asynchronous-javascript/lessons/promises/exercises/introduction
-
-    function Authorize(userToken){
-        //load this in cookie (request message required)
-        const datefinish = new Date(Date.now() + 500 * 86400);
-        console.log(JSON.stringify(userToken));
-        console.log(datefinish);
-        
-        SetTokenCookie(JSON.stringify(userToken), datefinish);
-
-        //clean token
-        //SetTokenCookie("", new Date(Date.now() - 500 * 86400));
-        window.location.href = `/`;
-    }
-
-    function SetTokenCookie(token, datefinish){
+    function SetTokenCookie(token, datefinish) {
         const cookie = `token=${token};expires=${datefinish}`;
 
         document.cookie = cookie;
     }
 
-    function Authenticate (){
+    //Promises course
+    //https://www.codecademy.com/courses/asynchronous-javascript/lessons/promises/exercises/introduction
+    function Authorize(userToken) {
+        //load this in cookie (request message required)
+        const datefinish = new Date(Date.now() + 500 * 86400);
+        console.log(JSON.stringify(userToken));
+        console.log(datefinish);
+
+        SetTokenCookie(JSON.stringify(userToken), datefinish);
+
+        window.location.href = `/`;
+    }
+
+    function Authenticate() {
         //check fields
         var userToken = {
             name: name,
@@ -45,9 +42,9 @@ function Login() {
                 return response.json();
             })
             .then((convertedData) => {
-                if(convertedData.message !== ""){
+                if (convertedData.message !== "") {
                     alert(convertedData.message);
-                }else{
+                } else {
                     Authorize(convertedData.data);
                 }
             })
@@ -57,7 +54,7 @@ function Login() {
     return (
         <div class="grid">
             <div class="row justify-content-start">
-                <h1>Login</h1>
+                <h1>Authenticate</h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
@@ -93,10 +90,10 @@ function Login() {
                         }}
                         class="btn btn-primary col col-md-auto"
                         onClick={Authenticate}>
-                        <i class="bi-rocket"></i>
-                        <div>
+                        <i style={{ marginRight: "6px" }} class="bi-rocket"></i>
+                        <span>
                             Log In
-                        </div>
+                        </span>
                     </button>
                 </div>
             </div>

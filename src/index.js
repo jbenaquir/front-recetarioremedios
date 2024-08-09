@@ -17,6 +17,7 @@ import RecipeForm from './RecipeForm';
 import Users from './Users';
 import UserView from './UserView';
 import UserForm from './UserForm';
+import CloseSessionButton from './CloseSessionButton';
 
 const router = createBrowserRouter([
   {
@@ -64,10 +65,47 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+////////////////
+//MOVE TO NEW .js
+//https://www.w3schools.com/js/js_cookies.asp
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+const GetToken = () => {
+  const cookieToken = getCookie("token");
+
+  return cookieToken === "" ? null : JSON.parse(cookieToken);
+}
+
+const authenticated = () => {
+  const token = GetToken();
+
+  return token != null;
+}
+//MOVE TO NEW .js
+/////////////////
 root.render(
   <React.StrictMode>
-      <nav class="navbar bg-primary fixed-top">
-        <div class="container-fluid">
+    <nav class="navbar bg-primary fixed-top">
+      {
+        authenticated() &&
+        <div class="container-fluid"
+          style={{
+            display: authenticated() ? "" : "none"
+          }} >
           <a class="navbar-brand" href="/">RemeDios</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -78,6 +116,7 @@ root.render(
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
+              {/* Menu */}
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
@@ -91,15 +130,20 @@ root.render(
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
                 </li>
+                <li class="nav-item">
+                  <CloseSessionButton />
+                </li>
               </ul>
             </div>
           </div>
         </div>
-      </nav>
-      <div class="container-sm" style={{"padding-top": "60px"}}>
-        {/*jbenavides: This is a comment in a tag in React*/}
-        <RouterProvider router={router} />
-      </div>
+      }
+
+    </nav>
+    <div class="container-sm" style={{ "padding-top": "60px" }}>
+      {/*jbenavides: This is a comment in a tag in React*/}
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>
 );
 
