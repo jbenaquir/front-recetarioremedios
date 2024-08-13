@@ -1,14 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
+import { authentication } from './Logical/Authentication';
+
+function GetAuthorizationHeaders(){
+    const token = JSON.stringify(authentication.GetToken());
+    const headers = new Headers();
+    headers.append("Authorization", token);
+
+    return headers;
+}
 
 function Users() {
     const [users, setUsers] = useState([]);
     const [userSearch, setProductSearch] = useState('');
-
+    
     function GetUsers() {
         fetch('https://localhost:7222/api/Users/search',
             {
-                method: 'GET'
+                method: 'GET',
+                headers: GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
