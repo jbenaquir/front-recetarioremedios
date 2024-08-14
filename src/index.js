@@ -15,6 +15,7 @@ import Recipes from './Recipes';
 import RecipeView from './RecipeView';
 import RecipeForm from './RecipeForm';
 import Users from './Users';
+import UpdatePasswordForm from './UpdatePasswordForm';
 import UserView from './UserView';
 import UserForm from './UserForm';
 import CloseSessionButton from './CloseSessionButton';
@@ -34,6 +35,9 @@ routes.push({
 });
 
 if (authentication.authenticated()) {
+  routes.push({
+    path: "/users/:id/updatepassword", element: <UpdatePasswordForm />
+  });
   routes.push({
     path: "/users", element: <Users />
   });

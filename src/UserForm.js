@@ -76,6 +76,10 @@ function ProductForm() {
         window.location.href = `/users`;
     }
 
+    function GoToUpdatePassword() {
+        window.location.href = `/users/${id}/updatepassword`;
+    }
+
     return (
         <div class="grid">
             <div class="row justify-content-start">
@@ -102,7 +106,15 @@ function ProductForm() {
                                 <span style={
                                     {"color":"red"}
                                 }>
-                                    CODE: Add a button for update password
+                                     <button
+                                        style={{
+                                            minWidth: "100px",
+                                            "margin-right": "10px", "margin-left": "10px"
+                                        }}
+                                        class="btn btn-primary col col-md-auto"
+                                        onClick={GoToUpdatePassword}>
+                                            Update Password
+                                    </button>
                                 </span>
                                 :
                                 <>
