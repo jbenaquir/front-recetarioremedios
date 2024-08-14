@@ -84,7 +84,7 @@ root.render(
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasNavbarLabel">RemeDios</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -112,9 +112,8 @@ root.render(
           </div>
         </div>
       }
-
     </nav>
-    <div class="container-sm" style={{ "padding-top": "60px" }}>
+    <div class="container-sm" style={{ paddingTop: "60px" }}>
       {/*jbenavides: This is a comment in a tag in React*/}
       <RouterProvider router={router} />
     </div>

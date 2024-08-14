@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { authentication } from './Logical/Authentication';
 
 function RecipeProductsCheck ({recipeId, sendProducts}) {
     const [products, setProducts] = useState([]);
@@ -7,7 +8,8 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
     function GetProducts(){
         fetch(`https://localhost:7222/api/Products/search`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -21,7 +23,8 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
 
         fetch(`https://localhost:7222/api/RecipeProducts/getByRecipe/${recipeId}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -45,6 +48,13 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
     return (
         <>
             <h3>Products:</h3>
+            <span 
+                style={
+                    {"color": "red"}
+                }
+            >
+                SOLVE: Verify that it does not check some times the products
+            </span>
             <table class="form-check">
                 <tbody>
                 {products.map(product => (

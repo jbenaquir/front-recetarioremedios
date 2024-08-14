@@ -1,19 +1,32 @@
+import { authentication } from './Logical/Authentication';
+
 function CloseSessionButton() {
     function SetTokenCookie(token, datefinish) {
+        //SOLVE: (request message required)
+
         const cookie = `token=${token};expires=${datefinish}`;
 
         document.cookie = cookie;
     }
 
     function FinishSession() {
-        //load this in cookie (request message required)
-        const datefinish = new Date(Date.now());
-        // const datefinish = new Date(Date.now() - 500 * 86400);
+        let headers = authentication.GetAuthorizationHeaders();
+        headers.append("Content-Type", "application/json");
 
-        SetTokenCookie("", datefinish);
+        return fetch(`https://localhost:7222/api/UserTokens/finishSession/`,
+            {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(authentication.GetToken())
+            })
+            .catch((error) => console.log("Something happened finishing session: " + error))
+            .finally(() => {
+                const datefinish = new Date(Date.now());
 
-        //clean token
-        window.location.href = `/login`;
+                SetTokenCookie("", datefinish);
+        
+                window.location.href = `/login`;
+            });
     }
     return (
         <button

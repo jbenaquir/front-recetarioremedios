@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { authentication } from './Logical/Authentication';
 
 function ProductForm() {
     const { id } = useParams();
@@ -7,17 +8,23 @@ function ProductForm() {
     const [password, setPassword] = useState('');
     const [roleId, setRoleId] = useState('');
 
-    function ChooseIfOption(id) {
-        if (id === roleId)
+    function PreventEnterWrongUserNames (e) {
+        if(e.key === " ")
+            e.preventDefault();
+    }
+
+    function ChooseIfOption(roleid) {
+        if (roleid === roleId)
             return "selected";
-        else 
+        else
             return "";
     }
 
     function GetUser(id) {
         fetch(`https://localhost:7222/api/Users/${id}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -28,7 +35,10 @@ function ProductForm() {
     }
 
     useEffect(() => {
-        GetUser(id);
+        if (id) {
+            GetUser(id);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -46,12 +56,13 @@ function ProductForm() {
             user.id = id;
         }
 
+        let headers = authentication.GetAuthorizationHeaders();
+        headers.append("Content-Type", "application/json");
+
         fetch(`https://localhost:7222/api/Users/${saveType}`,
             {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: headers,
                 body: JSON.stringify(user)
             })
             .then(response => {
@@ -68,7 +79,9 @@ function ProductForm() {
     return (
         <div class="grid">
             <div class="row justify-content-start">
-                <h1>Create/Edit User</h1>
+                <h1>
+                    {!id ? "Create" : "Edit"} user
+                </h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
@@ -78,22 +91,38 @@ function ProductForm() {
                             class="form-control"
                             name="name"
                             value={name}
+                            onKeyDown={e => PreventEnterWrongUserNames(e)}
                             onChange={e => setName(e.target.value)}
                             maxLength={100} />
                     </div>
                     <div class="col-sm-10">
-                        <label class="col-sm-2 col-form-label">
-                            Password (hide when update. add a button for update password)
-                        </label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            name="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            maxLength={100} />
+                        {
+                            (id)
+                                ?
+                                <span style={
+                                    {"color":"red"}
+                                }>
+                                    CODE: Add a button for update password
+                                </span>
+                                :
+                                <>
+                                    <label class="col-sm-2 col-form-label">
+                                        Password
+                                    </label>
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        maxLength={100} />
+                                </>
+                        }
                     </div>
                     <div class="col-sm-10">
+                        <span style={
+                            {"color":"red"}
+                        }>CODE: Load roles from api and autochoose when edit<br/></span>
                         <label class="col-sm-2 col-form-label">
                             Role
                         </label>

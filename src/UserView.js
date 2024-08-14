@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import { authentication } from './Logical/Authentication';
 
 function ProductView() {
     const { id } = useParams();
@@ -8,7 +9,8 @@ function ProductView() {
     function GetProduct(id) {
         fetch(`https://localhost:7222/api/Users/${id}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {

@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
+import { authentication } from './Logical/Authentication';
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -8,7 +9,8 @@ function Products() {
     function GetProducts() {
         fetch('https://localhost:7222/api/Products/search',
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -53,7 +55,8 @@ function Products() {
         console.log(`Delete Product Id: ${product.id}`);
         fetch(`https://localhost:7222/api/Products/${product.id}`,
             {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => {
                 if (response.status === 200)
@@ -74,7 +77,8 @@ function Products() {
 
         fetch(`https://localhost:7222/api/Products/search/${searchValue}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {

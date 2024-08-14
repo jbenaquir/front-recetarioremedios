@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { authentication } from './Logical/Authentication';
 
 function ProductForm() {
     const { id } = useParams();
@@ -10,7 +11,8 @@ function ProductForm() {
     function GetProduct(id) {
         fetch(`https://localhost:7222/api/Products/${id}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -22,7 +24,9 @@ function ProductForm() {
     }
 
     useEffect(() => {
-        GetProduct(id);
+        if(id){
+            GetProduct(id);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -42,12 +46,13 @@ function ProductForm() {
             product.id = id;
         }
 
+        let headers = authentication.GetAuthorizationHeaders();
+        headers.append("Content-Type", "application/json");
+        
         fetch(`https://localhost:7222/api/Products/${saveType}`,
             {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: headers,
                 body: JSON.stringify(product)
             })
             .then(response => {
@@ -64,7 +69,9 @@ function ProductForm() {
     return (
         <div class="grid">
             <div class="row justify-content-start">
-                <h1>Create/Edit Product</h1>
+                <h1>
+                    {!id ? "Create": "Edit"} product
+                </h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">

@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
+import { authentication } from './Logical/Authentication';
 
 function Recipes() {
     const [recipes, setRecipes] = useState([]);
@@ -8,7 +9,8 @@ function Recipes() {
     function GetRecipes() {
         fetch('https://localhost:7222/api/Recipes/search',
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -53,7 +55,8 @@ function Recipes() {
         console.log(`Delete Recipe Id: ${recipe.id}`);
         fetch(`https://localhost:7222/api/Recipes/${recipe.id}`,
             {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => {
                 if (response.status === 200)
@@ -74,7 +77,8 @@ function Recipes() {
 
         fetch(`https://localhost:7222/api/Recipes/search/${searchValue}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -115,7 +119,8 @@ function Recipes() {
                         {recipes.length === 0 &&
                             <tr>
                                 <td colSpan={2}>There are no elements to show</td>
-                            </tr>}
+                            </tr>
+                        }
                         {recipes.map(recipe => (
                             <tr key={recipe.id}>
                                 <td style={{ textAlign: "center" }}>

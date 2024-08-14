@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import { authentication } from './Logical/Authentication';
 
 function RecipeProductsView ({recipeId}) {
     const [products, setRecipes] = useState([]);
 
     function GetProducts(){
-        if(!recipeId) return;
-
         fetch(`https://localhost:7222/api/RecipeProducts/getByRecipe/${recipeId}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -18,7 +18,10 @@ function RecipeProductsView ({recipeId}) {
     }
 
     useEffect(() => {
-        GetProducts();
+        if(recipeId){
+            GetProducts();
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[recipeId]);
 

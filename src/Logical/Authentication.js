@@ -8,11 +8,18 @@ class Authentication {
         return !cookieToken ? null : JSON.parse(cookieToken);
     };
 
-        // eslint-disable-next-line no-unused-vars
     authenticated() {
         const token = this.GetToken();
 
         return token != null;
+    }
+
+    GetAuthorizationHeaders(){
+        const token = JSON.stringify(this.GetToken());
+        const headers = new Headers();
+        headers.append("Authorization", btoa(token));
+    
+        return headers;
     }
 }
 

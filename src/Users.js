@@ -2,14 +2,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
 
-function GetAuthorizationHeaders(){
-    const token = JSON.stringify(authentication.GetToken());
-    const headers = new Headers();
-    headers.append("Authorization", token);
-
-    return headers;
-}
-
 function Users() {
     const [users, setUsers] = useState([]);
     const [userSearch, setProductSearch] = useState('');
@@ -18,7 +10,7 @@ function Users() {
         fetch('https://localhost:7222/api/Users/search',
             {
                 method: 'GET',
-                headers: GetAuthorizationHeaders()
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -63,7 +55,8 @@ function Users() {
         console.log(`Delete Product Id: ${user.id}`);
         fetch(`https://localhost:7222/api/Users/${user.id}`,
             {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => {
                 if (response.status === 200)
@@ -84,7 +77,8 @@ function Users() {
 
         fetch(`https://localhost:7222/api/Users/search/${searchValue}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {

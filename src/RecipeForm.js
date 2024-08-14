@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RecipeProductsCheck from './RecipeProductsCheck';
+import { authentication } from './Logical/Authentication';
 
 function RecipeForm() {
     let { id } = useParams();
@@ -12,7 +13,8 @@ function RecipeForm() {
     function GetRecipe(id) {
         fetch(`https://localhost:7222/api/Recipes/${id}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
@@ -24,7 +26,9 @@ function RecipeForm() {
     }
 
     useEffect(() => {
-        GetRecipe(id);
+        if(id){
+            GetRecipe(id);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -45,12 +49,13 @@ function RecipeForm() {
             recipe.id = id;
         }
 
+        let headers = authentication.GetAuthorizationHeaders();
+        headers.append("Content-Type", "application/json");
+
         fetch(`https://localhost:7222/api/Recipes/${saveType}`,
             {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: headers,
                 body: JSON.stringify(recipe)
             })
             .then(response => response.json())
@@ -63,13 +68,14 @@ function RecipeForm() {
             .catch((error) => console.log("Something happened saving recipe: " + error));
     }
 
+    let headers = authentication.GetAuthorizationHeaders();
+    headers.append("Content-Type", "application/json");
+
     function SaveProducts() {
         fetch(`https://localhost:7222/api/RecipeProducts/saveForRecipe/${id}`,
             {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: headers,
                 body: JSON.stringify(products)
             })
             .then(response => {
@@ -91,7 +97,9 @@ function RecipeForm() {
     return (
         <div class="grid">
             <div class="row justify-content-start">
-                <h1 class="text-center">Create/Edit Recipe</h1>
+                <h1 class="text-center">
+                    { !id ? "Create":"Edit" } recipe
+                </h1>
                 <div class="form-group row">
                     <div class="col-md-8">
                         <label class="form-label">

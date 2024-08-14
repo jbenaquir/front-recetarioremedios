@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import RecipeProductsView from './RecipeProductsView';
+import { authentication } from './Logical/Authentication';
 
 function RecipeView() {
     const { id } = useParams();
@@ -9,7 +10,8 @@ function RecipeView() {
     function GetRecipe(id) {
         fetch(`https://localhost:7222/api/Recipes/${id}`,
             {
-                method: 'GET'
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
