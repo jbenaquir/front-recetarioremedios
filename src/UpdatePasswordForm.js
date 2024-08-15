@@ -6,18 +6,34 @@ function UpdatePasswordForm() {
     const { id } = useParams();
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
+    const [returnUrl, setReturnUrl] = useState('');
 
     useEffect(() => {
         if (!id) {
             // no id                                                                                                                                                                                                                                                                                                                                                                                                                     
         }
 
+        LoadReturnUrl();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    function LoadReturnUrl() {
+        const params = new URLSearchParams(window.location.search);
+        
+        const _returnUrl = params.get('returnUrl');
+        if(_returnUrl !== null){
+            setReturnUrl(_returnUrl);
+        }
+    }
+
     function Save() {
-        if(repassword !== password)
-        {
+        if (password === "") {
+            alert("Password should have a value");
+            return;
+        }
+
+        if (repassword !== password) {
             alert("Password does not match");
             return;
         }
@@ -26,7 +42,6 @@ function UpdatePasswordForm() {
             id: id,
             password: password
         };
-
 
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
@@ -44,6 +59,10 @@ function UpdatePasswordForm() {
             .catch((error) => console.log("Something happened saving user: " + error));
     }
 
+    function Back() {
+        window.location.href = returnUrl;
+    }
+
     return (
         <div class="grid">
             <div class="row justify-content-start">
@@ -52,13 +71,11 @@ function UpdatePasswordForm() {
                 </h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <label class="col-sm-2 col-form-label">
-                            Password
-                        </label>
                         {
                             id ?
                                 <>
                                     <input
+                                        placeholder='New password'
                                         type="password"
                                         class="form-control"
                                         name="password"
@@ -66,6 +83,7 @@ function UpdatePasswordForm() {
                                         onChange={e => setPassword(e.target.value)}
                                         maxLength={100} />
                                     <input
+                                        placeholder='Repeat password'
                                         type="password"
                                         class="form-control"
                                         name="repassword"
@@ -84,15 +102,29 @@ function UpdatePasswordForm() {
                     <button
                         style={{
                             minWidth: "100px",
-                            "margin-right": "10px", "margin-left": "10px"
+                            marginRight: "10px",
+                            marginLeft: "10px"
                         }}
-                        class="btn btn-primary col col-md-auto"
+                        class="btn btn-primary col col-sm-auto"
                         onClick={Save}>
                         <i class="bi-floppy2"></i>
                         <div>
                             Save
                         </div>
                     </button>
+                    {
+                        returnUrl !== ""
+                        &&
+                        <button
+                            style={{ minWidth: "80px" }}
+                            class="btn btn-secondary col col-md-auto"
+                            onClick={Back}>
+                            <i class="bi-arrow-left-square"></i>
+                            <div>
+                                Back
+                            </div>
+                        </button>
+                    }
                 </div>
             </div>
         </div>

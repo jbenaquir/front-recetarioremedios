@@ -7,10 +7,21 @@ function ProductForm() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [roleId, setRoleId] = useState('');
+    const [roles, setRoles] = useState([]);
 
-    function PreventEnterWrongUserNames (e) {
-        if(e.key === " ")
+    useEffect(() => {
+        if (id) {
+            GetUser(id);
+        }
+
+        GetRoles();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    function PreventEnterWrongUserNames(e) {
+        if (e.key === " ") {
             e.preventDefault();
+        }
     }
 
     function ChooseIfOption(roleid) {
@@ -18,6 +29,19 @@ function ProductForm() {
             return "selected";
         else
             return "";
+    }
+
+    function GetRoles() {
+        fetch(`https://localhost:7222/api/Roles/search`,
+            {
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
+            })
+            .then(response => response.json())
+            .then(data => {
+                setRoles(data);
+            })
+            .catch((error) => console.log("Something happened getting user: " + error));
     }
 
     function GetUser(id) {
@@ -34,13 +58,6 @@ function ProductForm() {
             .catch((error) => console.log("Something happened getting user: " + error));
     }
 
-    useEffect(() => {
-        if (id) {
-            GetUser(id);
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     function Save() {
         let user = {
@@ -77,7 +94,8 @@ function ProductForm() {
     }
 
     function GoToUpdatePassword() {
-        window.location.href = `/users/${id}/updatepassword`;
+        const returnUrl = `/users/${id}/edit`;
+        window.location.href = `/users/${id}/updatepassword?returnUrl=${returnUrl}`;
     }
 
     return (
@@ -100,41 +118,32 @@ function ProductForm() {
                             maxLength={100} />
                     </div>
                     <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">
+                            Password
+                        </label>
                         {
                             (id)
                                 ?
-                                <span style={
-                                    {"color":"red"}
-                                }>
-                                     <button
-                                        style={{
-                                            minWidth: "100px",
-                                            "margin-right": "10px", "margin-left": "10px"
-                                        }}
-                                        class="btn btn-primary col col-md-auto"
-                                        onClick={GoToUpdatePassword}>
-                                            Update Password
-                                    </button>
-                                </span>
+                                <button
+                                    style={{
+                                        minWidth: "100px",
+                                        "margin-right": "10px", "margin-left": "10px"
+                                    }}
+                                    class="btn btn-primary col col-md-auto"
+                                    onClick={GoToUpdatePassword}>
+                                    Update Password
+                                </button>
                                 :
-                                <>
-                                    <label class="col-sm-2 col-form-label">
-                                        Password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        name="password"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)}
-                                        maxLength={100} />
-                                </>
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    name="password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    maxLength={100} />
                         }
                     </div>
                     <div class="col-sm-10">
-                        <span style={
-                            {"color":"red"}
-                        }>CODE: Load roles from api and autochoose when edit<br/></span>
                         <label class="col-sm-2 col-form-label">
                             Role
                         </label>
@@ -142,13 +151,18 @@ function ProductForm() {
                             name="roleId"
                             class="form-control"
                             onChange={e => setRoleId(e.target.value)}
+
                         >
                             <option>
                                 Choose...
                             </option>
-                            <option value="1" selected={ChooseIfOption(1)}>
-                                Admin
-                            </option>
+                            {
+                                roles.map(role => (
+                                    <option value={role.id} selected={ChooseIfOption(role.id)}>
+                                        {role.name}
+                                    </option>
+                                ))
+                            }
                         </select>
                     </div>
                 </div>
