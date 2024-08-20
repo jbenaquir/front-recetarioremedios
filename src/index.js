@@ -19,6 +19,7 @@ import UpdatePasswordForm from './UpdatePasswordForm';
 import UserView from './UserView';
 import UserForm from './UserForm';
 import CloseSessionButton from './CloseSessionButton';
+import CookieMessage from './CookieMessage';
 import { authentication } from './Logical/Authentication';
 
 const routes = [
@@ -121,6 +122,7 @@ root.render(
       {/*jbenavides: This is a comment in a tag in React*/}
       <RouterProvider router={router} />
     </div>
+    <CookieMessage />
   </React.StrictMode>
 );
 
