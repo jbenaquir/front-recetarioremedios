@@ -30,7 +30,30 @@ function ProductForm() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    function Verify() {
+        let validationErrors = "Verify:";
+
+        if (name === "") {
+            validationErrors += "\n- Name is empty";
+        }
+
+        if (description === "") {
+            validationErrors += "\n- Description is empty";
+        }
+
+        if (validationErrors !== "Verify:") {
+            window.alert(validationErrors);
+            return false;
+        }
+
+        return true;
+    }
+
     function Save() {
+        if (!Verify()) {
+            return;
+        }
+
         let product = {
             name: name,
             description: description,

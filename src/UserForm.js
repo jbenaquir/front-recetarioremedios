@@ -77,7 +77,7 @@ function ProductForm() {
             validationErrors += "\n- Choose role";
         }
 
-        if (validationErrors !== "Validation Errors:") {
+        if (validationErrors !== "Verify:") {
             window.alert(validationErrors);
             return false;
         }
