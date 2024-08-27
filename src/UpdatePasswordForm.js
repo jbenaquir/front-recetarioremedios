@@ -9,11 +9,11 @@ function UpdatePasswordForm() {
     const [returnUrl, setReturnUrl] = useState('');
 
     useEffect(() => {
+        LoadReturnUrl();
+
         if (!id) {
             // no id                                                                                                                                                                                                                                                                                                                                                                                                                     
         }
-
-        LoadReturnUrl();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

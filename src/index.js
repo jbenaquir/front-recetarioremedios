@@ -79,6 +79,7 @@ if (authentication.authenticated()) {
 const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <nav class="navbar bg-primary fixed-top">

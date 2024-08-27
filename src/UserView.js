@@ -6,6 +6,11 @@ function ProductView() {
     const { id } = useParams();
     const [user, setProduct] = useState({});
 
+    function GoToUpdatePassword() {
+        const returnUrl = `/users/${id}/view`;
+        window.location.href = `/users/${id}/updatepassword?returnUrl=${returnUrl}`;
+    }
+
     function GetProduct(id) {
         fetch(`https://localhost:7222/api/Users/${id}`,
             {
@@ -32,11 +37,18 @@ function ProductView() {
             </p>
             <h3>Role:</h3>
             <p>
-                Id: {user.roleId}
+                {user.roleName}
             </p>
-            <h3>Update Password:</h3>
             <p>
-                Add button for update password
+                <button
+                    style={{
+                        minWidth: "100px",
+                        "margin-right": "10px", "margin-left": "10px"
+                    }}
+                    class="btn btn-primary col col-md-auto"
+                    onClick={GoToUpdatePassword}>
+                    Update Password
+                </button>
             </p>
         </div>
     )

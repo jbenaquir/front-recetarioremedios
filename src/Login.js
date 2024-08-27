@@ -25,8 +25,30 @@ function Login() {
         window.location.href = `/`;
     }
 
+    function Verify(){
+        let validationErrors = "Verify:";
+
+        if (name === "") {
+            validationErrors += "\n- Name is empty";
+        }
+
+        if (password === "") {
+            validationErrors += "\n- Password is empty";
+        }
+        
+        if (validationErrors !== "Verify:") {
+            window.alert(validationErrors);
+            return false;
+        }
+
+        return true;
+    }
+
     function Authenticate() {
-        //check fields
+        if (!Verify()) {
+            return;
+        }
+
         var userToken = {
             name: name,
             password: password

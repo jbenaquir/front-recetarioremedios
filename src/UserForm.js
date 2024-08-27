@@ -6,6 +6,7 @@ function ProductForm() {
     const { id } = useParams();
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [repassword, setRePassword] = useState('');
     const [roleId, setRoleId] = useState('');
     const [roles, setRoles] = useState([]);
 
@@ -58,8 +59,37 @@ function ProductForm() {
             .catch((error) => console.log("Something happened getting user: " + error));
     }
 
+    function Verify() {
+        let validationErrors = "Verify:";
+
+        if (name === "") {
+            validationErrors += "\n- Fill name value";
+        }
+
+        if (!id && password === "") {
+            validationErrors += "\n- Enter password";
+        }
+
+        if (!id && password !== repassword) {
+            validationErrors += "\n- Password is not equal to repeat password";
+        }
+        if (roleId === "-1" || roleId === (-1) || roleId === "") {
+            validationErrors += "\n- Choose role";
+        }
+
+        if (validationErrors !== "Validation Errors:") {
+            window.alert(validationErrors);
+            return false;
+        }
+
+        return true;
+    }
 
     function Save() {
+        if (!Verify()) {
+            return;
+        }
+
         let user = {
             name: name,
             password: password,
@@ -72,6 +102,7 @@ function ProductForm() {
             saveType = "update";
             user.id = id;
         }
+
 
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
@@ -134,13 +165,23 @@ function ProductForm() {
                                     Update Password
                                 </button>
                                 :
-                                <input
-                                    type="password"
-                                    class="form-control"
-                                    name="password"
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                    maxLength={100} />
+                                <>
+                                    <input
+                                        placeholder="Password"
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        maxLength={100} />
+                                    <input
+                                        placeholder="Repeat password"
+                                        type="password"
+                                        class="form-control"
+                                        name="repassword"
+                                        onChange={e => setRePassword(e.target.value)}
+                                        maxLength={100} />
+                                </>
                         }
                     </div>
                     <div class="col-sm-10">
@@ -151,9 +192,9 @@ function ProductForm() {
                             name="roleId"
                             class="form-control"
                             onChange={e => setRoleId(e.target.value)}
-
+                            defaultValue="-1"
                         >
-                            <option>
+                            <option value="-1">
                                 Choose...
                             </option>
                             {
