@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
 
-function ProductForm() {
+function UserForm() {
     const { id } = useParams();
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
     const [roleId, setRoleId] = useState('');
     const [roles, setRoles] = useState([]);
+    const [returnUrl, setReturnUrl] = useState('');
 
     useEffect(() => {
+        LoadReturnUrl();
+
         if (id) {
             GetUser(id);
         }
@@ -18,6 +21,15 @@ function ProductForm() {
         GetRoles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    function LoadReturnUrl() {
+        const params = new URLSearchParams(window.location.search);
+
+        const _returnUrl = params.get('returnUrl');
+        if (_returnUrl !== null) {
+            setReturnUrl(_returnUrl);
+        }
+    }
 
     function PreventEnterWrongUserNames(e) {
         if (e.key === " ") {
@@ -73,8 +85,11 @@ function ProductForm() {
         if (!id && password !== repassword) {
             validationErrors += "\n- Password is not equal to repeat password";
         }
-        if (roleId === "-1" || roleId === (-1) || roleId === "") {
-            validationErrors += "\n- Choose role";
+
+        if(authentication.authenticated()){
+            if (roleId === "-1" || roleId === (-1) || roleId === "") {
+                validationErrors += "\n- Choose role";
+            }
         }
 
         if (validationErrors !== "Verify:") {
@@ -89,12 +104,16 @@ function ProductForm() {
         if (!Verify()) {
             return;
         }
-
+        
         let user = {
             name: name,
             password: password,
             roleId: roleId
         };
+
+        if(!authentication.authenticated()){
+            user.roleId = 1;
+        }
 
         let saveType = "save";
 
@@ -114,14 +133,19 @@ function ProductForm() {
                 body: JSON.stringify(user)
             })
             .then(response => {
-                if (response.status === 200)
-                    window.location.href = `/users`;
+                if (response.status === 200){
+                    if(authentication.authenticated()){
+                        window.location.href = `/users`;
+                    } else {
+                        window.location.href = returnUrl;
+                    }
+                }
             })
             .catch((error) => console.log("Something happened saving user: " + error));
     }
 
     function Back() {
-        window.location.href = `/users`;
+        window.location.href = returnUrl;
     }
 
     function GoToUpdatePassword() {
@@ -184,28 +208,37 @@ function ProductForm() {
                                 </>
                         }
                     </div>
-                    <div class="col-sm-10">
-                        <label class="col-sm-2 col-form-label">
-                            Role
-                        </label>
-                        <select
-                            name="roleId"
-                            class="form-control"
-                            onChange={e => setRoleId(e.target.value)}
-                            defaultValue="-1"
-                        >
-                            <option value="-1">
-                                Choose...
-                            </option>
-                            {
-                                roles.map(role => (
-                                    <option value={role.id} selected={ChooseIfOption(role.id)}>
-                                        {role.name}
+                    {
+                        (!authentication.authenticated())
+                            ?
+                            <></>
+                            :
+                            <div class="col-sm-10">
+                                <label class="col-sm-2 col-form-label">
+                                    Role 
+                                </label>
+                                <label>
+                                    (Role edit only permitted for ADMIN ROLE)
+                                </label>
+                                <select
+                                    name="roleId"
+                                    class="form-control"
+                                    onChange={e => setRoleId(e.target.value)}
+                                    defaultValue="-1"
+                                >
+                                    <option value="-1">
+                                        Choose...
                                     </option>
-                                ))
-                            }
-                        </select>
-                    </div>
+                                    {
+                                        roles.map(role => (
+                                            <option value={role.id} selected={ChooseIfOption(role.id)}>
+                                                {role.name}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                    }
                 </div>
                 <div class="form-group row" style={{ marginTop: "10px" }}>
                     <button
@@ -235,4 +268,4 @@ function ProductForm() {
     )
 }
 
-export default ProductForm;
+export default UserForm;

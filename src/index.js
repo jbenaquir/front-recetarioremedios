@@ -31,9 +31,11 @@ routes.push({
   path: "/login", element: <Login />
 });
 
+//TEMP
 routes.push({
-  path: "/login", element: <Login />
+  path: "/createAccount", element: <UserForm />
 });
+//
 
 if (authentication.authenticated()) {
   routes.push({

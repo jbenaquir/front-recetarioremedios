@@ -4,6 +4,7 @@ import { useState } from 'react';
 function Login() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+
     if(authentication.authenticated()){
         window.location.href = `/`;
     }
@@ -75,6 +76,11 @@ function Login() {
             .catch((error) => console.log("Something happened saving user: " + error));
     }
 
+    function GoToCreateAccount(){
+        const returnUrl = `/login`;
+        window.location.href = `/createAccount?returnUrl=${returnUrl}`;
+    }
+
     return (
         <div class="grid">
             <div class="row justify-content-start">
@@ -117,6 +123,21 @@ function Login() {
                         <i style={{ marginRight: "6px" }} class="bi-rocket"></i>
                         <span>
                             Log In
+                        </span>
+                    </button>
+                    <div>
+                    -OR-
+                    </div>
+                    <button
+                        style={{
+                            minWidth: "100px",
+                            "margin-right": "10px", "margin-left": "10px"
+                        }}
+                        class="btn btn-primary col col-md-auto"
+                        onClick={GoToCreateAccount}>
+                        <i style={{ marginRight: "6px" }} class="bi-person-fill"></i>
+                        <span>
+                            Create Account
                         </span>
                     </button>
                 </div>

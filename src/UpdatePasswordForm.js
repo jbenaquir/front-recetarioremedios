@@ -60,7 +60,12 @@ function UpdatePasswordForm() {
     }
 
     function Back() {
-        window.location.href = returnUrl;
+        if (authentication.authenticated()) {
+            window.location.href = "/users";
+        } 
+        else {
+            window.location.href = returnUrl;
+        }
     }
 
     return (

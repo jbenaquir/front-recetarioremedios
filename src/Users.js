@@ -44,8 +44,9 @@ function Users() {
     }
 
     function GoToModify(user) {
-        console.log(`Go To Modify`);
-        window.location.href = `/users/${user.id}/edit`;
+        const returnUrl = `/users`;
+
+        window.location.href = `/users/${user.id}/edit?returnUrl=${returnUrl}`;
     }
 
     function GoToDelete(user) {
