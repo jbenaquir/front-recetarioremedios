@@ -31,16 +31,19 @@ routes.push({
   path: "/login", element: <Login />
 });
 
-//TEMP
 routes.push({
   path: "/createAccount", element: <UserForm />
 });
-//
 
 if (authentication.authenticated()) {
   routes.push({
     path: "/users/:id/updatepassword", element: <UpdatePasswordForm />
   });
+
+  routes.push({
+    path: "/chat/", element: <ProductView />
+  });
+
   routes.push({
     path: "/users", element: <Users />
   });
@@ -50,6 +53,15 @@ if (authentication.authenticated()) {
   routes.push({
     path: "/users/create", element: <UserForm />
   });
+
+  routes.push({
+    path: "/updateprofile", element: <UserForm />
+  });
+
+  routes.push({
+    path: "/updatepassword", element: <UpdatePasswordForm />
+  });
+
   routes.push({
     path: "/users/:id/edit", element: <UserForm />
   });
@@ -104,13 +116,27 @@ root.render(
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/users">Users</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/products">Products</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
+                </li>
+                {
+                  (authentication.GetCurrentRoleId() == 1)
+                  ?
+                  <>
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/users">Users</a>
+                      </li>
+                    </>
+                  :
+                    <></>
+                }
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/updateprofile">Update profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/updatepassword">Update password</a>
                 </li>
                 <li class="nav-item">
                   <CloseSessionButton />

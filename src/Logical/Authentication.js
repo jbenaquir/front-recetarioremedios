@@ -1,6 +1,28 @@
 import { cookiesManagement } from "./CookiesManagement";
 
 class Authentication {
+    GetCurrentRoleId = () => {
+        const token = this.GetToken();
+
+        if (token != null)
+        {
+            return token.roleId;
+        }
+
+        return null;
+    };
+
+    GetCurrentUserId = () => {
+        const token = this.GetToken();
+
+        if (token != null)
+        {
+            return token.userId;
+        }
+
+        return null;
+    };
+
     GetToken = () => {
         const cookieToken = cookiesManagement.getCookie("token");
 

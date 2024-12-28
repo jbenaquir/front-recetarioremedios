@@ -5,7 +5,7 @@ import { authentication } from './Logical/Authentication';
 function Users() {
     const [users, setUsers] = useState([]);
     const [userSearch, setProductSearch] = useState('');
-    
+
     function GetUsers() {
         fetch('https://localhost:7222/api/Users/search',
             {
@@ -66,6 +66,31 @@ function Users() {
             .catch((error) => console.log("Something happened deleting user: " + error));
     }
 
+
+    function GoToText(user) {
+        if (!window.confirm(`Está a punto de text to userName: ${user.name}`))
+            return;
+
+        console.log(`Chat with Id: ${user.id}`);
+
+
+        fetch(`https://localhost:7222/api/ChatTo/${user.id}`,
+            {
+                method: 'TEXT',
+                headers: authentication.GetAuthorizationHeaders()
+            })
+            .then(response => {
+                if (response.status === 200) {
+
+                    // redirectoChachachat(userName)
+                    console.log("Text :" + user.id);
+                }
+            })
+            .catch((error) => {
+                console.log("Something happened deleting user: " + error)
+            });
+    }
+
     function OnChangeSearch(e) {
         const searchValue = e.currentTarget.value;
         console.log(searchValue);
@@ -118,40 +143,63 @@ function Users() {
                 <table style={{ margin: "0px auto" }}>
                     <tbody>
                         {users.length === 0 &&
-                        <tr>
-                            <td colSpan={2}>There are no elements to show</td>
-                        </tr>}
+                            <tr>
+                                <td colSpan={2}>There are no elements to show</td>
+                            </tr>}
                         {users.map(user => (
                             <tr key={user.id}>
                                 <td style={{ textAlign: "center" }}>
                                     {user.name}
                                 </td>
                                 <td style={{ textAlign: "center" }}>
-                                    <button
-                                        style={{ margin: "5px", minWidth: "62px" }}
-                                        class="btn btn-primary"
-                                        title="Ver"
-                                        onClick={() => GoToView(user)}>
-                                        <i class="bi-eye"></i>
-                                        <div>
-                                            Ver
-                                        </div>
-                                    </button>
+                                    <>
+                                    {
+                                        (authentication.GetCurrentRoleId() == 1)
+                                            ?
+                                            <>
+                                                <button
+                                                    style={{ margin: "5px", minWidth: "62px" }}
+                                                    class="btn btn-primary"
+                                                    title="Ver"
+                                                    onClick={() => GoToView(user)}>
+                                                    <i class="bi-eye"></i>
+                                                    <div>
+                                                        Ver
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    style={{ margin: "5px" }}
+                                                    class="btn btn-primary"
+                                                    title="Modificar"
+                                                    onClick={() => GoToModify(user)}>
+                                                    <i class="bi-pencil"></i>
+                                                    <div>Modificar</div>
+                                                </button>
+                                                <button
+                                                    style={{ margin: "5px" }}
+                                                    class="btn btn-danger"
+                                                    title="Eliminar"
+                                                    onClick={() => GoToDelete(user)}>
+                                                    <i class="bi-trash"></i>
+                                                    <div>
+                                                        Eliminar
+                                                    </div>
+                                                </button>
+                                            </>
+                                            :
+                                            <></>
+                                    }
+                                    </>
+                                </td>
+                                <td style={{ textAlign: "center" }}>
                                     <button
                                         style={{ margin: "5px" }}
-                                        class="btn btn-primary"
-                                        title="Modificar"
-                                        onClick={() => GoToModify(user)}>
-                                        <i class="bi-pencil"></i>
-                                        <div>Modificar</div></button>
-                                    <button
-                                        style={{ margin: "5px" }}
-                                        class="btn btn-danger"
+                                        class="btn btn-blue"
                                         title="Eliminar"
-                                        onClick={() => GoToDelete(user)}>
-                                        <i class="bi-trash"></i>
+                                        onClick={() => GoToText(user)}>
+                                        <i class="bi-chat"></i>
                                         <div>
-                                            Eliminar
+                                            Messaje
                                         </div>
                                     </button>
                                 </td>

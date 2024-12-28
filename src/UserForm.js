@@ -14,11 +14,24 @@ function UserForm() {
     useEffect(() => {
         LoadReturnUrl();
 
+        let roleId = authentication.GetCurrentRoleId();
+        
+        if(roleId === 1){
+            GetRoles();
+        }
+        
+        let userId = authentication.GetCurrentUserId();
+
+        if (userId != id 
+            && roleId != 1)
+        {
+            window.location.href = "/";
+        }
+
         if (id) {
             GetUser(id);
         }
 
-        GetRoles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -112,7 +125,7 @@ function UserForm() {
         };
 
         if(!authentication.authenticated()){
-            user.roleId = 1;
+            user.roleId = 2;
         }
 
         let saveType = "save";
@@ -145,7 +158,11 @@ function UserForm() {
     }
 
     function Back() {
-        window.location.href = returnUrl;
+        if(returnUrl != null){
+            window.location.href = returnUrl;
+        }
+
+        window.location.href = "/";
     }
 
     function GoToUpdatePassword() {
@@ -209,7 +226,8 @@ function UserForm() {
                         }
                     </div>
                     {
-                        (!authentication.authenticated())
+                        (!authentication.authenticated()
+                        || authentication.GetCurrentRoleId() !== 1)
                             ?
                             <></>
                             :
