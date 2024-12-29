@@ -18,13 +18,16 @@ import Users from './Users';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UserView from './UserView';
 import UserForm from './UserForm';
+import UserFormEditProfile from './UserFormEditProfile';
+import UpdatePasswordFormCurrentUser from './UpdatePasswordFormCurrentUser';
 import CloseSessionButton from './CloseSessionButton';
 import CookieMessage from './CookieMessage';
 import { authentication } from './Logical/Authentication';
 
 const routes = [
   {
-    path: "/", element: <App />
+    path: "/", 
+    element: <App />
   }];
 
 routes.push({
@@ -55,11 +58,11 @@ if (authentication.authenticated()) {
   });
 
   routes.push({
-    path: "/updateprofile", element: <UserForm />
+    path: "/updateprofile", element: <UserFormEditProfile />
   });
 
   routes.push({
-    path: "/updatepassword", element: <UpdatePasswordForm />
+    path: "/updatepassword", element: <UpdatePasswordFormCurrentUser />
   });
 
   routes.push({

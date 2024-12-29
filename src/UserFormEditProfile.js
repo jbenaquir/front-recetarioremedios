@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
 
 function UserForm() {
-    const { id } = useParams();
+    const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
@@ -14,22 +13,17 @@ function UserForm() {
     useEffect(() => {
         LoadReturnUrl();
 
-        let currentUserId = authentication.GetCurrentUserId();
-
+        
         let roleId = authentication.GetCurrentRoleId();
         if(roleId === 1){
             GetRoles();
         }
         
-        if (currentUserId != id 
-            && roleId != 1)
-        {
-            window.location.href = "/";
-        }
+        let currentUserId = authentication.GetCurrentUserId();
 
-        
-        if (id) {
-            GetUser(id);
+        if (currentUserId) {
+            setId(currentUserId);
+            GetUser(currentUserId);
         }
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -137,7 +131,6 @@ function UserForm() {
             user.id = id;
         }
 
-
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
@@ -176,8 +169,11 @@ function UserForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1>
-                    {!id ? "Create" : "Edit"} user
+                    Update profile:
                 </h1>
+                <div>
+                    If user already exists show alert
+                </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
