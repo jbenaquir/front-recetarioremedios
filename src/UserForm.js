@@ -5,6 +5,8 @@ import { authentication } from './Logical/Authentication';
 function UserForm() {
     const { id } = useParams();
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
     const [roleId, setRoleId] = useState('');
@@ -44,7 +46,19 @@ function UserForm() {
         }
     }
 
-    function PreventEnterWrongUserNames(e) {
+    function PreventEnterWrongName(e) {
+        if (e.key === " ") {
+            e.preventDefault();
+        }
+    }
+    
+    function PreventEnterWrongEmail(e) {
+        if (e.key === " ") {
+            e.preventDefault();
+        }
+    }
+
+    function PreventEnterWrongPhone(e) {
         if (e.key === " ") {
             e.preventDefault();
         }
@@ -187,10 +201,35 @@ function UserForm() {
                             class="form-control"
                             name="name"
                             value={name}
-                            onKeyDown={e => PreventEnterWrongUserNames(e)}
+                            onKeyDown={e => PreventEnterWrongName(e)}
                             onChange={e => setName(e.target.value)}
                             maxLength={100} />
                     </div>
+                    <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">
+                            Email
+                        </label>
+                        <input
+                            class="form-control"
+                            name="email"
+                            value={email}
+                            onKeyDown={e => PreventEnterWrongEmail(e)}
+                            onChange={e => setEmail(e.target.value)}
+                            maxLength={100} />
+                    </div>
+                    <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">
+                            Phone
+                        </label>
+                        <input
+                            class="form-control"
+                            name="phone"
+                            value={phone}
+                            onKeyDown={e => PreventEnterWrongPhone(e)}
+                            onChange={e => setPhone(e.target.value)}
+                            maxLength={100} />
+                    </div>
+                                        
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
                             Password

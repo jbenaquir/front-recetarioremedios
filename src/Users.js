@@ -71,24 +71,7 @@ function Users() {
         if (!window.confirm(`Está a punto de text to userName: ${user.name}`))
             return;
 
-        console.log(`Chat with Id: ${user.id}`);
-
-
-        fetch(`https://localhost:7222/api/ChatTo/${user.id}`,
-            {
-                method: 'TEXT',
-                headers: authentication.GetAuthorizationHeaders()
-            })
-            .then(response => {
-                if (response.status === 200) {
-
-                    // redirectoChachachat(userName)
-                    console.log("Text :" + user.id);
-                }
-            })
-            .catch((error) => {
-                console.log("Something happened deleting user: " + error)
-            });
+        window.location.href = `/chat/`;
     }
 
     function OnChangeSearch(e) {

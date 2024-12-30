@@ -22,6 +22,7 @@ import UserFormEditProfile from './UserFormEditProfile';
 import UpdatePasswordFormCurrentUser from './UpdatePasswordFormCurrentUser';
 import CloseSessionButton from './CloseSessionButton';
 import CookieMessage from './CookieMessage';
+import MessagesView from './MessagesView';
 import { authentication } from './Logical/Authentication';
 
 const routes = [
@@ -44,7 +45,15 @@ if (authentication.authenticated()) {
   });
 
   routes.push({
-    path: "/chat/", element: <ProductView />
+    path: "/chat", element: <MessagesView />
+  });
+
+  routes.push({
+    path: "/chat/:userid", element: <MessagesView />
+  });
+
+  routes.push({
+    path: "/chat/:channelsessionId", element: <MessagesView />
   });
 
   routes.push({

@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+/*Chat*/
+/*css flex https://css-tricks.com/snippets/css/a-guide-to-flexbox/*/
+
+.containerMessageLeft {
+  justify-content: end
+}
+
+.containerMessageRight {
+  justify-content: start
+}
