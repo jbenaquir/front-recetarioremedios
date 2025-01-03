@@ -3,12 +3,23 @@ import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
 
 function ProductView() {
-    const { id } = useParams();
-    const [user, setProduct] = useState({});
+    const [id, setId] = useState({});
+    const [user, setUser] = useState({});
+    const [returnUrl, setReturnUrl] = useState('');
+
+    useEffect(() => {
+        // LoadReturnUrl();
+
+        let currentUserId = authentication.GetCurrentUserId();
+
+        setId(currentUserId);
+
+        GetUser(currentUserId);
+    }, []);
 
     function GoToUpdatePassword() {
-        const returnUrl = `/users/${id}/view`;
-        window.location.href = `/users/${id}/updatepassword?returnUrl=${returnUrl}`;
+        const returnUrl = `/myprofile`;
+        window.location.href = `/updatepassword?returnUrl=${returnUrl}`;
     }
 
     function GetUser(id) {
@@ -19,15 +30,25 @@ function ProductView() {
             })
             .then(response => response.json())
             .then(data => {
-                setProduct(data);
+                setUser(data);
             })
             .catch((error) => console.log("Something happened getting product: " + error));
     }
 
-    useEffect(() => {
-        GetUser(id);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    function GoToChat() {
+        const username = authentication.GetCurrentUserName();
+
+        window.location.href = `/chat/chatof${username}-${id}`;
+    }
+    /*
+    function LoadReturnUrl() {
+        const params = new URLSearchParams(window.location.search);
+        
+        const _returnUrl = params.get('returnUrl');
+        if(_returnUrl !== null){
+            setReturnUrl(_returnUrl);
+        }
+    }*/
 
     return (
         <div>
@@ -48,6 +69,16 @@ function ProductView() {
                     class="btn btn-primary col col-md-auto"
                     onClick={GoToUpdatePassword}>
                     Update Password
+                </button>
+                <button
+                    style={{
+                        minWidth: "100px",
+                        "margin-right": "10px", "margin-left": "10px"
+                    }}
+                    class="btn btn-primary col col-md-auto"
+                    onClick={GoToChat}>
+                    <i class="bi-chat"></i>
+                    My Chat
                 </button>
             </p>
         </div>

@@ -67,11 +67,11 @@ function Users() {
     }
 
 
-    function GoToText(user) {
+    function GoToChat(user) {
         if (!window.confirm(`Está a punto de text to userName: ${user.name}`))
             return;
 
-        window.location.href = `/chat/`;
+        window.location.href = `/chat/chatof${user.name}-${user.id}`;
     }
 
     function OnChangeSearch(e) {
@@ -178,8 +178,8 @@ function Users() {
                                     <button
                                         style={{ margin: "5px" }}
                                         class="btn btn-blue"
-                                        title="Eliminar"
-                                        onClick={() => GoToText(user)}>
+                                        title="Chat"
+                                        onClick={() => GoToChat(user)}>
                                         <i class="bi-chat"></i>
                                         <div>
                                             Messaje

@@ -16,6 +16,7 @@ import RecipeView from './RecipeView';
 import RecipeForm from './RecipeForm';
 import Users from './Users';
 import UpdatePasswordForm from './UpdatePasswordForm';
+import MyProfile from './MyProfile';
 import UserView from './UserView';
 import UserForm from './UserForm';
 import UserFormEditProfile from './UserFormEditProfile';
@@ -49,7 +50,7 @@ if (authentication.authenticated()) {
   });
 
   routes.push({
-    path: "/chat/:userid", element: <MessagesView />
+    path: "/chatTo/:userid", element: <MessagesView />
   });
 
   routes.push({
@@ -66,6 +67,11 @@ if (authentication.authenticated()) {
     path: "/users/create", element: <UserForm />
   });
 
+  //Personal profile
+  routes.push({
+    path: "/myprofile", element: <MyProfile />
+  });
+
   routes.push({
     path: "/updateprofile", element: <UserFormEditProfile />
   });
@@ -73,6 +79,7 @@ if (authentication.authenticated()) {
   routes.push({
     path: "/updatepassword", element: <UpdatePasswordFormCurrentUser />
   });
+  //Personal profile
 
   routes.push({
     path: "/users/:id/edit", element: <UserForm />
@@ -144,6 +151,9 @@ root.render(
                   :
                     <></>
                 }
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/myprofile">My Profile</a>
+                </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/updateprofile">Update profile</a>
                 </li>

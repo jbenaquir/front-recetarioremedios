@@ -177,8 +177,10 @@ function UserForm() {
         if(returnUrl != null){
             window.location.href = returnUrl;
         }
+        else {
+            window.location.href = "/";
+        }
 
-        window.location.href = "/";
     }
 
     function GoToUpdatePassword() {
@@ -190,12 +192,12 @@ function UserForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1>
-                    {!id ? "Create" : "Edit"} user
+                    {!id ? "Create" : "Edit"} user account
                 </h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Name
+                            * Name
                         </label>
                         <input
                             class="form-control"
@@ -232,7 +234,7 @@ function UserForm() {
                                         
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Password
+                            * Password
                         </label>
                         {
                             (id)
@@ -319,6 +321,7 @@ function UserForm() {
                         </div>
                     </button>
                 </div>
+                <div>* Required fields</div>
             </div>
         </div>
     )

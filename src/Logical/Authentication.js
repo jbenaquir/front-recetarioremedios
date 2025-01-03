@@ -23,6 +23,17 @@ class Authentication {
         return null;
     };
 
+    GetCurrentUserName = () => {
+        const token = this.GetToken();
+
+        if (token != null)
+        {
+            return token.userName;
+        }
+
+        return null;
+    };
+
     GetToken = () => {
         const cookieToken = cookiesManagement.getCookie("token");
 
