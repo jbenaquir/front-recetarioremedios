@@ -62,8 +62,8 @@ function UpdatePasswordForm() {
 
     function Back() {
         if (authentication.authenticated()) {
-            window.location.href = "/users";
-        } 
+            window.location.href = "/myprofile";
+        }
         else {
             window.location.href = returnUrl;
         }
@@ -74,6 +74,8 @@ function UpdatePasswordForm() {
             <div class="row justify-content-start">
                 <h1>
                     Update password of user
+
+                    <i class="bi-lock"></i>
                 </h1>
                
                 <div class="form-group row">

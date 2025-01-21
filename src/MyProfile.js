@@ -22,6 +22,11 @@ function ProductView() {
         window.location.href = `/updatepassword?returnUrl=${returnUrl}`;
     }
 
+    const GoToUpdateMyProfile = () => {
+        const returnUrl = `/myprofile`;
+        window.location.href = `/updateprofile?returnUrl=${returnUrl}`;
+    }
+
     function GetUser(id) {
         fetch(`https://localhost:7222/api/Users/${id}`,
             {
@@ -52,12 +57,21 @@ function ProductView() {
 
     return (
         <div>
-            <h1>User: </h1>
+            <h1>User: <i class="bi-person-circle"></i></h1>
             <p>
+                <h3>username:</h3>
                 {user.name}
             </p>
-            <h3>Role:</h3>
             <p>
+                <h3><i class="bi-envelope"></i> email:</h3>
+                {user.email}
+            </p>
+            <p>
+                <h3><i class="bi-phone"></i> Phone:</h3>
+                {user.phone}
+            </p>
+            <p>
+                <h3>Role:</h3>
                 {user.roleName}
             </p>
             <p>
@@ -68,6 +82,7 @@ function ProductView() {
                     }}
                     class="btn btn-primary col col-md-auto"
                     onClick={GoToUpdatePassword}>
+                    <i class="bi-lock"></i>
                     Update Password
                 </button>
                 <button
@@ -76,10 +91,23 @@ function ProductView() {
                         "margin-right": "10px", "margin-left": "10px"
                     }}
                     class="btn btn-primary col col-md-auto"
-                    onClick={GoToChat}>
-                    <i class="bi-chat"></i>
-                    My Chat
+                    onClick={GoToUpdateMyProfile}>
+                    <i class="bi-person"></i>
+                    Update My profile
                 </button>
+                <button
+                    style={{
+                        minWidth: "100px",
+                        "margin-right": "10px", "margin-left": "10px"
+                    }}
+                    class="btn btn-primary col col-md-auto"
+                    onClick={GoToChat}>
+                    My Chat
+                    <i i style={{
+                        "padding": "5px"
+                    }} class="bi-chat"></i>
+                </button>
+
             </p>
         </div>
     )

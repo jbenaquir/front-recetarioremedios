@@ -4,6 +4,8 @@ import { authentication } from './Logical/Authentication';
 function UserForm() {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRePassword] = useState('');
     const [roleId, setRoleId] = useState('');
@@ -39,6 +41,18 @@ function UserForm() {
     }
 
     function PreventEnterWrongUserNames(e) {
+        if (e.key === " ") {
+            e.preventDefault();
+        }
+    }
+    
+    function PreventEnterWrongEmail(e) {
+        if (e.key === " ") {
+            e.preventDefault();
+        }
+    }
+
+    function PreventEnterWrongPhone(e) {
         if (e.key === " ") {
             e.preventDefault();
         }
@@ -117,7 +131,9 @@ function UserForm() {
         let user = {
             name: name,
             password: password,
-            roleId: roleId
+            roleId: roleId,
+            email: email,
+            phone: phone
         };
 
         if(!authentication.authenticated()){
@@ -156,8 +172,10 @@ function UserForm() {
         if(returnUrl != null){
             window.location.href = returnUrl;
         }
+        else{
+            window.location.href = "/myprofile";
+        }
 
-        window.location.href = "/";
     }
 
     function GoToUpdatePassword() {
@@ -189,6 +207,30 @@ function UserForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
+                            Email
+                        </label>
+                        <input
+                            class="form-control"
+                            name="email"
+                            value={email}
+                            onKeyDown={e => PreventEnterWrongEmail(e)}
+                            onChange={e => setEmail(e.target.value)}
+                            maxLength={100} />
+                    </div>
+                    <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">
+                            Phone
+                        </label>
+                        <input
+                            class="form-control"
+                            name="phone"
+                            value={phone}
+                            onKeyDown={e => PreventEnterWrongPhone(e)}
+                            onChange={e => setPhone(e.target.value)}
+                            maxLength={100} />
+                    </div>
+                    <div class="col-sm-10">
+                        <label class="col-sm-2 col-form-label">
                             Password
                         </label>
                         {
@@ -201,6 +243,7 @@ function UserForm() {
                                     }}
                                     class="btn btn-primary col col-md-auto"
                                     onClick={GoToUpdatePassword}>
+                                    <i class="bi-lock"></i>
                                     Update Password
                                 </button>
                                 :

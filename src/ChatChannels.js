@@ -2,59 +2,86 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
 
-function Users() {
-    const [users, setUsers] = useState([]);
-    const [userSearch, setUserSearch] = useState('');
+function ChatChannels() {
+    const [ChatChannels, setChatChannels] = useState([]);
+    const [search, setSearch] = useState('');
+    const [companyId, setCompanyId] = useState(0);
 
-    function GetUsers() {
-        fetch('https://localhost:7222/api/Users/search',
+    function GetChatChannels() {
+        fetch(`https://localhost:7222/api/ChatChannels/search/${companyId}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
-                setUsers(data);
+                setChatChannels(data);
             })
-            .catch((error) => console.log("Something happened getting users: " + error));
+            .catch((error) => console.log("Something happened getting ChatChannels: " + error));
+    }
+
+    
+    function Search() {
+        const searchValue = search;
+
+        fetch(`https://localhost:7222/api/ChatChannels/search/${companyId}/${searchValue}`,
+            {
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
+            })
+            .then(response => response.json())
+            .then(data => {
+                setChatChannels(data);
+            })
+            .catch((error) => console.log("Something happened getting ChatChannels: " + error));
     }
 
     //loads when component mounts
     useEffect(() => {
         const fetchData = async () => {
-            GetUsers();
+            GetChatChannels();
         }
-
+        
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         Search();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userSearch]);
+    }, [search]);
 
     function GoToCreate() {
         console.log(`Go To Create`);
-        window.location.href = `/users/create`;
+        window.location.href = `/ChatChannels/create`;
     }
 
-    function GoToView(user) {
+    //string
+    function setOnListHtml(selectListId, valueClientId) {
+//get from API list
+
+
+
+//set with javascript in selectListId list
+    }
+
+    function GoToView(chatChannel) {
         console.log(`Go To View`);
-        window.location.href = `/users/${user.id}/view`;
+        window.location.href = `/ChatChannels/${chatChannel.id}/view`;
     }
 
-    function GoToModify(user) {
-        const returnUrl = `/users`;
+    function GoToModify(chatChannel) {
+        const returnUrl = `/ChatChannels`;
 
-        window.location.href = `/users/${user.id}/edit?returnUrl=${returnUrl}`;
+        window.location.href = `/ChatChannels/${chatChannel.id}/edit?returnUrl=${returnUrl}`;
     }
 
-    function GoToDelete(user) {
-        if (!window.confirm(`Está a punto de borrar user ${user.name}`))
+    function GoToDelete(chatChannel) {
+        if (!window.confirm(`Está a punto de borrar user ${chatChannel.name}`))
             return;
 
-        console.log(`Delete Product Id: ${user.id}`);
-        fetch(`https://localhost:7222/api/Users/${user.id}`,
+        console.log(`Delete Product Id: ${chatChannel.id}`);
+        fetch(`https://localhost:7222/api/ChatChannels/${chatChannel.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -66,40 +93,25 @@ function Users() {
             .catch((error) => console.log("Something happened deleting user: " + error));
     }
 
-
-    function GoToChat(user) {
-        if (!window.confirm(`Está a punto de text to userName: ${user.name}`))
+    function GoToChat(chatChannel) {
+        if (!window.confirm(`Está a punto de text to chatChannel: ${chatChannel.name}`))
             return;
 
-        window.location.href = `/chat/chatof${user.name}-${user.id}`;
+        window.location.href = `/chat/${chatChannel.name}-${chatChannel.id}`;
     }
 
     function OnChangeSearch(e) {
         const searchValue = e.currentTarget.value;
         console.log(searchValue);
 
-        setUserSearch(searchValue);
+        setSearch(searchValue);
     }
 
-    function Search() {
-        const searchValue = userSearch;
-
-        fetch(`https://localhost:7222/api/Users/search/${searchValue}`,
-            {
-                method: 'GET',
-                headers: authentication.GetAuthorizationHeaders()
-            })
-            .then(response => response.json())
-            .then(data => {
-                setUsers(data);
-            })
-            .catch((error) => console.log("Something happened getting users: " + error));
-    }
 
     return (
         <div class="grid">
             <div class="row" style={{ margin: "20px" }}>
-                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Users</h1>
+                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Chat Channels</h1>
                 <div class="col col-3">
                     <button
                         class="btn btn-primary"
@@ -111,6 +123,18 @@ function Users() {
                             Create
                         </div>
                     </button>
+                </div>
+                <div class="col col-3">
+                    
+                    <div>
+                        <label for="clientList">
+                            Client: (just for admin)
+                        </label>
+                    </div>
+                    <select name="companiesList" id="companiesList" value={companyId} onChange={setOnListHtml("companiesList", companyId)}>
+                        <option value="0">Load from API DEV</option>
+                    </select>
+                    
                 </div>
                 <div class="input-group" style={{ "margin": "20px 0 20px 0" }}>
                     <span class="input-group-text" id="basic-addon1">
@@ -125,11 +149,11 @@ function Users() {
             <div>
                 <table style={{ margin: "0px auto" }}>
                     <tbody>
-                        {users.length === 0 &&
+                        {ChatChannels.length === 0 &&
                             <tr>
                                 <td colSpan={2}>There are no elements to show</td>
                             </tr>}
-                        {users.map(user => (
+                        {ChatChannels.map(user => (
                             <tr key={user.id}>
                                 <td style={{ textAlign: "center" }}>
                                     {user.name}
@@ -195,4 +219,4 @@ function Users() {
     )
 }
 
-export default Users;
+export default ChatChannels;

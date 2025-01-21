@@ -137,7 +137,9 @@ function UserForm() {
         let user = {
             name: name,
             password: password,
-            roleId: roleId
+            roleId: roleId,
+            email: email,
+            phone: phone
         };
 
         if(!authentication.authenticated()){
@@ -193,6 +195,7 @@ function UserForm() {
             <div class="row justify-content-start">
                 <h1>
                     {!id ? "Create" : "Edit"} user account
+                    <i class="bi-person"></i>
                 </h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
@@ -246,6 +249,7 @@ function UserForm() {
                                     }}
                                     class="btn btn-primary col col-md-auto"
                                     onClick={GoToUpdatePassword}>
+                                    <i class="bi-lock"></i>
                                     Update Password
                                 </button>
                                 :

@@ -24,6 +24,7 @@ import UpdatePasswordFormCurrentUser from './UpdatePasswordFormCurrentUser';
 import CloseSessionButton from './CloseSessionButton';
 import CookieMessage from './CookieMessage';
 import MessagesView from './MessagesView';
+import ChatChannels from './ChatChannels';
 import { authentication } from './Logical/Authentication';
 
 const routes = [
@@ -108,6 +109,10 @@ if (authentication.authenticated()) {
   routes.push({
     path: "/recipes/:id/:name/edit", element: <RecipeForm />
   });
+
+  routes.push({
+    path: "/chatchannels", element: <ChatChannels />
+  });
 }
 const router = createBrowserRouter(routes);
 
@@ -135,13 +140,17 @@ root.render(
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/chatchannels">Chat: Channels</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/products">Products</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
                 </li>
                 {
-                  (authentication.GetCurrentRoleId() == 1)
+                  // eslint-disable-next-line eqeqeq
+                  (authentication.GetCurrentRoleId() == 1) //just admin
                   ?
                   <>
                       <li class="nav-item">
