@@ -70,13 +70,11 @@ function ChatChannels() {
         window.location.href = `/ChatChannels/create`;
     }
 
-    //string
-    function setOnListHtml(selectListId, valueClientId) {
-        //get from API list
-
-
-
-        //set with javascript in selectListId list
+    function ChooseIfOption(companyid) {
+        if (companyid === companyId)
+            return "selected";
+        else
+            return "";
     }
 
     function GoToView(chatChannel) {
@@ -156,7 +154,14 @@ function ChatChannels() {
                                 id="companiesList"
                                 value={companyId}
                                 onChange={e => setCompanyId(e.target.value)}>
-                                <option value="0">Load from API DEV</option>
+                                <option value="0">Choose...</option>
+                                {
+                                    companies.map(company => (
+                                        <option value={company.id} selected={ChooseIfOption(company.id)}>
+                                            {company.name}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                 }
