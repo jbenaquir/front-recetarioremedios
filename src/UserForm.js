@@ -274,7 +274,7 @@ function UserForm() {
                     </div>
                     {
                         (!authentication.authenticated()
-                        || authentication.GetCurrentRoleId() !== 1)
+                        || authentication.IsAdmin())
                             ?
                             <></>
                             :

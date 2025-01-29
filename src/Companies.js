@@ -2,59 +2,62 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
 
-function Users() {
-    const [users, setUsers] = useState([]);
-    const [userSearch, setUserSearch] = useState('');
+function Companies() {
+    const [companies, setCompanies] = useState([]);
+    const [companySearch, setCompanySearch] = useState('');
 
-    function GetUsers() {
-        fetch('https://localhost:7222/api/Users/search',
+    useEffect(() => {
+        if(!authentication.IsAdmin()){
+            window.location.href = `/404`;
+        }
+
+        Search();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [companySearch]);
+
+    function GetCompanies() {
+        fetch('https://localhost:7222/api/companies/search',
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
-                setUsers(data);
+                setCompanies(data);
             })
-            .catch((error) => console.log("Something happened getting users: " + error));
+            .catch((error) => console.log("Something happened getting companies: " + error));
     }
 
     //loads when component mounts
     useEffect(() => {
         const fetchData = async () => {
-            GetUsers();
+            GetCompanies();
         }
 
         fetchData();
     }, []);
 
-    useEffect(() => {
-        Search();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userSearch]);
-
     function GoToCreate() {
-        const returnUrl = `/users`;
+        const returnUrl = `/companies`;
 
-        window.location.href = `/users/create?returnUrl=${returnUrl}`;
+        window.location.href = `/companies/create?returnUrl=${returnUrl}`;
     }
 
-    function GoToView(user) {
-        console.log(`Go To View`);
-        window.location.href = `/users/${user.id}/view`;
+    function GoToView(company) {
+        window.location.href = `/companies/${company.id}/view`;
     }
 
-    function GoToModify(user) {
-        const returnUrl = `/users`;
+    function GoToModify(company) {
+        const returnUrl = `/companies`;
 
-        window.location.href = `/users/${user.id}/edit?returnUrl=${returnUrl}`;
+        window.location.href = `/companies/${company.id}/edit?returnUrl=${returnUrl}`;
     }
 
-    function GoToDelete(user) {
-        if (!window.confirm(`Está a punto de borrar user ${user.name}`))
+    function GoToDelete(company) {
+        if (!window.confirm(`Está a punto de borrar company ${company.name}`))
             return;
 
-        fetch(`https://localhost:7222/api/Users/${user.id}`,
+        fetch(`https://localhost:7222/api/companies/${company.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -63,43 +66,43 @@ function Users() {
                 if (response.status === 200)
                     Search();
             })
-            .catch((error) => console.log("Something happened deleting user: " + error));
+            .catch((error) => console.log("Something happened deleting company: " + error));
     }
 
 
-    function GoToChat(user) {
-        if (!window.confirm(`Está a punto de text to userName: ${user.name}`))
+    function GoToChat(company) {
+        if (!window.confirm(`Está a punto de text to company: ${company.name}`))
             return;
 
-        window.location.href = `/chat/chatof${user.name}-${user.id}`;
+        window.location.href = `/chat/chatof${company.name}-${company.id}`;
     }
 
     function OnChangeSearch(e) {
         const searchValue = e.currentTarget.value;
         console.log(searchValue);
 
-        setUserSearch(searchValue);
+        setCompanySearch(searchValue);
     }
 
     function Search() {
-        const searchValue = userSearch;
+        const searchValue = companySearch;
 
-        fetch(`https://localhost:7222/api/Users/search/${searchValue}`,
+        fetch(`https://localhost:7222/api/companies/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
-                setUsers(data);
+                setCompanies(data);
             })
-            .catch((error) => console.log("Something happened getting users: " + error));
+            .catch((error) => console.log("Something happened getting companies: " + error));
     }
 
     return (
         <div class="grid">
             <div class="row" style={{ margin: "20px" }}>
-                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Users</h1>
+                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Companies</h1>
                 <div class="col col-3">
                     <button
                         class="btn btn-primary"
@@ -125,27 +128,26 @@ function Users() {
             <div>
                 <table style={{ margin: "0px auto" }}>
                     <tbody>
-                        {users.length === 0 &&
+                        {companies.length === 0 &&
                             <tr>
                                 <td colSpan={2}>There are no elements to show</td>
                             </tr>}
-                        {users.map(user => (
-                            <tr key={user.id}>
+                        {companies.map(company => (
+                            <tr key={company.id}>
                                 <td style={{ textAlign: "center" }}>
-                                    {user.name}
+                                    {company.name}
                                 </td>
                                 <td style={{ textAlign: "center" }}>
                                     <>
                                     {
-                                        (authentication.IsAdmin() 
-                                        || authentication.IsCompanyOwner())
+                                        (authentication.IsAdmin())
                                             ?
                                             <>
                                                 <button
                                                     style={{ margin: "5px", minWidth: "62px" }}
                                                     class="btn btn-primary"
                                                     title="Ver"
-                                                    onClick={() => GoToView(user)}>
+                                                    onClick={() => GoToView(company)}>
                                                     <i class="bi-eye"></i>
                                                     <div>
                                                         Ver
@@ -155,7 +157,7 @@ function Users() {
                                                     style={{ margin: "5px" }}
                                                     class="btn btn-primary"
                                                     title="Modificar"
-                                                    onClick={() => GoToModify(user)}>
+                                                    onClick={() => GoToModify(company)}>
                                                     <i class="bi-pencil"></i>
                                                     <div>Modificar</div>
                                                 </button>
@@ -163,7 +165,7 @@ function Users() {
                                                     style={{ margin: "5px" }}
                                                     class="btn btn-danger"
                                                     title="Eliminar"
-                                                    onClick={() => GoToDelete(user)}>
+                                                    onClick={() => GoToDelete(company)}>
                                                     <i class="bi-trash"></i>
                                                     <div>
                                                         Eliminar
@@ -180,7 +182,7 @@ function Users() {
                                         style={{ margin: "5px" }}
                                         class="btn btn-blue"
                                         title="Chat"
-                                        onClick={() => GoToChat(user)}>
+                                        onClick={() => GoToChat(company)}>
                                         <i class="bi-chat"></i>
                                         <div>
                                             Messaje
@@ -196,4 +198,4 @@ function Users() {
     )
 }
 
-export default Users;
+export default Companies;

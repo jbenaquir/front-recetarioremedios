@@ -12,6 +12,30 @@ class Authentication {
         return null;
     };
 
+    IsAdmin = () => {
+        const token = this.GetToken();
+
+        if (token != null)
+        {
+            // eslint-disable-next-line eqeqeq
+            return token.roleId == 1;
+        }
+
+        return false;
+    };
+
+    IsCompanyOwner = () => {
+        const token = this.GetToken();
+
+        if (token != null)
+        {
+            // eslint-disable-next-line eqeqeq
+            return token.roleId == 3; //check with api getting what is the id for COMPANY_OWNER
+        }
+
+        return false;
+    };
+
     GetCurrentUserId = () => {
         const token = this.GetToken();
 

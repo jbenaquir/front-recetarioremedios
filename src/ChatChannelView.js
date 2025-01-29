@@ -4,24 +4,24 @@ import { authentication } from './Logical/Authentication';
 
 function ProductView() {
     const { id } = useParams();
-    const [user, setUser] = useState({});
+    const [chatChannel, setChatchannel] = useState({});
 
-    function GoToUpdatePassword() {
-        const returnUrl = `/users/${id}/view`;
-        window.location.href = `/users/${id}/updatepassword?returnUrl=${returnUrl}`;
+    function GoToChatChannelSessions() {
+        const returnUrl = `/chatChannels/${id}/view`;
+        window.location.href = `/chatChannelsSessions/${id}?returnUrl=${returnUrl}`;
     }
 
     function GetUser(id) {
-        fetch(`https://localhost:7222/api/Users/${id}`,
+        fetch(`https://localhost:7222/api/ChatChannels/getwithid/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
-                setUser(data);
+                setChatchannel(data);
             })
-            .catch((error) => console.log("Something happened getting user: " + error));
+            .catch((error) => console.log("Something happened getting chatchannel: " + error));
     }
 
     useEffect(() => {
@@ -31,13 +31,9 @@ function ProductView() {
 
     return (
         <div>
-            <h1>User: </h1>
+            <h1>Chat Channel: </h1>
             <p>
-                {user.name}
-            </p>
-            <h3>Role:</h3>
-            <p>
-                {user.roleName}
+                {chatChannel.name}
             </p>
             <p>
                 <button
@@ -46,8 +42,8 @@ function ProductView() {
                         "margin-right": "10px", "margin-left": "10px"
                     }}
                     class="btn btn-primary col col-md-auto"
-                    onClick={GoToUpdatePassword}>
-                    Update Password
+                    onClick={GoToChatChannelSessions}>
+                    View Channel Sessions
                 </button>
             </p>
         </div>

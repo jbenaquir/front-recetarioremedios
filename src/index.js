@@ -15,6 +15,9 @@ import Recipes from './Recipes';
 import RecipeView from './RecipeView';
 import RecipeForm from './RecipeForm';
 import Users from './Users';
+import Companies from './Companies';
+import CompanyForm from './CompanyForm';
+import CompanyView from './CompanyView';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import MyProfile from './MyProfile';
 import UserView from './UserView';
@@ -25,6 +28,8 @@ import CloseSessionButton from './CloseSessionButton';
 import CookieMessage from './CookieMessage';
 import MessagesView from './MessagesView';
 import ChatChannels from './ChatChannels';
+import ChatChannelForm from './ChatChannelForm';
+import ChatChannelView from './ChatChannelView';
 import { authentication } from './Logical/Authentication';
 
 const routes = [
@@ -113,7 +118,40 @@ if (authentication.authenticated()) {
   routes.push({
     path: "/chatchannels", element: <ChatChannels />
   });
+
+  routes.push({
+    path: "/chatchannels/create", element: <ChatChannelForm />
+  });
+
+  routes.push({
+    path: "/chatchannels/:id/edit", element: <ChatChannelForm />
+  });
+
+  routes.push({
+    path: "/chatchannels/:id/view", element: <ChatChannelView />
+  });
 }
+
+if (authentication.authenticated() && authentication.IsAdmin()) {
+  routes.push({
+    path: "/companies/", element: <Companies />
+  });
+
+  
+  
+  routes.push({
+    path: "/companies/create", element: <CompanyForm />
+  });
+  
+  routes.push({
+    path: "/companies/:id/edit", element: <CompanyForm />
+  });
+
+  routes.push({
+    path: "/companies/:id/view", element: <CompanyView />
+  });
+}
+
 const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -149,12 +187,22 @@ root.render(
                   <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
                 </li>
                 {
-                  // eslint-disable-next-line eqeqeq
-                  (authentication.GetCurrentRoleId() == 1) //just admin
+                  (authentication.IsAdmin() || authentication.IsCompanyOwner()) 
                   ?
                   <>
                       <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/users">Users</a>
+                      </li>
+                    </>
+                  :
+                    <></>
+                }
+                {
+                  (authentication.IsAdmin()) 
+                  ?
+                  <>
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/companies">Companies</a>
                       </li>
                     </>
                   :

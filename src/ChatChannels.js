@@ -6,6 +6,7 @@ function ChatChannels() {
     const [ChatChannels, setChatChannels] = useState([]);
     const [search, setSearch] = useState('');
     const [companyId, setCompanyId] = useState(0);
+    const [companies, setCompanies] = useState([]);
 
     function GetChatChannels() {
         fetch(`https://localhost:7222/api/ChatChannels/search/${companyId}`,
@@ -20,7 +21,19 @@ function ChatChannels() {
             .catch((error) => console.log("Something happened getting ChatChannels: " + error));
     }
 
-    
+    function GetCompanies() {
+        fetch(`https://localhost:7222/api/Companies/search`,
+            {
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
+            })
+            .then(response => response.json())
+            .then(data => {
+                setCompanies(data);
+            })
+            .catch((error) => console.log("Something happened getting Companies: " + error));
+    }
+
     function Search() {
         const searchValue = search;
 
@@ -40,8 +53,9 @@ function ChatChannels() {
     useEffect(() => {
         const fetchData = async () => {
             GetChatChannels();
+            GetCompanies();
         }
-        
+
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -58,11 +72,11 @@ function ChatChannels() {
 
     //string
     function setOnListHtml(selectListId, valueClientId) {
-//get from API list
+        //get from API list
 
 
 
-//set with javascript in selectListId list
+        //set with javascript in selectListId list
     }
 
     function GoToView(chatChannel) {
@@ -77,7 +91,7 @@ function ChatChannels() {
     }
 
     function GoToDelete(chatChannel) {
-        if (!window.confirm(`Está a punto de borrar user ${chatChannel.name}`))
+        if (!window.confirm(`Está a punto de borrar chat channel${chatChannel.name}`))
             return;
 
         console.log(`Delete Product Id: ${chatChannel.id}`);
@@ -124,18 +138,28 @@ function ChatChannels() {
                         </div>
                     </button>
                 </div>
-                <div class="col col-3">
-                    
-                    <div>
-                        <label for="clientList">
-                            Client: (just for admin)
-                        </label>
-                    </div>
-                    <select name="companiesList" id="companiesList" value={companyId} onChange={setOnListHtml("companiesList", companyId)}>
-                        <option value="0">Load from API DEV</option>
-                    </select>
-                    
-                </div>
+                {
+                    (!authentication.authenticated()
+                        || !authentication.IsAdmin())
+                        ?
+                        <></>
+                        :
+                        <div class="col col-3">
+                            <div>
+                                <label for="clientList">
+                                    Client:
+                                </label>
+                            </div>
+                            <select
+                                name="companiesList"
+                                class="form-control"
+                                id="companiesList"
+                                value={companyId}
+                                onChange={e => setCompanyId(e.target.value)}>
+                                <option value="0">Load from API DEV</option>
+                            </select>
+                        </div>
+                }
                 <div class="input-group" style={{ "margin": "20px 0 20px 0" }}>
                     <span class="input-group-text" id="basic-addon1">
                         <i class="bi-search"></i>
@@ -160,42 +184,42 @@ function ChatChannels() {
                                 </td>
                                 <td style={{ textAlign: "center" }}>
                                     <>
-                                    {
-                                        (authentication.GetCurrentRoleId() == 1)
-                                            ?
-                                            <>
-                                                <button
-                                                    style={{ margin: "5px", minWidth: "62px" }}
-                                                    class="btn btn-primary"
-                                                    title="Ver"
-                                                    onClick={() => GoToView(user)}>
-                                                    <i class="bi-eye"></i>
-                                                    <div>
-                                                        Ver
-                                                    </div>
-                                                </button>
-                                                <button
-                                                    style={{ margin: "5px" }}
-                                                    class="btn btn-primary"
-                                                    title="Modificar"
-                                                    onClick={() => GoToModify(user)}>
-                                                    <i class="bi-pencil"></i>
-                                                    <div>Modificar</div>
-                                                </button>
-                                                <button
-                                                    style={{ margin: "5px" }}
-                                                    class="btn btn-danger"
-                                                    title="Eliminar"
-                                                    onClick={() => GoToDelete(user)}>
-                                                    <i class="bi-trash"></i>
-                                                    <div>
-                                                        Eliminar
-                                                    </div>
-                                                </button>
-                                            </>
-                                            :
-                                            <></>
-                                    }
+                                        {
+                                            (authentication.GetCurrentRoleId() == 1)
+                                                ?
+                                                <>
+                                                    <button
+                                                        style={{ margin: "5px", minWidth: "62px" }}
+                                                        class="btn btn-primary"
+                                                        title="Ver"
+                                                        onClick={() => GoToView(user)}>
+                                                        <i class="bi-eye"></i>
+                                                        <div>
+                                                            Ver
+                                                        </div>
+                                                    </button>
+                                                    <button
+                                                        style={{ margin: "5px" }}
+                                                        class="btn btn-primary"
+                                                        title="Modificar"
+                                                        onClick={() => GoToModify(user)}>
+                                                        <i class="bi-pencil"></i>
+                                                        <div>Modificar</div>
+                                                    </button>
+                                                    <button
+                                                        style={{ margin: "5px" }}
+                                                        class="btn btn-danger"
+                                                        title="Eliminar"
+                                                        onClick={() => GoToDelete(user)}>
+                                                        <i class="bi-trash"></i>
+                                                        <div>
+                                                            Eliminar
+                                                        </div>
+                                                    </button>
+                                                </>
+                                                :
+                                                <></>
+                                        }
                                     </>
                                 </td>
                                 <td style={{ textAlign: "center" }}>
