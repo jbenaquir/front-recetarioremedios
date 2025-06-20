@@ -39,7 +39,7 @@ function CompanyForm() {
     function GetCompany(id) {
         console.log("load user id:" + id);
 
-        fetch(`https://localhost:7222/api/companies/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -86,7 +86,7 @@ function CompanyForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/companies/${saveType}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

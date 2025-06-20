@@ -47,7 +47,7 @@ function UpdatePasswordForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/users/updatePassWord`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/users/updatePassWord`,
             {
                 method: 'POST',
                 headers: headers,

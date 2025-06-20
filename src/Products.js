@@ -7,7 +7,7 @@ function Products() {
     const [productSearch, setProductSearch] = useState('');
 
     function GetProducts() {
-        fetch('https://localhost:7222/api/Products/search',
+        fetch('https://bnetremedios.azurewebsites.net/api/Products/search',
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -53,7 +53,7 @@ function Products() {
             return;
 
         console.log(`Delete Product Id: ${product.id}`);
-        fetch(`https://localhost:7222/api/Products/${product.id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${product.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -75,7 +75,7 @@ function Products() {
     function Search() {
         const searchValue = productSearch;
 
-        fetch(`https://localhost:7222/api/Products/search/${searchValue}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Products/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

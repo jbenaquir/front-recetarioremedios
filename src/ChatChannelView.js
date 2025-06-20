@@ -12,7 +12,7 @@ function ProductView() {
     }
 
     function GetUser(id) {
-        fetch(`https://localhost:7222/api/ChatChannels/getwithid/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/getwithid/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

@@ -66,7 +66,7 @@ function UserForm() {
     }
 
     function GetRoles() {
-        fetch(`https://localhost:7222/api/Roles/search`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Roles/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -81,7 +81,7 @@ function UserForm() {
     function GetUser(id) {
         console.log("load user id:" + id);
 
-        fetch(`https://localhost:7222/api/Users/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -150,7 +150,7 @@ function UserForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/Users/${saveType}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

@@ -13,7 +13,7 @@ function CloseSessionButton() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        return fetch(`https://localhost:7222/api/UserTokens/finishSession/`,
+        return fetch(`https://bnetremedios.azurewebsites.net/api/UserTokens/finishSession/`,
             {
                 method: 'POST',
                 headers: headers,

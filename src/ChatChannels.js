@@ -9,7 +9,7 @@ function ChatChannels() {
     const [companies, setCompanies] = useState([]);
 
     function GetChatChannels() {
-        fetch(`https://localhost:7222/api/ChatChannels/search/${companyId}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/search/${companyId}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -22,7 +22,7 @@ function ChatChannels() {
     }
 
     function GetCompanies() {
-        fetch(`https://localhost:7222/api/Companies/search`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Companies/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -37,7 +37,7 @@ function ChatChannels() {
     function Search() {
         const searchValue = search;
 
-        fetch(`https://localhost:7222/api/ChatChannels/search/${companyId}/${searchValue}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/search/${companyId}/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -93,7 +93,7 @@ function ChatChannels() {
             return;
 
         console.log(`Delete Product Id: ${chatChannel.id}`);
-        fetch(`https://localhost:7222/api/ChatChannels/${chatChannel.id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/${chatChannel.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()

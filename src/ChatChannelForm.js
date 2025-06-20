@@ -46,7 +46,7 @@ function ChatChannelsForm() {
     }
 
     function GetCompanies() {
-        fetch(`https://localhost:7222/api/Companies/search`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Companies/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -61,7 +61,7 @@ function ChatChannelsForm() {
     function GetChatChannel(id) {
         console.log("load ChatChannel id:" + id);
 
-        fetch(`https://localhost:7222/api/ChatChannels/getwithid/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/getwithid/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -123,7 +123,7 @@ function ChatChannelsForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/ChatChannels/${saveType}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

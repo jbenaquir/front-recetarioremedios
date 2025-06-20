@@ -5,7 +5,7 @@ function RecipeProductsView ({recipeId}) {
     const [products, setRecipes] = useState([]);
 
     function GetProducts(){
-        fetch(`https://localhost:7222/api/RecipeProducts/getByRecipe/${recipeId}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/RecipeProducts/getByRecipe/${recipeId}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

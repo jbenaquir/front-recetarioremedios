@@ -21,7 +21,7 @@ function MessagesView() {
 
     const GetMessagesFromServer = () => {
         if (channelsessionId) {
-            fetch(`https://localhost:7222/api/ChatMessages/get/${channelsessionId}`,
+            fetch(`https://bnetremedios.azurewebsites.net/api/ChatMessages/get/${channelsessionId}`,
                 {
                     method: 'GET',
                     headers: authentication.GetAuthorizationHeaders()
@@ -143,7 +143,7 @@ function MessagesView() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/ChatMessages/send`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/ChatMessages/send`,
             {
                 method: 'POST',
                 headers: headers,

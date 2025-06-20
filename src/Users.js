@@ -7,7 +7,7 @@ function Users() {
     const [userSearch, setUserSearch] = useState('');
 
     function GetUsers() {
-        fetch('https://localhost:7222/api/Users/search',
+        fetch('https://bnetremedios.azurewebsites.net/api/Users/search',
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -54,7 +54,7 @@ function Users() {
         if (!window.confirm(`Está a punto de borrar user ${user.name}`))
             return;
 
-        fetch(`https://localhost:7222/api/Users/${user.id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${user.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -84,7 +84,7 @@ function Users() {
     function Search() {
         const searchValue = userSearch;
 
-        fetch(`https://localhost:7222/api/Users/search/${searchValue}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

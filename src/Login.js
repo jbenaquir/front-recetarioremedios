@@ -55,7 +55,7 @@ function Login() {
             password: password
         }
 
-        return fetch(`https://localhost:7222/api/UserTokens/checkPassWord/`,
+        return fetch(`https://bnetremedios.azurewebsites.net/api/UserTokens/checkPassWord/`,
             {
                 method: 'POST',
                 headers: {

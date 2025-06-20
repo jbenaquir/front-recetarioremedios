@@ -4,7 +4,7 @@ import { authentication } from './Logical/Authentication';
 
 function UserForm() {
     const { id } = useParams();
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -23,7 +23,9 @@ function UserForm() {
             GetRoles();
         }
         
+        // eslint-disable-next-line eqeqeq
         if (currentUserId != id 
+            // eslint-disable-next-line eqeqeq
             && roleId != 1)
         {
             window.location.href = "/";
@@ -72,7 +74,7 @@ function UserForm() {
     }
 
     function GetRoles() {
-        fetch(`https://localhost:7222/api/Roles/search`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Roles/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -87,14 +89,14 @@ function UserForm() {
     function GetUser(id) {
         console.log("load user id:" + id);
 
-        fetch(`https://localhost:7222/api/Users/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
             })
             .then(response => response.json())
             .then(data => {
-                setName(data.name);
+                setUsername(data.name);
                 setRoleId(data.roleId);
             })
             .catch((error) => console.log("Something happened getting user: " + error));
@@ -103,9 +105,15 @@ function UserForm() {
     function Verify() {
         let validationErrors = "Verify:";
 
-        if (name === "") {
-            validationErrors += "\n- Fill name value";
+        //username check
+        if (username === "") {
+            validationErrors += "\n- Fill Username value";
         }
+
+        if (username.indexOf(" ") !== -1) {
+            validationErrors += "\n- Username should not have spaces.";
+        }
+        //username check
 
         if (!id && password === "") {
             validationErrors += "\n- Enter password";
@@ -135,7 +143,7 @@ function UserForm() {
         }
         
         let user = {
-            name: name,
+            name: username,
             password: password,
             roleId: roleId,
             email: email,
@@ -157,7 +165,7 @@ function UserForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/Users/${saveType}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,
@@ -200,14 +208,14 @@ function UserForm() {
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            * Name
+                            * Username
                         </label>
                         <input
                             class="form-control"
                             name="name"
-                            value={name}
+                            value={username}
                             onKeyDown={e => PreventEnterWrongName(e)}
-                            onChange={e => setName(e.target.value)}
+                            onChange={e => setUsername(e.target.value)}
                             maxLength={100} />
                     </div>
                     <div class="col-sm-10">

@@ -16,7 +16,7 @@ function Companies() {
     }, [companySearch]);
 
     function GetCompanies() {
-        fetch('https://localhost:7222/api/companies/search',
+        fetch('https://bnetremedios.azurewebsites.net/api/companies/search',
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -57,7 +57,7 @@ function Companies() {
         if (!window.confirm(`Está a punto de borrar company ${company.name}`))
             return;
 
-        fetch(`https://localhost:7222/api/companies/${company.id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${company.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -87,7 +87,7 @@ function Companies() {
     function Search() {
         const searchValue = companySearch;
 
-        fetch(`https://localhost:7222/api/companies/search/${searchValue}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/companies/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

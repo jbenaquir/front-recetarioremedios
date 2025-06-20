@@ -7,7 +7,7 @@ function ProductView() {
     const [product, setProduct] = useState({});
 
     function GetProduct(id) {
-        fetch(`https://localhost:7222/api/Products/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

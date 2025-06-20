@@ -6,7 +6,7 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
     const [recipeProducts, setRecipeProducts] = useState([]);
 
     function GetProducts(){
-        fetch(`https://localhost:7222/api/Products/search`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Products/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -21,7 +21,7 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
     function GetProductsByRecipe(){
         if(!recipeId) return;
 
-        fetch(`https://localhost:7222/api/RecipeProducts/getByRecipe/${recipeId}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/RecipeProducts/getByRecipe/${recipeId}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

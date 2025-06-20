@@ -7,7 +7,7 @@ function CompanyView() {
     const [company, setCompany] = useState({});
 
     function GetCompany(id) {
-        fetch(`https://localhost:7222/api/companies/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

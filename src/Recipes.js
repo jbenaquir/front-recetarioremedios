@@ -7,7 +7,7 @@ function Recipes() {
     const [recipeSearch, setRecipeSearch] = useState('');
 
     function GetRecipes() {
-        fetch('https://localhost:7222/api/Recipes/search',
+        fetch('https://bnetremedios.azurewebsites.net/api/Recipes/search',
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -53,7 +53,7 @@ function Recipes() {
             return;
 
         console.log(`Delete Recipe Id: ${recipe.id}`);
-        fetch(`https://localhost:7222/api/Recipes/${recipe.id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/${recipe.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -75,7 +75,7 @@ function Recipes() {
     function Search() {
         const searchValue = recipeSearch;
 
-        fetch(`https://localhost:7222/api/Recipes/search/${searchValue}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

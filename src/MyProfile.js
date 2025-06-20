@@ -28,7 +28,7 @@ function ProductView() {
     }
 
     function GetUser(id) {
-        fetch(`https://localhost:7222/api/Users/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

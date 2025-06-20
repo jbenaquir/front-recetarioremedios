@@ -9,7 +9,7 @@ function ProductForm() {
     const [nutrients, setNutrients] = useState('');
 
     function GetProduct(id) {
-        fetch(`https://localhost:7222/api/Products/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -72,7 +72,7 @@ function ProductForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
         
-        fetch(`https://localhost:7222/api/Products/${saveType}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

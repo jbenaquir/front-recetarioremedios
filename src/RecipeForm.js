@@ -11,7 +11,7 @@ function RecipeForm() {
     const [products, setProducts] = useState([]);
 
     function GetRecipe(id) {
-        fetch(`https://localhost:7222/api/Recipes/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -77,7 +77,7 @@ function RecipeForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://localhost:7222/api/Recipes/${saveType}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,
@@ -97,7 +97,7 @@ function RecipeForm() {
     headers.append("Content-Type", "application/json");
 
     function SaveProducts() {
-        fetch(`https://localhost:7222/api/RecipeProducts/saveForRecipe/${id}`,
+        fetch(`https://bnetremedios.azurewebsites.net/api/RecipeProducts/saveForRecipe/${id}`,
             {
                 method: 'POST',
                 headers: headers,
