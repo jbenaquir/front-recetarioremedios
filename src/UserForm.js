@@ -12,33 +12,32 @@ function UserForm() {
     const [roleId, setRoleId] = useState('');
     const [roles, setRoles] = useState([]);
     const [returnUrl, setReturnUrl] = useState('');
-    
+
     useEffect(() => {
         LoadReturnUrl();
 
         let currentUserId = authentication.GetCurrentUserId();
 
         let roleId = authentication.GetCurrentRoleId();
-        if(roleId === 1){
+        if (roleId === 1) {
             GetRoles();
         }
-        
+
         // eslint-disable-next-line eqeqeq
-        if (currentUserId != id 
+        if (currentUserId != id
             // eslint-disable-next-line eqeqeq
-            && roleId != 1)
-        {
+            && roleId != 1) {
             window.location.href = "/";
         }
 
-        
+
         if (id) {
             GetUser(id);
         }
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    
+
     function LoadReturnUrl() {
         const params = new URLSearchParams(window.location.search);
 
@@ -53,7 +52,7 @@ function UserForm() {
             e.preventDefault();
         }
     }
-    
+
     function PreventEnterWrongEmail(e) {
         if (e.key === " ") {
             e.preventDefault();
@@ -123,7 +122,7 @@ function UserForm() {
             validationErrors += "\n- Password is not equal to repeat password";
         }
 
-        if(authentication.authenticated()){
+        if (authentication.authenticated()) {
             if (roleId === "-1" || roleId === (-1) || roleId === "") {
                 validationErrors += "\n- Choose role";
             }
@@ -141,16 +140,16 @@ function UserForm() {
         if (!Verify()) {
             return;
         }
-        
+
         let user = {
-            name: username,
+            username: username,
             password: password,
             roleId: roleId,
             email: email,
             phone: phone
         };
 
-        if(!authentication.authenticated()){
+        if (!authentication.authenticated()) {
             user.roleId = 2;
         }
 
@@ -172,19 +171,28 @@ function UserForm() {
                 body: JSON.stringify(user)
             })
             .then(response => {
-                if (response.status === 200){
-                    if(authentication.authenticated()){
-                        window.location.href = `/users`;
-                    } else {
-                        window.location.href = returnUrl;
-                    }
+                if (response.status === 200) {
+                    return response.json();
+                }
+            })
+            .then(payload => {
+                alert(payload.message);
+                
+                if (payload.error) {
+                    return;
+                }
+
+                if (authentication.authenticated()) {
+                    window.location.href = `/users`;
+                } else {
+                    window.location.href = returnUrl;
                 }
             })
             .catch((error) => console.log("Something happened saving user: " + error));
     }
 
     function Back() {
-        if(returnUrl != null){
+        if (returnUrl != null) {
             window.location.href = returnUrl;
         }
         else {
@@ -242,7 +250,7 @@ function UserForm() {
                             onChange={e => setPhone(e.target.value)}
                             maxLength={100} />
                     </div>
-                                        
+
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
                             * Password
@@ -282,13 +290,13 @@ function UserForm() {
                     </div>
                     {
                         (!authentication.authenticated()
-                        || authentication.IsAdmin())
+                            || authentication.IsAdmin())
                             ?
                             <></>
                             :
                             <div class="col-sm-10">
                                 <label class="col-sm-2 col-form-label">
-                                    Role 
+                                    Role
                                 </label>
                                 <select
                                     name="roleId"

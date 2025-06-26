@@ -4,7 +4,7 @@ import { authentication } from './Logical/Authentication';
 
 function MessagesView() {
     const { channelofUserId: userid, channelsessionId } = useParams();
-    const [MessageText, setMessageText] = useState('');
+    const [MessageText, setMessageText] = useState(''); 
     const [ChatMessage, setChatMessage] = useState('');
     const [Messages, setMessages] = useState([]);
     const currentUserId = authentication.GetCurrentUserId();
