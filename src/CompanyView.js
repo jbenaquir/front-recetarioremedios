@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function CompanyView() {
     const { id } = useParams();
     const [company, setCompany] = useState({});
 
     function GetCompany(id) {
-        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${id}`,
+        fetch(`${netapi}/companies/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

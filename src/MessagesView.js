@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function MessagesView() {
     const { channelofUserId: userid, channelsessionId } = useParams();
     const [MessageText, setMessageText] = useState(''); 
-    const [ChatMessage, setChatMessage] = useState('');
-    const [Messages, setMessages] = useState([]);
     const currentUserId = authentication.GetCurrentUserId();
 
     useEffect(() => {
@@ -21,7 +20,7 @@ function MessagesView() {
 
     const GetMessagesFromServer = () => {
         if (channelsessionId) {
-            fetch(`https://bnetremedios.azurewebsites.net/api/ChatMessages/get/${channelsessionId}`,
+            fetch(`${netapi}/ChatMessages/get/${channelsessionId}`,
                 {
                     method: 'GET',
                     headers: authentication.GetAuthorizationHeaders()
@@ -143,7 +142,7 @@ function MessagesView() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/ChatMessages/send`,
+        fetch(`${netapi}/ChatMessages/send`,
             {
                 method: 'POST',
                 headers: headers,

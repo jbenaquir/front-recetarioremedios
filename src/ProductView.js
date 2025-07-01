@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function ProductView() {
     const { id } = useParams();
     const [product, setProduct] = useState({});
 
     function GetProduct(id) {
-        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${id}`,
+        fetch(`${netapi}/Products/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

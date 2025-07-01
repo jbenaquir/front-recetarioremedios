@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function CompanyForm() {
     const { id } = useParams();
@@ -39,7 +40,7 @@ function CompanyForm() {
     function GetCompany(id) {
         console.log("load user id:" + id);
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${id}`,
+        fetch(`${netapi}/companies/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -86,7 +87,7 @@ function CompanyForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${saveType}`,
+        fetch(`${netapi}/companies/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

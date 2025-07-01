@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function Companies() {
     const [companies, setCompanies] = useState([]);
@@ -16,7 +17,7 @@ function Companies() {
     }, [companySearch]);
 
     function GetCompanies() {
-        fetch('https://bnetremedios.azurewebsites.net/api/companies/search',
+        fetch(`${netapi}/companies/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -57,7 +58,7 @@ function Companies() {
         if (!window.confirm(`Está a punto de borrar company ${company.name}`))
             return;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/companies/${company.id}`,
+        fetch(`${netapi}/companies/${company.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -87,7 +88,7 @@ function Companies() {
     function Search() {
         const searchValue = companySearch;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/companies/search/${searchValue}`,
+        fetch(`${netapi}/companies/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

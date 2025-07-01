@@ -1,13 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function Products() {
     const [products, setProducts] = useState([]);
     const [productSearch, setProductSearch] = useState('');
 
     function GetProducts() {
-        fetch('https://bnetremedios.azurewebsites.net/api/Products/search',
+        fetch(`${netapi}/Products/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

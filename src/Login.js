@@ -1,5 +1,6 @@
 import { authentication } from './Logical/Authentication';
 import { useState } from 'react';
+import netapi from './variables/apiurls';
 
 function Login() {
     const [name, setName] = useState('');
@@ -55,7 +56,7 @@ function Login() {
             password: password
         }
 
-        return fetch(`https://bnetremedios.azurewebsites.net/api/UserTokens/checkPassWord/`,
+        return fetch(`${netapi}/UserTokens/checkPassWord/`,
             {
                 method: 'POST',
                 headers: {
