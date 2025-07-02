@@ -1,6 +1,7 @@
 import { authentication } from './Logical/Authentication';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import netapi from './variables/apiurls';
 
 function UpdatePasswordForm() {
     const { id } = useParams();
@@ -46,7 +47,7 @@ function UpdatePasswordForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/users/updatePassWord`,
+        fetch(`${netapi}/users/updatePassWord`,
             {
                 method: 'POST',
                 headers: headers,

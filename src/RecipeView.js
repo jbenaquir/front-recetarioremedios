@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import RecipeProductsView from './RecipeProductsView';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function RecipeView() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState({});
 
     function GetRecipe(id) {
-        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/${id}`,
+        fetch(`${netapi}/Recipes/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -27,7 +28,7 @@ function RecipeView() {
 
     return (
         <div>
-            <h1>Receta: </h1>
+            <h1>Food script: </h1>
             <p>
                 {recipe.name}
             </p>
@@ -35,7 +36,7 @@ function RecipeView() {
             <p>
                 {recipe.description}
             </p>
-            <h3>Preparación:</h3>
+            <h3>Script steps:</h3>
             <p>
                 {recipe.preparation}
             </p>

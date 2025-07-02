@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function ChatChannelsForm() {
     const { id } = useParams();
@@ -46,7 +47,7 @@ function ChatChannelsForm() {
     }
 
     function GetCompanies() {
-        fetch(`https://bnetremedios.azurewebsites.net/api/Companies/search`,
+        fetch(`${netapi}/Companies/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -61,7 +62,7 @@ function ChatChannelsForm() {
     function GetChatChannel(id) {
         console.log("load ChatChannel id:" + id);
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/getwithid/${id}`,
+        fetch(`${netapi}/ChatChannels/getwithid/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -123,7 +124,7 @@ function ChatChannelsForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/${saveType}`,
+        fetch(`${netapi}/ChatChannels/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

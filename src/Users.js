@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function Users() {
     const [users, setUsers] = useState([]);
@@ -54,7 +55,7 @@ function Users() {
         if (!window.confirm(`Está a punto de borrar user ${user.name}`))
             return;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${user.id}`,
+        fetch(`${netapi}/Users/${user.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -84,7 +85,7 @@ function Users() {
     function Search() {
         const searchValue = userSearch;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/Users/search/${searchValue}`,
+        fetch(`${netapi}/Users/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

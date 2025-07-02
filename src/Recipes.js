@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function Recipes() {
     const [recipes, setRecipes] = useState([]);
@@ -53,7 +54,7 @@ function Recipes() {
             return;
 
         console.log(`Delete Recipe Id: ${recipe.id}`);
-        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/${recipe.id}`,
+        fetch(`${netapi}/Recipes/${recipe.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -75,7 +76,7 @@ function Recipes() {
     function Search() {
         const searchValue = recipeSearch;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/Recipes/search/${searchValue}`,
+        fetch(`${netapi}/Recipes/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -90,7 +91,7 @@ function Recipes() {
     return (
         <div class="grid">
             <div class="row" style={{ margin: "20px" }}>
-                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Recipes</h1>
+                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Food scripts</h1>
                 <div class="col col-3">
                     <button
                         class="btn btn-primary"

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function RecipeProductsCheck ({recipeId, sendProducts}) {
     const [products, setProducts] = useState([]);
     const [recipeProducts, setRecipeProducts] = useState([]);
 
     function GetProducts(){
-        fetch(`https://bnetremedios.azurewebsites.net/api/Products/search`,
+        fetch(`${netapi}/Products/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -21,7 +22,7 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
     function GetProductsByRecipe(){
         if(!recipeId) return;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/RecipeProducts/getByRecipe/${recipeId}`,
+        fetch(`${netapi}/RecipeProducts/getByRecipe/${recipeId}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

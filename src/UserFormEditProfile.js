@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function UserForm() {
     const [id, setId] = useState('');
@@ -66,7 +67,7 @@ function UserForm() {
     }
 
     function GetRoles() {
-        fetch(`https://bnetremedios.azurewebsites.net/api/Roles/search`,
+        fetch(`${netapi}/Roles/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -81,7 +82,7 @@ function UserForm() {
     function GetUser(id) {
         console.log("load user id:" + id);
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${id}`,
+        fetch(`${netapi}/Users/${id}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -150,7 +151,7 @@ function UserForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/Users/${saveType}`,
+        fetch(`${netapi}/Users/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

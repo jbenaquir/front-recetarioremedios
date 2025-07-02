@@ -54,7 +54,7 @@ function Products() {
             return;
 
         console.log(`Delete Product Id: ${product.id}`);
-        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${product.id}`,
+        fetch(`${netapi}/Products/${product.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
@@ -76,7 +76,7 @@ function Products() {
     function Search() {
         const searchValue = productSearch;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/Products/search/${searchValue}`,
+        fetch(`${netapi}/Products/search/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

@@ -73,7 +73,7 @@ function ProductForm() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
         
-        fetch(`https://bnetremedios.azurewebsites.net/api/Products/${saveType}`,
+        fetch(`${netapi}/Products/${saveType}`,
             {
                 method: 'POST',
                 headers: headers,

@@ -1,4 +1,5 @@
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function CloseSessionButton() {
     function SetTokenCookie(token, datefinish) {
@@ -13,7 +14,7 @@ function CloseSessionButton() {
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
 
-        return fetch(`https://bnetremedios.azurewebsites.net/api/UserTokens/finishSession/`,
+        return fetch(`${netapi}/UserTokens/finishSession/`,
             {
                 method: 'POST',
                 headers: headers,

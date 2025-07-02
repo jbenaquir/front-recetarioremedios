@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function ChatChannels() {
     const [ChatChannels, setChatChannels] = useState([]);
@@ -9,7 +10,7 @@ function ChatChannels() {
     const [companies, setCompanies] = useState([]);
 
     function GetChatChannels() {
-        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/search/${companyId}`,
+        fetch(`${netapi}/ChatChannels/search/${companyId}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -22,7 +23,7 @@ function ChatChannels() {
     }
 
     function GetCompanies() {
-        fetch(`https://bnetremedios.azurewebsites.net/api/Companies/search`,
+        fetch(`${netapi}/Companies/search`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -37,7 +38,7 @@ function ChatChannels() {
     function Search() {
         const searchValue = search;
 
-        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/search/${companyId}/${searchValue}`,
+        fetch(`${netapi}/ChatChannels/search/${companyId}/${searchValue}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()
@@ -71,6 +72,7 @@ function ChatChannels() {
     }
 
     function ChooseIfOption(companyid) {
+        // eslint-disable-next-line 
         if (companyid === companyId)
             return "selected";
         else
@@ -93,7 +95,7 @@ function ChatChannels() {
             return;
 
         console.log(`Delete Product Id: ${chatChannel.id}`);
-        fetch(`https://bnetremedios.azurewebsites.net/api/ChatChannels/${chatChannel.id}`,
+        fetch(`${netapi}/ChatChannels/${chatChannel.id}`,
             {
                 method: 'DELETE',
                 headers: authentication.GetAuthorizationHeaders()
