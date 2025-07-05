@@ -1,4 +1,4 @@
-import logo from './logo.png';
+// import logo from './logo.png';
 import './App.css';
 import { authentication } from './Logical/Authentication';
 
@@ -6,9 +6,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          This app was made to help persons and the medical assistance to cure them.
         </p>
         {
           !authentication.authenticated()

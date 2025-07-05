@@ -1,3 +1,4 @@
+//SCRIPTS
 import { useEffect, useState } from "react";
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';

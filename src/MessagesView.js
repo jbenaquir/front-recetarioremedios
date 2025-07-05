@@ -4,11 +4,18 @@ import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
 
 function MessagesView() {
+     // eslint-disable-next-line 
     const { channelofUserId: userid, channelsessionId } = useParams();
-    const [MessageText, setMessageText] = useState(''); 
+    const [MessageText, setMessageText] = useState('');
     const currentUserId = authentication.GetCurrentUserId();
 
     useEffect(() => {
+        const returnUrl = `/chat/${channelsessionId}`;
+
+        if (!authentication.authenticated()) {
+            return window.location = `/login?returnUrl=${returnUrl}`;
+        }
+
         GetMessagesTInit();
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
@@ -34,8 +41,7 @@ function MessagesView() {
                 })
                 .catch((error) => console.log("Something happened getting Message: " + error));
         }
-        else
-        {
+        else {
             window.location = "/"
         }
     }
@@ -43,13 +49,14 @@ function MessagesView() {
     const LoadMessagesInContainer = (data = []) => {
         let messagesDivs = '';
 
-        if(data == []) {
+         // eslint-disable-next-line 
+        if (data == []) {
             return;
         }
 
         data.forEach(message => {
-//left is me
-            if(message == null) {
+            //left is me
+            if (message == null) {
                 return;
             }
 
@@ -58,23 +65,23 @@ function MessagesView() {
             console.log("currentUserId" + currentUserId);
             console.log(message);
 
-            if (message.sentBy == currentUserId) {
+            if (message.sentBy === currentUserId) {
                 messageDirecction = "Right";
             }
 
             let containerMessage = document.getElementById(`containerMessage${messageDirecction}Sample`).cloneNode(true);
 
             containerMessage.id = "";
-            
+
             //if(messageDirecction == "Right"){
-                //(containerMessage.getElementsByClassName("sendBy")[0]).innerHTML = message.sentBy;
+            //(containerMessage.getElementsByClassName("sendBy")[0]).innerHTML = message.sentBy;
             //}
 
             (containerMessage.getElementsByClassName("messageText")[0]).innerHTML = message.messageText;
 
             const messageDate = message.sendAt.toString();
 
-            if(messageDate !== ""){
+            if (messageDate !== "") {
                 (containerMessage.getElementsByClassName("hour")[0]).innerHTML = new Date(message.sendAt.toString()).toDateString();
             }
 
@@ -95,7 +102,7 @@ function MessagesView() {
 
         setInterval(function () {
             UpdateMessages();
-        }, (secs * 1000 ));
+        }, (secs * 1000));
     }
 
     const StopGettingMessages = () => {
@@ -104,7 +111,9 @@ function MessagesView() {
     };
 
     const GetMessagesTInit = () => {
+        //UpdateMessages();
         intervalLoadMessageT();
+
         //filter for channelsessionId by param
     }
 
@@ -123,7 +132,7 @@ function MessagesView() {
             return;
         }
 
-        if (MessageText == '') {
+        if (MessageText === '') {
             alert('Message is empty');
             return;
         }
@@ -135,8 +144,8 @@ function MessagesView() {
             "channelSessionId": channelsessionId,
             "messageText": MessageText,
             "sentBy": userId.toString()
-          }
-          
+        }
+
         console.log(chatMessage);
 
         let headers = authentication.GetAuthorizationHeaders();
@@ -149,15 +158,15 @@ function MessagesView() {
                 body: JSON.stringify(chatMessage)
             })
             .then(response => {
-                
+
                 if (response.status === 200) {
                     alert('Sent.');
                     setMessageText('');
-                    
+
                     UpdateMessages();
                     return;
                 }
-                
+
                 if (response.status === 400) {
                     alert('ServerError 400');
                     setMessageText('');
@@ -232,105 +241,111 @@ function MessagesView() {
     }
 
     return (
-        <div style={{
-            "height": window.innerHeight
-        }}>
-            <div style={containerMessageStyle} class="containerMessageRight" id="containerMessageRightSample">
-                <div style={arrowsMessageTextStyle} className="arrowLeft">
-                    {"<"}
-                </div>
-                <div style={messageTextStyle}>
-                    <div class="messageText">
-                        Message Text Left
+        <>
+            {
+                authentication.authenticated()
+                &&
+                <div style={{
+                    "height": window.innerHeight
+                }}>
+                    <div style={containerMessageStyle} class="containerMessageRight" id="containerMessageRightSample">
+                        <div style={arrowsMessageTextStyle} className="arrowLeft">
+                            {"<"}
+                        </div>
+                        <div style={messageTextStyle}>
+                            <div class="messageText">
+                                Message Text Left
+                            </div>
+                            <div class="hour" style={hourStyle}>
+                                hour
+                            </div>
+                        </div>
                     </div>
-                    <div class="hour" style={hourStyle}>
-                        hour
+
+                    <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
+                        <div style={messageTextStyle}>
+                            <div class="messageText">
+                                Message Text Right
+                            </div>
+                            <div class="hour" style={hourStyle}>
+                                hour
+                            </div>
+                        </div>
+                        <div style={arrowsMessageTextStyle} className="arrowRight">
+                            {">"}
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
-                <div style={messageTextStyle}>
-                    <div class="messageText">
-                        Message Text Right
+                    <div style={containerMessagesStyle} class="containerMessages">
+
                     </div>
-                    <div class="hour" style={hourStyle}>
-                        hour
+
+                    <div style={
+                        {
+                            "position": "fixed",
+                            "z-index": 3,
+                            "bottom": "0px",
+                            "text-align": "center",
+                            "margin": "0 auto",
+                            "width": "auto"
+                        }
+                    }
+                    >
+                        <div>
+                            <input
+                                class="form-control"
+                                name="message"
+                                value={MessageText}
+                                onChange={e => setMessageText(e.target.value)}
+                                maxLength={100} />
+                        </div>
+                        <div style={chatButtonsContainerStyle}>
+                            <button
+                                style={{ margin: "5px" }}
+                                class="btn btn-blue"
+                                title="Send Text Message"
+                                onClick={() => SendMessage()}>
+                                <i class="bi-send"></i>
+                                <div>
+                                    Send
+                                </div>
+                            </button>
+                            <button
+                                style={{ margin: "5px" }}
+                                class="btn btn-blue"
+                                title="Send Text Message"
+                                onClick={() => UpdateMessages()}>
+                                <i class="bi-arrow-clockwise"></i>
+                                <div>
+                                    Get Messages updated
+                                </div>
+                            </button>
+                            <button
+                                style={{ margin: "5px", display: "none" }}
+                                class="btn btn-blue"
+                                title="Send Text Message"
+                                onClick={() => StopGettingMessages()}>
+                                <i class="bi-loading"></i>
+                                <div>
+                                    Turn off: Getting Messages
+                                </div>
+                            </button>
+                            <button
+                                style={{ margin: "5px", display: "none" }}
+                                class="btn btn-blue"
+                                title="Voice"
+                                onClick={() => NotImplemented()}>
+                                <i class="bi-mic"></i>
+                                <div>
+                                    Send Voice
+                                </div>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div style={arrowsMessageTextStyle} className="arrowRight">
-                    {">"}
-                </div>
-            </div>
 
-            <div style={containerMessagesStyle} class="containerMessages">
-
-            </div>
-
-            <div style={
-                {
-                    "position": "fixed",
-                    "z-index": 3,
-                    "bottom": "0px",
-                    "text-align": "center",
-                    "margin": "0 auto",
-                    "width": "auto"
-                }
+                </div >
             }
-            >
-                <div>
-                    <input
-                        class="form-control"
-                        name="message"
-                        value={MessageText}
-                        onChange={e => setMessageText(e.target.value)}
-                        maxLength={100} />
-                </div>
-                <div style={chatButtonsContainerStyle}>
-                    <button
-                        style={{ margin: "5px" }}
-                        class="btn btn-blue"
-                        title="Send Text Message"
-                        onClick={() => SendMessage()}>
-                        <i class="bi-send"></i>
-                        <div>
-                            Send
-                        </div>
-                    </button>
-                    <button
-                        style={{ margin: "5px" }}
-                        class="btn btn-blue"
-                        title="Send Text Message"
-                        onClick={() => UpdateMessages()}>
-                        <i class="bi-arrow-clockwise"></i>
-                        <div>
-                            Get Messages updated
-                        </div>
-                    </button>
-                    <button
-                        style={{ margin: "5px", display: "none" }}
-                        class="btn btn-blue"
-                        title="Send Text Message"
-                        onClick={() => StopGettingMessages()}>
-                        <i class="bi-loading"></i>
-                        <div>
-                            Turn off: Getting Messages
-                        </div>
-                    </button>
-                    <button
-                        style={{ margin: "5px" }}
-                        class="btn btn-blue"
-                        title="Voice"
-                        onClick={() => NotImplemented()}>
-                        <i class="bi-mic"></i>
-                        <div>
-                            Send Voice
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-        </div >
+        </>
     )
 }
 

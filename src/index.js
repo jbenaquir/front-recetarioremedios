@@ -46,6 +46,12 @@ routes.push({
   path: "/createAccount", element: <UserForm />
 });
 
+
+routes.push({
+  path: "/chat/:channelsessionId", element: <MessagesView />
+});
+
+
 if (authentication.authenticated()) {
   routes.push({
     path: "/users/:id/updatepassword", element: <UpdatePasswordForm />
@@ -59,9 +65,6 @@ if (authentication.authenticated()) {
     path: "/chatTo/:userid", element: <MessagesView />
   });
 
-  routes.push({
-    path: "/chat/:channelsessionId", element: <MessagesView />
-  });
 
   routes.push({
     path: "/users", element: <Users />
@@ -133,11 +136,11 @@ if (authentication.authenticated()) {
 }
 
 if (authentication.authenticated() && authentication.IsAdmin()) {
+  // here goes scrum for roles also mayb
+
   routes.push({
     path: "/companies/", element: <Companies />
   });
-
-  
   
   routes.push({
     path: "/companies/create", element: <CompanyForm />
@@ -184,7 +187,7 @@ root.render(
                   <a class="nav-link active" aria-current="page" href="/products">Products</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
+                  <a class="nav-link active" aria-current="page" href="/recipes">Scripts</a>
                 </li>
                 {
                   (authentication.IsAdmin() || authentication.IsCompanyOwner()) 

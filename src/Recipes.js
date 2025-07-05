@@ -1,3 +1,5 @@
+//SCRIPTS
+
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';

@@ -1,14 +1,31 @@
 import { authentication } from './Logical/Authentication';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import netapi from './variables/apiurls';
 
 function Login() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [returnUrl, setReturnUrl] = useState('');
 
-    if(authentication.authenticated()){
-        window.location.href = `/`;
+    useEffect(() => {
+        LoadReturnUrl();
+
+        if (authentication.authenticated()) {
+            window.location.href = `/`;
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    function LoadReturnUrl() {
+        const params = new URLSearchParams(window.location.search);
+
+        const _returnUrl = params.get('returnUrl');
+        if (_returnUrl !== null) {
+            setReturnUrl(_returnUrl);
+        }
     }
+
 
     function SetTokenCookie(token, datefinish) {
         const cookie = `token=${token};expires=${datefinish}`;
@@ -23,11 +40,16 @@ function Login() {
         const datefinish = new Date(Date.now() + 500 * 86400);
 
         SetTokenCookie(JSON.stringify(userToken), datefinish);
+        
+        if(returnUrl !== ""){
+            window.location.href = returnUrl;
+            return;
+        }
 
         window.location.href = `/`;
     }
 
-    function Verify(){
+    function Verify() {
         let validationErrors = "Verify:";
 
         if (name === "") {
@@ -37,7 +59,7 @@ function Login() {
         if (password === "") {
             validationErrors += "\n- Password is empty";
         }
-        
+
         if (validationErrors !== "Verify:") {
             window.alert(validationErrors);
             return false;
@@ -77,7 +99,7 @@ function Login() {
             .catch((error) => console.log("Something happened saving user: " + error));
     }
 
-    function GoToCreateAccount(){
+    function GoToCreateAccount() {
         const returnUrl = `/login`;
         window.location.href = `/createAccount?returnUrl=${returnUrl}`;
     }
@@ -89,7 +111,7 @@ function Login() {
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Name
+                            Username
                         </label>
                         <input
                             class="form-control"
@@ -123,11 +145,11 @@ function Login() {
                         onClick={Authenticate}>
                         <i style={{ marginRight: "6px" }} class="bi-rocket"></i>
                         <span>
-                            Log In
+                            Log In / Acceder
                         </span>
                     </button>
                     <div>
-                    -OR-
+                        -OR-
                     </div>
                     <button
                         style={{
@@ -138,7 +160,7 @@ function Login() {
                         onClick={GoToCreateAccount}>
                         <i style={{ marginRight: "6px" }} class="bi-person-fill"></i>
                         <span>
-                            Create Account
+                            Create Account / Crear cuenta
                         </span>
                     </button>
                 </div>
