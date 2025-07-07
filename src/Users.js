@@ -133,7 +133,7 @@ function Users() {
                         {users.map(user => (
                             <tr key={user.id}>
                                 <td style={{ textAlign: "center" }}>
-                                    {user.name}
+                                    {user.username}
                                 </td>
                                 <td style={{ textAlign: "center" }}>
                                     <>

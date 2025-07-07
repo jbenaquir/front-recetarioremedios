@@ -62,10 +62,9 @@ function MessagesView() {
 
             let messageDirecction = "Left";
 
-            console.log("currentUserId" + currentUserId);
-            console.log(message);
+            console.log("currentUserId:" + currentUserId);
 
-            if (message.sentBy === currentUserId) {
+            if (Number.parseInt(message.sentBy) === Number.parseInt(currentUserId)) {
                 messageDirecction = "Right";
             }
 
@@ -264,6 +263,9 @@ function MessagesView() {
 
                     <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
                         <div style={messageTextStyle}>
+                            <div>
+                                <b>Me:</b>
+                            </div>
                             <div class="messageText">
                                 Message Text Right
                             </div>
