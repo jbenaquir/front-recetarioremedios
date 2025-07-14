@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 // import logo from './logo.png';
 import './App.css';
 import { authentication } from './Logical/Authentication';
@@ -17,7 +22,7 @@ function App() {
             href="/login"
             rel="noopener noreferrer"
           >
-            Login
+            {langReference(GetLanguaje()).login}
           </a>
         }
       </header>

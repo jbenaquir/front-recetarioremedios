@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { authentication } from './Logical/Authentication';
 import { useEffect, useState } from 'react';
 import netapi from './variables/apiurls';
@@ -145,7 +150,7 @@ function Login() {
                         onClick={Authenticate}>
                         <i style={{ marginRight: "6px" }} class="bi-rocket"></i>
                         <span>
-                            Log In / Acceder
+                            {langReference(GetLanguaje()).login}
                         </span>
                     </button>
                     <div>
@@ -160,7 +165,7 @@ function Login() {
                         onClick={GoToCreateAccount}>
                         <i style={{ marginRight: "6px" }} class="bi-person-fill"></i>
                         <span>
-                            Create Account / Crear cuenta
+                            {langReference(GetLanguaje()).addAccount}
                         </span>
                     </button>
                 </div>

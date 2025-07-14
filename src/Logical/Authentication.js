@@ -65,6 +65,7 @@ class Authentication {
         return !cookieToken ? null : JSON.parse(cookieToken);
     };
 
+
     authenticated() {
         const token = this.GetToken();
 

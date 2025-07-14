@@ -31,10 +31,11 @@ import ChatChannels from './ChatChannels';
 import ChatChannelForm from './ChatChannelForm';
 import ChatChannelView from './ChatChannelView';
 import { authentication } from './Logical/Authentication';
+import LanguajePicker from './components/LanguajePicker'
 
 const routes = [
   {
-    path: "/", 
+    path: "/",
     element: <App />
   }];
 
@@ -141,11 +142,11 @@ if (authentication.authenticated() && authentication.IsAdmin()) {
   routes.push({
     path: "/companies/", element: <Companies />
   });
-  
+
   routes.push({
     path: "/companies/create", element: <CompanyForm />
   });
-  
+
   routes.push({
     path: "/companies/:id/edit", element: <CompanyForm />
   });
@@ -162,79 +163,86 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <nav class="navbar bg-primary fixed-top">
-      {
-        authentication.authenticated() &&
-        <div class="container-fluid" >
-          <a class="navbar-brand" href="/">RemeDios</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Curame</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              {/* Menu */}
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/chatchannels">Chat: Channels</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/products">Products</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/recipes">Scripts</a>
-                </li>
-                {
-                  (authentication.IsAdmin() || authentication.IsCompanyOwner()) 
-                  ?
-                  <>
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/users">Users</a>
-                      </li>
-                    </>
-                  :
-                    <></>
-                }
-                {
-                  (authentication.IsAdmin()) 
-                  ?
-                  <>
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/companies">Companies</a>
-                      </li>
-                    </>
-                  :
-                    <></>
-                }
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/myprofile">My Profile</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/updateprofile">Update profile</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/updatepassword">Update password</a>
-                </li>
-                <li class="nav-item">
-                  <CloseSessionButton />
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      }
+      <div class="container-fluid" >
+        <a class="navbar-brand" href="/">Curame</a>
+        <LanguajePicker />
+        {
+          authentication.authenticated() ?
+            <>
+              {/*Menu toggle button*/}
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Curame</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  {/* Menu */}
+                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/chatchannels">Chat: Channels</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/recipes">Scripts</a>
+                    </li>
+                    {
+                      (authentication.IsAdmin() || authentication.IsCompanyOwner())
+                        ?
+                        <>
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/users">Users</a>
+                          </li>
+                        </>
+                        :
+                        <></>
+                    }
+                    {
+                      (authentication.IsAdmin())
+                        ?
+                        <>
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/companies">Companies</a>
+                          </li>
+                        </>
+                        :
+                        <></>
+                    }
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/myprofile">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/updateprofile">Update profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/updatepassword">Update password</a>
+                    </li>
+                    <li class="nav-item">
+                      <CloseSessionButton />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </>
+            :
+            <></>
+        }
+        
+      </div>
     </nav>
     <div class="container-sm" style={{ paddingTop: "60px" }}>
       {/*jbenavides: This is a comment in a tag in React*/}
       <RouterProvider router={router} />
     </div>
     <CookieMessage />
-  </React.StrictMode>
+  </React.StrictMode >
 );
 
 // If you want to start measuring performance in your app, pass a function
