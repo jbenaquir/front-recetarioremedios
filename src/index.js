@@ -32,6 +32,10 @@ import ChatChannelForm from './ChatChannelForm';
 import ChatChannelView from './ChatChannelView';
 import { authentication } from './Logical/Authentication';
 import LanguajePicker from './components/LanguajePicker'
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 
 const routes = [
   {
@@ -182,16 +186,16 @@ root.render(
                   {/* Menu */}
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/">Home</a>
+                      <a class="nav-link active" aria-current="page" href="/">{langReference(GetLanguaje()).home}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/chatchannels">Chat: Channels</a>
+                      <a class="nav-link active" aria-current="page" href="/chatchannels">Chat:{langReference(GetLanguaje()).channel}s</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/products">Products</a>
+                      <a class="nav-link active" aria-current="page" href="/products">{langReference(GetLanguaje()).product}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/recipes">Scripts</a>
+                      <a class="nav-link active" aria-current="page" href="/recipes">{langReference(GetLanguaje()).scripts}</a>
                     </li>
                     {
                       (authentication.IsAdmin() || authentication.IsCompanyOwner())
@@ -209,20 +213,20 @@ root.render(
                         ?
                         <>
                           <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/companies">Companies</a>
+                            <a class="nav-link active" aria-current="page" href="/companies">{langReference(GetLanguaje()).Company}</a>
                           </li>
                         </>
                         :
                         <></>
                     }
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/myprofile">My Profile</a>
+                      <a class="nav-link active" aria-current="page" href="/myprofile">{langReference(GetLanguaje()).my} {langReference(GetLanguaje()).profile}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/updateprofile">Update profile</a>
+                      <a class="nav-link active" aria-current="page" href="/updateprofile">{langReference(GetLanguaje()).update} {langReference(GetLanguaje()).profile}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/updatepassword">Update password</a>
+                      <a class="nav-link active" aria-current="page" href="/updatepassword">{langReference(GetLanguaje()).update} {langReference(GetLanguaje()).password}</a>
                     </li>
                     <li class="nav-item">
                       <CloseSessionButton />

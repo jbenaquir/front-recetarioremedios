@@ -1,5 +1,10 @@
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 
 function CloseSessionButton() {
     function SetTokenCookie(token, datefinish) {
@@ -35,7 +40,7 @@ function CloseSessionButton() {
             class="btn col col-md-auto"
             onClick={FinishSession}>
             <span>
-                Close session
+                {langReference(GetLanguaje()).close} session
             </span>
             <i style={{ marginLeft: "6px" }} class="bi-power"></i>
         </button>

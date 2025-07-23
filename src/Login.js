@@ -105,14 +105,13 @@ function Login() {
     }
 
     function GoToCreateAccount() {
-        const returnUrl = `/login`;
-        window.location.href = `/createAccount?returnUrl=${returnUrl}`;
+        window.location.href = `/createAccount?returnUrl=/login`;
     }
 
     return (
         <div class="grid">
             <div class="row justify-content-start">
-                <h1>Authenticate</h1>
+                <h1>{langReference(GetLanguaje()).authenticate}</h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
@@ -129,7 +128,7 @@ function Login() {
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Password
+                            {langReference(GetLanguaje()).password}
                         </label>
                         <input
                             class="form-control"
@@ -154,7 +153,7 @@ function Login() {
                         </span>
                     </button>
                     <div>
-                        -OR-
+                        -{langReference(GetLanguaje()).or}-
                     </div>
                     <button
                         style={{

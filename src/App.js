@@ -1,18 +1,30 @@
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
 import {
-    langReference, GetLanguaje
+  langReference, GetLanguaje
 } from "./langs/languajes.js";
 
 // import logo from './logo.png';
 import './App.css';
 import { authentication } from './Logical/Authentication';
+import { useState } from "react";
 
 function App() {
+  const [channelId, setChannelId] = useState('');
+
+  function searchChannel (){
+    if(channelId === "")
+      return;
+
+    window.location.href = "/chat/"+channelId;
+  }
+
+
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          This app was made to help persons and the medical assistance to cure them.
+
+          {langReference(GetLanguaje()).slogan}
         </p>
         {
           !authentication.authenticated()
@@ -24,6 +36,26 @@ function App() {
           >
             {langReference(GetLanguaje()).login}
           </a>
+        }
+        {
+          authentication.authenticated()
+          &&
+          <p>
+            {langReference(GetLanguaje()).channel} {langReference(GetLanguaje()).session}ID:
+            <input
+              class="form-control"
+              value={channelId}
+              name="channelId"
+              placeholder={langReference(GetLanguaje()).channel}
+              onChange={e => setChannelId(e.target.value)}
+              maxLength={30}
+              ></input>
+            <button
+              onClick={searchChannel}
+            >
+              {langReference(GetLanguaje()).go}
+            </button>
+          </p>
         }
       </header>
     </div>

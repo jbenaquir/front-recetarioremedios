@@ -1,4 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
@@ -67,7 +72,6 @@ function ChatChannels() {
     }, [search]);
 
     function GoToCreate() {
-        console.log(`Go To Create`);
         window.location.href = `/ChatChannels/create`;
     }
 
@@ -111,7 +115,7 @@ function ChatChannels() {
         if (!window.confirm(`Está a punto de text to chatChannel: ${chatChannel.name}`))
             return;
 
-        window.location.href = `/chat/${chatChannel.name}-${chatChannel.id}`;
+        window.location.href = `/chat/${chatChannel.id}`;
     }
 
     function OnChangeSearch(e) {
@@ -125,7 +129,9 @@ function ChatChannels() {
     return (
         <div class="grid">
             <div class="row" style={{ margin: "20px" }}>
-                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Chat Channels</h1>
+                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>
+                    Chat&nbsp;{langReference(GetLanguaje()).channel}
+                </h1>
                 <div class="col col-3">
                     <button
                         class="btn btn-primary"
@@ -134,7 +140,7 @@ function ChatChannels() {
                     >
                         <i class="bi-plus-circle"></i>
                         <div>
-                            Create
+                            {langReference(GetLanguaje()).channel}
                         </div>
                     </button>
                 </div>
@@ -147,7 +153,8 @@ function ChatChannels() {
                         <div class="col col-3">
                             <div>
                                 <label for="clientList">
-                                    Client:
+                                    {langReference(GetLanguaje()).client}
+                                    :
                                 </label>
                             </div>
                             <select
@@ -182,7 +189,9 @@ function ChatChannels() {
                     <tbody>
                         {ChatChannels.length === 0 &&
                             <tr>
-                                <td colSpan={2}>There are no elements to show</td>
+                                <td colSpan={2}>
+                                    {langReference(GetLanguaje()).save}
+                                </td>
                             </tr>}
                         {ChatChannels.map(user => (
                             <tr key={user.id}>
@@ -202,7 +211,7 @@ function ChatChannels() {
                                                         onClick={() => GoToView(user)}>
                                                         <i class="bi-eye"></i>
                                                         <div>
-                                                            Ver
+                                                            {langReference(GetLanguaje()).view}
                                                         </div>
                                                     </button>
                                                     <button
@@ -211,7 +220,9 @@ function ChatChannels() {
                                                         title="Modificar"
                                                         onClick={() => GoToModify(user)}>
                                                         <i class="bi-pencil"></i>
-                                                        <div>Modificar</div>
+                                                        <div>
+                                                            {langReference(GetLanguaje()).modify}
+                                                        </div>
                                                     </button>
                                                     <button
                                                         style={{ margin: "5px" }}
@@ -220,7 +231,7 @@ function ChatChannels() {
                                                         onClick={() => GoToDelete(user)}>
                                                         <i class="bi-trash"></i>
                                                         <div>
-                                                            Eliminar
+                                                            {langReference(GetLanguaje()).delete}
                                                         </div>
                                                     </button>
                                                 </>
@@ -237,7 +248,8 @@ function ChatChannels() {
                                         onClick={() => GoToChat(user)}>
                                         <i class="bi-chat"></i>
                                         <div>
-                                            Messaje
+                                            {langReference(GetLanguaje()).message}
+
                                         </div>
                                     </button>
                                 </td>

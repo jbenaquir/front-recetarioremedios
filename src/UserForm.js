@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
@@ -178,7 +183,7 @@ function UserForm() {
             })
             .then(payload => {
                 alert(payload.message);
-                
+
                 if (payload.error) {
                     return;
                 }
@@ -211,7 +216,7 @@ function UserForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1>
-                    {!id ? "Create" : "Edit"} user account
+                    {!id ? langReference(GetLanguaje()).create : langReference(GetLanguaje()).edit} user account
                     <i class="bi-person"></i>
                 </h1>
                 <div class="form-group row">
@@ -241,7 +246,8 @@ function UserForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Phone
+                            {langReference(GetLanguaje()).phone}
+
                         </label>
                         <input
                             class="form-control"
@@ -254,7 +260,7 @@ function UserForm() {
 
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            * Password
+                            * {langReference(GetLanguaje()).password}
                         </label>
                         {
                             (id)
@@ -267,7 +273,7 @@ function UserForm() {
                                     class="btn btn-primary col col-md-auto"
                                     onClick={GoToUpdatePassword}>
                                     <i class="bi-lock"></i>
-                                    Update Password
+                                    {langReference(GetLanguaje()).edit} {langReference(GetLanguaje()).password}
                                 </button>
                                 :
                                 <>
@@ -306,7 +312,7 @@ function UserForm() {
                                     defaultValue="-1"
                                 >
                                     <option value="-1">
-                                        Choose...
+                                        {langReference(GetLanguaje()).choose}...
                                     </option>
                                     {
                                         roles.map(role => (
@@ -329,7 +335,7 @@ function UserForm() {
                         onClick={Save}>
                         <i class="bi-floppy2"></i>
                         <div>
-                            Save
+                            {langReference(GetLanguaje()).save}
                         </div>
                     </button>
                     <button
@@ -338,11 +344,11 @@ function UserForm() {
                         onClick={Back}>
                         <i class="bi-arrow-left-square"></i>
                         <div>
-                            Back
+                            {langReference(GetLanguaje()).back}
                         </div>
                     </button>
                 </div>
-                <div>* Required fields</div>
+                <div>* {langReference(GetLanguaje()).requiredFields}</div>
             </div>
         </div>
     )

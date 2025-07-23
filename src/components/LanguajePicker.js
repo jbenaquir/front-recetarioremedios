@@ -16,7 +16,7 @@ function LanguajePicker() {
         window.location.reload();
     };
 
-
+/*
     //NOT
     //set languaje file
     const getLanguajeFile = () => {
@@ -41,7 +41,7 @@ function LanguajePicker() {
 
             });
     };
-
+*/
     //every component require know the languaje set in cookies then load the languajefile 
     //and get the required languaje variables
 
@@ -54,7 +54,8 @@ function LanguajePicker() {
                 </label >
                 <select name="languaje" id="languaje" defaultValue={GetLanguaje()} onChange={onChangeLanguaje}>
                     <option value="english">English</option>
-                    <option value="spanish">Español</option>
+                    <option value="spanish">Español (En desarrollo)</option>
+                    <option value="french">Francais (En desarrollo)</option>
                 </select>
             </div>
         </>

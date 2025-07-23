@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
@@ -156,7 +161,7 @@ function ChatChannelsForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1>
-                    {!id ? "Create" : "Edit"} Chat Channel
+                    {!id ? langReference(GetLanguaje()).create : langReference(GetLanguaje()).edit} Chat Channel
                     <i class="bi-person"></i>
                 </h1>
                 <div class="form-group row">
@@ -174,7 +179,7 @@ function ChatChannelsForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Password
+                            {langReference(GetLanguaje()).password}
                         </label>
                         <input
                             class="form-control"
@@ -200,7 +205,7 @@ function ChatChannelsForm() {
                                     defaultValue={companyId}
                                     onChange={e => setCompanyId(e.target.value)}>
                                     <option value="-1">
-                                        Choose...
+                                        {langReference(GetLanguaje()).choose}...
                                     </option>
                                     {
                                         companies.map(company => (
@@ -225,7 +230,7 @@ function ChatChannelsForm() {
                         onClick={Save}>
                         <i class="bi-floppy2"></i>
                         <div>
-                            Save
+                            {langReference(GetLanguaje()).save}
                         </div>
                     </button>
                     <button
@@ -234,11 +239,12 @@ function ChatChannelsForm() {
                         onClick={Back}>
                         <i class="bi-arrow-left-square"></i>
                         <div>
-                            Back
+                            {langReference(GetLanguaje()).back}
+
                         </div>
                     </button>
                 </div>
-                <div>* Required fields</div>
+                <div>* {langReference(GetLanguaje()).requiredFields}</div>
             </div>
         </div>
     )

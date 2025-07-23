@@ -1,10 +1,15 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
 
 function MessagesView() {
-     // eslint-disable-next-line 
+    // eslint-disable-next-line 
     const { channelofUserId: userid, channelsessionId } = useParams();
     const [MessageText, setMessageText] = useState('');
     const currentUserId = authentication.GetCurrentUserId();
@@ -49,7 +54,7 @@ function MessagesView() {
     const LoadMessagesInContainer = (data = []) => {
         let messagesDivs = '';
 
-         // eslint-disable-next-line 
+        // eslint-disable-next-line 
         if (data == []) {
             return;
         }
@@ -118,25 +123,25 @@ function MessagesView() {
 
     function SendMessage() {
         if (!channelsessionId) {
-            alert("Channel Session is empty");
+            alert(`Channel Session ${langReference(GetLanguaje()).isEmpty}`);
             window.location = "/";
             return;
         }
-
+        
         const userId = authentication.GetCurrentUserId();
-
+        
         if (!userId) {
-            alert("Channel Session is empty");
+            alert("Not user auth");
             window.location = "/login";
             return;
         }
-
+        
         if (MessageText === '') {
-            alert('Message is empty');
+            alert(`${langReference(GetLanguaje()).message} ${langReference(GetLanguaje()).isEmpty}`);
             return;
         }
 
-        alert('Sending message...');
+        alert(`${langReference(GetLanguaje()).sendingMessage}...`);
 
         let chatMessage = {
             "chatMessage": "string",
@@ -144,8 +149,6 @@ function MessagesView() {
             "messageText": MessageText,
             "sentBy": userId.toString()
         }
-
-        console.log(chatMessage);
 
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
@@ -159,7 +162,8 @@ function MessagesView() {
             .then(response => {
 
                 if (response.status === 200) {
-                    alert('Sent.');
+                alert(`${langReference(GetLanguaje()).sentMessage}`);
+
                     setMessageText('');
 
                     UpdateMessages();
@@ -309,7 +313,8 @@ function MessagesView() {
                                 onClick={() => SendMessage()}>
                                 <i class="bi-send"></i>
                                 <div>
-                                    Send
+                                    {langReference(GetLanguaje()).save}
+
                                 </div>
                             </button>
                             <button
@@ -319,7 +324,7 @@ function MessagesView() {
                                 onClick={() => UpdateMessages()}>
                                 <i class="bi-arrow-clockwise"></i>
                                 <div>
-                                    Get Messages updated
+                                    {langReference(GetLanguaje()).getMessages}
                                 </div>
                             </button>
                             <button

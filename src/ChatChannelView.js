@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
@@ -44,7 +49,8 @@ function ProductView() {
                     }}
                     class="btn btn-primary col col-md-auto"
                     onClick={GoToChatChannelSessions}>
-                    View Channel Sessions
+                    {langReference(GetLanguaje()).view}
+                    Channel Sessions
                 </button>
             </p>
         </div>
