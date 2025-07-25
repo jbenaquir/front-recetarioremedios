@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { authentication } from './Logical/Authentication';
-import netapi from './variables/apiurls';
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
 import {
     langReference, GetLanguaje
 } from "./langs/languajes.js";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { authentication } from './Logical/Authentication';
+import netapi from './variables/apiurls';
 
 function ProductForm() {
     const { id } = useParams();
@@ -103,7 +103,7 @@ function ProductForm() {
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Name
+                            {langReference(GetLanguaje()).name}
                         </label>
                         <input
                             class="form-control"
@@ -114,7 +114,7 @@ function ProductForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Description
+                            {langReference(GetLanguaje()).description}
                         </label>
                         <textarea
                             class="form-control"
@@ -125,7 +125,7 @@ function ProductForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Nutrients
+                            {langReference(GetLanguaje()).nutrients}
                         </label>
                         <textarea
                             class="form-control"

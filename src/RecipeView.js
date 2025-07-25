@@ -1,4 +1,8 @@
 //SCRIPTS
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import RecipeProductsView from './RecipeProductsView';
@@ -29,15 +33,15 @@ function RecipeView() {
 
     return (
         <div>
-            <h1>Food script: </h1>
+            <h1>{langReference(GetLanguaje()).script}: </h1>
             <p>
                 {recipe.name}
             </p>
-            <h3>Descripción:</h3>
+            <h3>{langReference(GetLanguaje()).description}:</h3>
             <p>
                 {recipe.description}
             </p>
-            <h3>Script steps:</h3>
+            <h3>{langReference(GetLanguaje()).steps}:</h3>
             <p>
                 {recipe.preparation}
             </p>

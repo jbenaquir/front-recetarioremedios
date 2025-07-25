@@ -1,3 +1,7 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
@@ -27,15 +31,15 @@ function ProductView() {
 
     return (
         <div>
-            <h1>Producto: </h1>
+            <h1>{langReference(GetLanguaje()).product}: </h1>
             <p>
                 {product.name}
             </p>
-            <h3>Descripción:</h3>
+            <h3>{langReference(GetLanguaje()).description}:</h3>
             <p>
                 {product.description}
             </p>
-            <h3>Nutrients:</h3>
+            <h3>{langReference(GetLanguaje()).nutrients}:</h3>
             <p>
                 {product.nutrients}
             </p>

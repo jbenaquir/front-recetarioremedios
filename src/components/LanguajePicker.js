@@ -1,6 +1,6 @@
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
 import {
-    langReference, GetLanguaje, setCookie
+    langReference, GetLanguaje, setLanguajeCookie
 } from "../langs/languajes.js";
 
 function LanguajePicker() {
@@ -11,8 +11,9 @@ function LanguajePicker() {
     //mehtod: check elected languaje
     const onChangeLanguaje = (languajeElectedControl) => {
         const languajeElected = languajeElectedControl.target.value;
-
-        setCookie(languajeElected);
+        //clean cookie
+        setLanguajeCookie("");
+        setLanguajeCookie(languajeElected);
         window.location.reload();
     };
 

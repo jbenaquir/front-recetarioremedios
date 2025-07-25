@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from "react";
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
@@ -48,7 +53,7 @@ function RecipeProductsCheck ({recipeId, sendProducts}) {
 
     return (
         <>
-            <h3>Products:</h3>
+            <h3>{langReference(GetLanguaje()).products}:</h3>
             <span 
                 style={
                     {"color": "red"}

@@ -36,7 +36,7 @@ function MessagesView() {
 
         if (channelsessionId) {
 
-            setStatusMessage("Getting messages from server");
+            setStatusMessage(langReference(GetLanguaje()).gettingMessagesFromServer);
 
             fetch(`${netapi}/ChatMessages/get/${channelsessionId}`,
                 {

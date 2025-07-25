@@ -40,25 +40,24 @@ function Products() {
     }, [productSearch]);
 
     function GoToCreate() {
-        console.log(`Go To Create`);
+        console.log(`Go To ${langReference(GetLanguaje()).create}`);
         window.location.href = `/products/create`;
     }
 
     function GoToView(product) {
-        console.log(`Go To View`);
+        console.log(`Go To ${langReference(GetLanguaje()).view}`);
         window.location.href = `/products/${product.id}/${product.name}`;
     }
 
     function GoToModify(product) {
-        console.log(`Go To Modify`);
+        console.log(`Go To ${langReference(GetLanguaje()).modify}`);
         window.location.href = `/products/${product.id}/${product.name}/edit`;
     }
 
     function GoToDelete(product) {
-        if (!window.confirm(`Está a punto de borrar el producto ${product.name}`))
+        if (!window.confirm(`Está a punto de ${langReference(GetLanguaje()).delete} ${langReference(GetLanguaje()).product}: ${product.name}`))
             return;
 
-        console.log(`Delete Product Id: ${product.id}`);
         fetch(`${netapi}/Products/${product.id}`,
             {
                 method: 'DELETE',

@@ -195,7 +195,7 @@ root.render(
                       <a class="nav-link active" aria-current="page" href="/products">{langReference(GetLanguaje()).product}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/recipes">{langReference(GetLanguaje()).scripts}</a>
+                      <a class="nav-link active" aria-current="page" href="/recipes">{langReference(GetLanguaje()).recipes}</a>
                     </li>
                     {
                       (authentication.IsAdmin() || authentication.IsCompanyOwner())

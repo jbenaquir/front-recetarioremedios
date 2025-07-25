@@ -1,3 +1,7 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RecipeProductsCheck from './RecipeProductsCheck';
@@ -39,11 +43,11 @@ function RecipeForm() {
         let validationErrors = "Verify:";
 
         if (name === "") {
-            validationErrors += "\n- Name is empty";
+            validationErrors += `\n- ${langReference(GetLanguaje()).name} ${langReference(GetLanguaje()).isEmpty}`;
         }
 
         if (description === "") {
-            validationErrors += "\n- Description is empty";
+            validationErrors += `\n- ${langReference(GetLanguaje()).description}  ${langReference(GetLanguaje()).isEmpty}`;
         }
 
         if (validationErrors !== "Verify:") {
@@ -124,12 +128,12 @@ function RecipeForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1 class="text-center">
-                    { !id ? "Create":"Edit" } recipe
+                    { !id ? langReference(GetLanguaje()).create:langReference(GetLanguaje()).edit } {langReference(GetLanguaje()).recipe}
                 </h1>
                 <div class="form-group row">
                     <div class="col-md-8">
                         <label class="form-label">
-                            Name
+                            {langReference(GetLanguaje()).name}
                         </label>
                         <input
                             class="form-control"
@@ -140,7 +144,7 @@ function RecipeForm() {
                     </div>
                     <div class="col-md-8">
                         <label class="form-label">
-                            Description
+                            {langReference(GetLanguaje()).description}
                         </label>
                         <input
                             class="form-control"
@@ -151,7 +155,7 @@ function RecipeForm() {
                     </div>
                     <div class="col-md-8">
                         <label class="col-sm-2 col-form-label">
-                            Preparación:
+                            {langReference(GetLanguaje()).preparation}
                         </label>
                         <textarea
                             class="form-control"
@@ -177,7 +181,7 @@ function RecipeForm() {
                         onClick={Save}>
                         <i class="bi-floppy2"></i>
                         <div>
-                            Save
+                            {langReference(GetLanguaje()).save}
                         </div>
                     </button>
                     <button
@@ -186,7 +190,7 @@ function RecipeForm() {
                         onClick={Back}>
                         <i class="bi-arrow-left-square"></i>
                         <div>
-                            Back
+                            {langReference(GetLanguaje()).back}
                         </div>
                     </button>
                 </div>
