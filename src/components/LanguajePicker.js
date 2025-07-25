@@ -54,8 +54,8 @@ function LanguajePicker() {
                 </label >
                 <select name="languaje" id="languaje" defaultValue={GetLanguaje()} onChange={onChangeLanguaje}>
                     <option value="english">English</option>
-                    <option value="spanish">Español (En desarrollo)</option>
-                    <option value="french">Francais (En desarrollo)</option>
+                    <option value="spanish">Español</option>
+                    <option value="french">Francais</option>
                 </select>
             </div>
         </>

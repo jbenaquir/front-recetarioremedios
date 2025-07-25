@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
@@ -100,7 +105,7 @@ function Products() {
                     >
                         <i class="bi-plus-circle"></i>
                         <div>
-                            Create
+                            {langReference(GetLanguaje()).create}
                         </div>
                     </button>
                 </div>
@@ -110,7 +115,7 @@ function Products() {
                     </span>
                     <input
                         class="col col-3 form-control"
-                        placeholder="Search"
+                        placeholder={langReference(GetLanguaje()).search}
                         onChange={(e) => OnChangeSearch(e)} />
                 </div>
             </div>
@@ -118,9 +123,9 @@ function Products() {
                 <table style={{ margin: "0px auto" }}>
                     <tbody>
                         {products.length === 0 &&
-                        <tr>
-                            <td colSpan={2}>There are no elements to show</td>
-                        </tr>}
+                            <tr>
+                                <td colSpan={2}>{langReference(GetLanguaje()).thereAreNOElementsToShow}</td>
+                            </tr>}
                         {products.map(product => (
                             <tr key={product.id}>
                                 <td style={{ textAlign: "center" }}>
@@ -130,28 +135,31 @@ function Products() {
                                     <button
                                         style={{ margin: "5px", minWidth: "62px" }}
                                         class="btn btn-primary"
-                                        title="Ver"
+                                        title={langReference(GetLanguaje()).view}
                                         onClick={() => GoToView(product)}>
                                         <i class="bi-eye"></i>
                                         <div>
-                                            Ver
+                                            {langReference(GetLanguaje()).view}
                                         </div>
                                     </button>
                                     <button
                                         style={{ margin: "5px" }}
                                         class="btn btn-primary"
-                                        title="Modificar"
+                                        title={langReference(GetLanguaje()).modify}
                                         onClick={() => GoToModify(product)}>
                                         <i class="bi-pencil"></i>
-                                        <div>Modificar</div></button>
+                                        <div>
+                                            {langReference(GetLanguaje()).modify}
+                                        </div>
+                                    </button>
                                     <button
                                         style={{ margin: "5px" }}
                                         class="btn btn-danger"
-                                        title="Eliminar"
+                                        title={langReference(GetLanguaje()).delete}
                                         onClick={() => GoToDelete(product)}>
                                         <i class="bi-trash"></i>
                                         <div>
-                                            Eliminar
+                                            {langReference(GetLanguaje()).delete}
                                         </div>
                                     </button>
                                 </td>

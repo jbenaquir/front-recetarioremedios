@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 
 function ProductForm() {
     const { id } = useParams();
@@ -25,7 +29,7 @@ function ProductForm() {
     }
 
     useEffect(() => {
-        if(id){
+        if (id) {
             GetProduct(id);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +76,7 @@ function ProductForm() {
 
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
-        
+
         fetch(`${netapi}/Products/${saveType}`,
             {
                 method: 'POST',
@@ -94,7 +98,7 @@ function ProductForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1>
-                    {!id ? "Create": "Edit"} product
+                    {!id ? langReference(GetLanguaje()).create : langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).product.toLowerCase()}
                 </h1>
                 <div class="form-group row">
                     <div class="col-sm-10">
@@ -132,7 +136,7 @@ function ProductForm() {
                     </div>
                 </div>
                 <div class="form-group row" style={{ marginTop: "10px" }}>
-                <button
+                    <button
                         style={{
                             minWidth: "100px",
                             "margin-right": "10px", "margin-left": "10px"
@@ -141,7 +145,7 @@ function ProductForm() {
                         onClick={Save}>
                         <i class="bi-floppy2"></i>
                         <div>
-                            Save
+                            {langReference(GetLanguaje()).save}
                         </div>
                     </button>
                     <button
@@ -150,7 +154,7 @@ function ProductForm() {
                         onClick={Back}>
                         <i class="bi-arrow-left-square"></i>
                         <div>
-                            Back
+                            {langReference(GetLanguaje()).back}
                         </div>
                     </button>
                 </div>

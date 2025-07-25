@@ -12,6 +12,7 @@ function MessagesView() {
     // eslint-disable-next-line 
     const { channelofUserId: userid, channelsessionId } = useParams();
     const [MessageText, setMessageText] = useState('');
+    const [StatusMessage, setStatusMessage] = useState('');
     const currentUserId = authentication.GetCurrentUserId();
 
     useEffect(() => {
@@ -21,6 +22,7 @@ function MessagesView() {
             return window.location = `/login?returnUrl=${returnUrl}`;
         }
 
+        UpdateMessages();
         GetMessagesTInit();
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
@@ -31,7 +33,11 @@ function MessagesView() {
     };
 
     const GetMessagesFromServer = () => {
+
         if (channelsessionId) {
+
+            setStatusMessage("Getting messages from server");
+
             fetch(`${netapi}/ChatMessages/get/${channelsessionId}`,
                 {
                     method: 'GET',
@@ -44,7 +50,10 @@ function MessagesView() {
                     LoadMessagesInContainer(data);
                     return;
                 })
-                .catch((error) => console.log("Something happened getting Message: " + error));
+                .catch((error) => console.log("Something happened getting Message: " + error))
+                .finally(() => {
+                    setStatusMessage("");
+                });
         }
         else {
             window.location = "/"
@@ -86,7 +95,21 @@ function MessagesView() {
             const messageDate = message.sendAt.toString();
 
             if (messageDate !== "") {
-                (containerMessage.getElementsByClassName("hour")[0]).innerHTML = new Date(message.sendAt.toString()).toDateString();
+                let loc = "";
+
+                switch (GetLanguaje()) {
+                    case "french":
+                        loc = "fr-FR"
+                        break;
+                    case "spanish":
+                        loc = "es-CO"
+                        break;
+                    default:
+                        loc = "en-US";
+                        break;
+                }
+
+                (containerMessage.getElementsByClassName("hour")[0]).innerHTML = new Date(message.sendAt.toString()).toLocaleString(loc);
             }
 
             console.log(new Date(message.sendAt.toString()).toDateString());
@@ -102,7 +125,7 @@ function MessagesView() {
     //https://www.w3schools.com/jsref/met_win_clearinterval.asp
     const intervalLoadMessageT = () => {
         const secs = 5;
-        alert(`Getting messages every: ${secs} secs`)
+        //  alert(`Getting messages every: ${secs} secs`)
 
         setInterval(function () {
             UpdateMessages();
@@ -127,15 +150,15 @@ function MessagesView() {
             window.location = "/";
             return;
         }
-        
+
         const userId = authentication.GetCurrentUserId();
-        
+
         if (!userId) {
             alert("Not user auth");
             window.location = "/login";
             return;
         }
-        
+
         if (MessageText === '') {
             alert(`${langReference(GetLanguaje()).message} ${langReference(GetLanguaje()).isEmpty}`);
             return;
@@ -162,7 +185,7 @@ function MessagesView() {
             .then(response => {
 
                 if (response.status === 200) {
-                alert(`${langReference(GetLanguaje()).sentMessage}`);
+                    alert(`${langReference(GetLanguaje()).sentMessage}`);
 
                     setMessageText('');
 
@@ -256,6 +279,9 @@ function MessagesView() {
                             {"<"}
                         </div>
                         <div style={messageTextStyle}>
+                            <div>
+                                <b>Me:</b>
+                            </div>
                             <div class="messageText">
                                 Message Text Left
                             </div>
@@ -267,9 +293,6 @@ function MessagesView() {
 
                     <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
                         <div style={messageTextStyle}>
-                            <div>
-                                <b>Me:</b>
-                            </div>
                             <div class="messageText">
                                 Message Text Right
                             </div>
@@ -284,6 +307,11 @@ function MessagesView() {
 
                     <div style={containerMessagesStyle} class="containerMessages">
 
+                    </div>
+
+                    <div
+                        style={{ "font-size": "12px" }}>
+                        {StatusMessage}
                     </div>
 
                     <div style={
