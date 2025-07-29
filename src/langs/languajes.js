@@ -1,9 +1,9 @@
 import { cookiesManagement } from "../Logical/CookiesManagement";
 
 const englishObject = {
-    languajeElectorTag: "Languaje",
-    addAccount: "Create Account",
-    login: "Log In"
+    languajeElectorTag: "Languaje"
+    ,addAccount: "Create Account"
+    ,login: "Log In"
     ,close: "Close"
     ,slogan: "This app was made to help persons and the medical assistance to cure them."
     ,or: "Or"
@@ -15,6 +15,7 @@ const englishObject = {
     ,channel: "Channel"
     ,company: "Company"
     ,edit: "Edit"
+    ,email: "Email"
     ,choose: "Choose"
     ,home:"Home"
     ,thereAreNOElementsToShow: "There are no elements to show"
@@ -24,7 +25,9 @@ const englishObject = {
     ,requiredFields: "Required fields"
     ,recipes: "Recipes"
     ,recipe: "Recipe"
+    ,role: "Role"
     ,phone: "Phone number"
+    ,fill: "Fill"
     ,view: "View"
     ,cookiesMessage: "Please accept cookies (vegan please)."
     ,accept: "Accept"
@@ -47,13 +50,14 @@ const englishObject = {
     ,search: "Search"
     ,scripts: "Scripts"
     ,steps: "Steps"
-    ,udpate: "Update"
+    ,update: "Update"
+    ,verify: "Verify"
 };
 
 const spanishObject = {
-    languajeElectorTag: "Lenguaje",
-    addAccount: "Crear cuenta",
-    login: "Acceder"
+    languajeElectorTag: "Lenguaje"
+    ,addAccount: "Crear cuenta"
+    ,login: "Acceder"
     ,slogan: "Esta aplicación se realizó para ayudar personas y equipo médico a guiarles en la curación."
     ,or: "Ó"
     ,password: "Contraseña"
@@ -65,6 +69,7 @@ const spanishObject = {
     ,channel: "Canal ó Channel"
     ,company: "Compañía"
     ,edit: "Editar"
+    ,email: "Email o correo electrónico"
     ,choose: "Elegir"
     ,save: "Salvar"
     ,home:"Inicio"
@@ -76,9 +81,11 @@ const spanishObject = {
     ,requiredFields: "Campos requeridos"
     ,recipes: "Recetas"
     ,recipe: "Receta"
+    ,role: "Rol"
     ,preparation: "Preparación"
     ,products: "Productos"
     ,phone: "Teléfono o número celular"
+    ,fill: "Diligenciar"
     ,view: "Ver"
     ,cookiesMessage: "Por favor acepte el uso de cookies."
     ,accept: "Aceptar"
@@ -98,13 +105,14 @@ const spanishObject = {
     ,sendingMessage: "Mensaje en proceso"
     ,sentMessage: "Mensaje se envío"
     ,session: "Sesión"
-    ,udpate: "Actualizar"
+    ,update: "Actualizar"
+    ,verify: "Verificar"
 };
 
 const frenchObject = {
-    languajeElectorTag: "Langue",
-    addAccount: "Créer compte",
-    login: "Connexion"
+    languajeElectorTag: "Langue"
+    ,addAccount: "Créer compte"
+    ,login: "Connexion"
     ,close: "Fermer"
     ,slogan: "Cette app a été crée par aideer les parsons et le equipe de médecints dans la soin."
     ,or: "Ou"
@@ -117,6 +125,7 @@ const frenchObject = {
     ,company: "Compagnie"
     ,home:"Début"
     ,edit: "Éditer"
+    ,email: "Email"
     ,choose: "Choisir"
     ,save: "Sauver"
     ,thereAreNOElementsToShow: "Il n'y a aucun élément à afficher"
@@ -125,8 +134,10 @@ const frenchObject = {
     ,requiredFields: "Champes requeris"
     ,recipes: "Recettes"
     ,recipe: "Recette"
+    ,role: "Rôle"
     ,preparation: "Préparation"
     ,phone: "Téléphone"
+    ,fill: "Remplir"
     ,modify: "Édite"
     ,my: "Mon"
     ,name: "Nom"
@@ -149,6 +160,7 @@ const frenchObject = {
     ,search: "Chercher"
     ,steps: "Mesures"
     ,update: "Mettre à jour"
+    ,verify: "Vérifier"
 };
 
 //check if a method has or does

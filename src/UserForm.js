@@ -226,7 +226,7 @@ function UserForm() {
                         </label>
                         <input
                             class="form-control"
-                            name="name"
+                            name="username"
                             value={username}
                             onKeyDown={e => PreventEnterWrongName(e)}
                             onChange={e => setUsername(e.target.value)}

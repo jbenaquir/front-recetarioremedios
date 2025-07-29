@@ -82,23 +82,23 @@ function ChatChannelsForm() {
     }
 
     function Verify() {
-        let validationErrors = "Verify:";
+        let validationErrors = `${langReference(GetLanguaje()).verify}:`;
 
         if (name === "") {
-            validationErrors += "\n- Fill name value";
+            validationErrors += `\n- ${langReference(GetLanguaje()).fill} ${langReference(GetLanguaje()).name}`;
         }
 
         if (password === "") {
-            validationErrors += "\n- Enter password";
+            validationErrors += `\n- ${langReference(GetLanguaje()).fill} ${langReference(GetLanguaje()).password}`;
         }
 
         if (authentication.IsAdmin()) {
             if (companyId === "-1" || companyId === (-1) || companyId === "") {
-                validationErrors += "\n- Choose role";
+                validationErrors += `\n- ${langReference(GetLanguaje()).choosew} ${langReference(GetLanguaje()).role}`;
             }
         }
 
-        if (validationErrors !== "Verify:") {
+        if (validationErrors !== `${langReference(GetLanguaje()).verify}:`) {
             window.alert(validationErrors);
             return false;
         }
@@ -167,7 +167,7 @@ function ChatChannelsForm() {
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            * Name
+                            * {langReference(GetLanguaje()).name}
                         </label>
                         <input
                             class="form-control"
@@ -196,7 +196,7 @@ function ChatChannelsForm() {
                             <div class="col col-3">
                                 <div>
                                     <label for="companyList">
-                                        Company:
+                                        {langReference(GetLanguaje()).company}:
                                     </label>
                                 </div>
                                 <select

@@ -1,10 +1,14 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
 
 function UserForm() {
     const [id, setId] = useState('');
-    const [name, setName] = useState('');
+    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -89,34 +93,34 @@ function UserForm() {
             })
             .then(response => response.json())
             .then(data => {
-                setName(data.name);
+                setUserName(data.name);
                 setRoleId(data.roleId);
             })
             .catch((error) => console.log("Something happened getting user: " + error));
     }
 
     function Verify() {
-        let validationErrors = "Verify:";
+        let validationErrors = `${langReference(GetLanguaje()).verify}:`;
 
-        if (name === "") {
-            validationErrors += "\n- Fill name value";
+        if (username === "") {
+            validationErrors += `\n- ${langReference(GetLanguaje()).fill} ${langReference(GetLanguaje()).name}`;
         }
 
         if (!id && password === "") {
-            validationErrors += "\n- Enter password";
+            validationErrors += `\n- ${langReference(GetLanguaje()).fill} ${langReference(GetLanguaje()).password}`;
         }
 
         if (!id && password !== repassword) {
-            validationErrors += "\n- Password is not equal to repeat password";
+            validationErrors += `\n- ${langReference(GetLanguaje()).password} is not equal to repeat password`;
         }
 
         if(authentication.authenticated()){
             if (roleId === "-1" || roleId === (-1) || roleId === "") {
-                validationErrors += "\n- Choose role";
+                validationErrors += `\n- ${langReference(GetLanguaje()).choose} ${langReference(GetLanguaje()).role}`;
             }
         }
 
-        if (validationErrors !== "Verify:") {
+        if (validationErrors !== `${langReference(GetLanguaje()).verify}:`) {
             window.alert(validationErrors);
             return false;
         }
@@ -130,7 +134,7 @@ function UserForm() {
         }
         
         let user = {
-            name: name,
+            username: username,
             password: password,
             roleId: roleId,
             email: email,
@@ -188,7 +192,7 @@ function UserForm() {
         <div class="grid">
             <div class="row justify-content-start">
                 <h1>
-                    Update profile:
+                    {langReference(GetLanguaje()).update} {langReference(GetLanguaje()).profile}:
                 </h1>
                 <div>
                     If user already exists show alert
@@ -196,19 +200,19 @@ function UserForm() {
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Name
+                            {langReference(GetLanguaje()).name}
                         </label>
                         <input
                             class="form-control"
                             name="name"
-                            value={name}
+                            value={username}
                             onKeyDown={e => PreventEnterWrongUserNames(e)}
-                            onChange={e => setName(e.target.value)}
+                            onChange={e => setUserName(e.target.value)}
                             maxLength={100} />
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Email
+                            {langReference(GetLanguaje()).email}
                         </label>
                         <input
                             class="form-control"
@@ -220,7 +224,7 @@ function UserForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Phone
+                            {langReference(GetLanguaje()).phone}
                         </label>
                         <input
                             class="form-control"
@@ -232,7 +236,7 @@ function UserForm() {
                     </div>
                     <div class="col-sm-10">
                         <label class="col-sm-2 col-form-label">
-                            Password
+                            {langReference(GetLanguaje()).password}
                         </label>
                         {
                             (id)
@@ -245,7 +249,7 @@ function UserForm() {
                                     class="btn btn-primary col col-md-auto"
                                     onClick={GoToUpdatePassword}>
                                     <i class="bi-lock"></i>
-                                    Update Password
+                                    {langReference(GetLanguaje()).update} {langReference(GetLanguaje()).password}
                                 </button>
                                 :
                                 <>
@@ -275,7 +279,7 @@ function UserForm() {
                             :
                             <div class="col-sm-10">
                                 <label class="col-sm-2 col-form-label">
-                                    Role 
+                                    {langReference(GetLanguaje()).role} 
                                 </label>
                                 <select
                                     name="roleId"
@@ -284,7 +288,7 @@ function UserForm() {
                                     defaultValue="-1"
                                 >
                                     <option value="-1">
-                                        Choose...
+                                        {langReference(GetLanguaje()).choose}...
                                     </option>
                                     {
                                         roles.map(role => (
@@ -307,7 +311,7 @@ function UserForm() {
                         onClick={Save}>
                         <i class="bi-floppy2"></i>
                         <div>
-                            Save
+                            {langReference(GetLanguaje()).save}
                         </div>
                     </button>
                     <button
@@ -316,7 +320,7 @@ function UserForm() {
                         onClick={Back}>
                         <i class="bi-arrow-left-square"></i>
                         <div>
-                            Back
+                            {langReference(GetLanguaje()).back}
                         </div>
                     </button>
                 </div>

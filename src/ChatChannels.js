@@ -163,7 +163,7 @@ function ChatChannels() {
                                 id="companiesList"
                                 value={companyId}
                                 onChange={e => setCompanyId(e.target.value)}>
-                                <option value="0">Choose...</option>
+                                <option value="0">{langReference(GetLanguaje()).choose}...</option>
                                 {
                                     companies.map(company => (
                                         <option value={company.id} selected={ChooseIfOption(company.id)}>
@@ -180,7 +180,7 @@ function ChatChannels() {
                     </span>
                     <input
                         class="col col-3 form-control"
-                        placeholder="Search"
+                        placeholder={langReference(GetLanguaje()).search}
                         onChange={(e) => OnChangeSearch(e)} />
                 </div>
             </div>

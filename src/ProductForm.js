@@ -36,17 +36,17 @@ function ProductForm() {
     }, []);
 
     function Verify() {
-        let validationErrors = "Verify:";
+        let validationErrors = `${langReference(GetLanguaje()).verify}:`;
 
         if (name === "") {
-            validationErrors += "\n- Name is empty";
+            validationErrors += `\n- ${langReference(GetLanguaje()).name} ${langReference(GetLanguaje()).isEmpty}`;
         }
 
         if (description === "") {
-            validationErrors += "\n- Description is empty";
+            validationErrors += `\n- ${langReference(GetLanguaje()).description} ${langReference(GetLanguaje()).isEmpty}`;
         }
 
-        if (validationErrors !== "Verify:") {
+        if (validationErrors !== `${langReference(GetLanguaje()).verify}:`) {
             window.alert(validationErrors);
             return false;
         }

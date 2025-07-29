@@ -95,7 +95,7 @@ function Products() {
     return (
         <div class="grid">
             <div class="row" style={{ margin: "20px" }}>
-                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>Products</h1>
+                <h1 class="col col-9" style={{ textAlign: "center", padding: "9px" }}>{langReference(GetLanguaje()).products}</h1>
                 <div class="col col-3">
                     <button
                         class="btn btn-primary"

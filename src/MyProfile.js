@@ -1,3 +1,8 @@
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
+
 import { useEffect, useState } from "react";
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
@@ -56,21 +61,29 @@ function ProductView() {
 
     return (
         <div>
-            <h1>User: <i class="bi-person-circle"></i></h1>
+            <h1>{langReference(GetLanguaje()).profile}: <i class="bi-person-circle"></i></h1>
             <p>
                 <h3>username:</h3>
-                {user.name}
+                {user.username}
             </p>
+            {
+                user.email != null
+                &&
+                <p>
+                    <h3><i class="bi-envelope"></i> email:</h3>
+                    {user.email}
+                </p>
+            }
+            {
+                user.phone != null
+                &&
+                <p>
+                    <h3><i class="bi-phone"></i> {langReference(GetLanguaje()).phone}:</h3>
+                    {user.phone}
+                </p>
+            }
             <p>
-                <h3><i class="bi-envelope"></i> email:</h3>
-                {user.email}
-            </p>
-            <p>
-                <h3><i class="bi-phone"></i> Phone:</h3>
-                {user.phone}
-            </p>
-            <p>
-                <h3>Role:</h3>
+                <h3>{langReference(GetLanguaje()).role}:</h3>
                 {user.roleName}
             </p>
             <p>
@@ -82,7 +95,7 @@ function ProductView() {
                     class="btn btn-primary col col-md-auto"
                     onClick={GoToUpdatePassword}>
                     <i class="bi-lock"></i>
-                    Update Password
+                    {langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).password}
                 </button>
                 <button
                     style={{
@@ -92,7 +105,7 @@ function ProductView() {
                     class="btn btn-primary col col-md-auto"
                     onClick={GoToUpdateMyProfile}>
                     <i class="bi-person"></i>
-                    Update My profile
+                    {langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).profile}
                 </button>
                 <button
                     style={{
