@@ -3,7 +3,6 @@ import {
     langReference, GetLanguaje
 } from "./langs/languajes.js";
 
-import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect, useState } from 'react';
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
@@ -100,7 +99,7 @@ function Products() {
                     <button
                         class="btn btn-primary"
                         onClick={() => GoToCreate()}
-                        title="Create"
+                        title={langReference(GetLanguaje()).create}
                     >
                         <i class="bi-plus-circle"></i>
                         <div>

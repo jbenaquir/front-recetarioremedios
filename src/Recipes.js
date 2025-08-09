@@ -72,7 +72,6 @@ function Recipes() {
 
     function OnChangeSearch(e) {
         const searchValue = e.currentTarget.value;
-        console.log(searchValue);
 
         setRecipeSearch(searchValue);
     }

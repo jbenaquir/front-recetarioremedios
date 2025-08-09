@@ -33,7 +33,7 @@ function RecipeView() {
 
     return (
         <div>
-            <h1>{langReference(GetLanguaje()).script}: </h1>
+            <h1>{langReference(GetLanguaje()).recipe}: </h1>
             <p>
                 {recipe.name}
             </p>

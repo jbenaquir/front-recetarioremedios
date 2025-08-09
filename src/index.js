@@ -30,6 +30,7 @@ import MessagesView from './MessagesView';
 import ChatChannels from './ChatChannels';
 import ChatChannelForm from './ChatChannelForm';
 import ChatChannelView from './ChatChannelView';
+import ProductsAndServices from './ProductsAndServices';
 import { authentication } from './Logical/Authentication';
 import LanguajePicker from './components/LanguajePicker'
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
@@ -51,11 +52,13 @@ routes.push({
   path: "/createAccount", element: <UserForm />
 });
 
-
 routes.push({
   path: "/chat/:channelsessionId", element: <MessagesView />
 });
 
+routes.push({
+  path: "/productsandservices", element: <ProductsAndServices />
+});
 
 if (authentication.authenticated()) {
   routes.push({
@@ -138,6 +141,8 @@ if (authentication.authenticated()) {
   routes.push({
     path: "/chatchannels/:id/view", element: <ChatChannelView />
   });
+
+
 }
 
 if (authentication.authenticated() && authentication.IsAdmin()) {
