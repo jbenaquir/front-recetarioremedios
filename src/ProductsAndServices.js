@@ -59,6 +59,20 @@ function ProductsAndServices() {
         window.location.href = `/products/${product.id}/${product.name}`;
     }
 
+    function GetChatIdParameter() {
+        const params = new URLSearchParams(window.location.search);
+
+        return params.get('chatId');
+    }
+    
+    function AddProductToChat(product) {
+        //get returnUrl or chatId
+        const chatId = GetChatIdParameter();
+
+
+        window.location.href = `/chat/${chatId}`;
+    }
+
     function GoToView(recipe) {
         window.location.href = `/recipes/${recipe.id}/${recipe.name}`;
     }
@@ -142,7 +156,7 @@ function ProductsAndServices() {
                                         style={{ margin: "5px", minWidth: "62px" }}
                                         class="btn btn-primary"
                                         title={langReference(GetLanguaje()).add}
-                                        onClick={() => GoToViewProduct(product)}>
+                                        onClick={() => AddProductToChat(product)}>
                                         <i class="bi-plus-circle"></i>
                                         <div>
                                             {langReference(GetLanguaje()).add}
@@ -184,7 +198,7 @@ function ProductsAndServices() {
                                         style={{ margin: "5px", minWidth: "62px" }}
                                         class="btn btn-primary"
                                         title={langReference(GetLanguaje()).add}
-                                        onClick={() => GoToView(recipe)}>
+                                        onClick={() => AddProductToChat(recipe)}>
                                         <i class="bi-plus-circle"></i>
                                         <div>
                                             {langReference(GetLanguaje()).add}

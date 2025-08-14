@@ -17,7 +17,7 @@ function ChatChannelsForm() {
     const [returnUrl, setReturnUrl] = useState(null);
 
     useEffect(() => {
-        LoadReturnUrl();
+        LoadReturnUrlParameter();
 
         if (authentication.IsAdmin()) {
             GetCompanies();
@@ -30,7 +30,7 @@ function ChatChannelsForm() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function LoadReturnUrl() {
+    function LoadReturnUrlParameter() {
         const params = new URLSearchParams(window.location.search);
 
         const _returnUrl = params.get('returnUrl');
