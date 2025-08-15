@@ -11,7 +11,7 @@ function ProductsAndServices() {
     const [products, setProducts] = useState([]);
     const [recipes, setRecipes] = useState([]);
     const [productSearch, setProductSearch] = useState('');
-    
+
     function GetRecipes() {
         fetch('https://bnetremedios.azurewebsites.net/api/Recipes/search',
             {
@@ -64,13 +64,12 @@ function ProductsAndServices() {
 
         return params.get('chatId');
     }
-    
+
     function AddProductToChat(product) {
         //get returnUrl or chatId
         const chatId = GetChatIdParameter();
 
-
-        window.location.href = `/chat/${chatId}`;
+        window.location.href = `/chat/${chatId}/?AddProductId=${product.id}`;
     }
 
     function GoToView(recipe) {

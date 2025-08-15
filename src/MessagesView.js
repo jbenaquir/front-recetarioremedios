@@ -137,6 +137,10 @@ function MessagesView() {
         clearInterval(intervalLoadMessageT);
     };
 
+    const RedirectToProductsAndServc = () =>{
+        window.location = "/productsandservices";
+    }
+
     const GetMessagesTInit = () => {
         //UpdateMessages();
         intervalLoadMessageT();
@@ -373,6 +377,16 @@ function MessagesView() {
                                 <i class="bi-mic"></i>
                                 <div>
                                     Send Voice
+                                </div>
+                            </button>
+                            <button
+                                style={{ margin: "5px" }}
+                                class="btn btn-blue"
+                                title="Voice"
+                                onClick={() => RedirectToProductsAndServc()}>
+                                <div>
+                                    {langReference(GetLanguaje()).servicesAndProducts}
+                                    (At the module of products and return button to this screen)
                                 </div>
                             </button>
                         </div>
