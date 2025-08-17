@@ -69,7 +69,14 @@ function ProductsAndServices() {
         //get returnUrl or chatId
         const chatId = GetChatIdParameter();
 
-        window.location.href = `/chat/${chatId}/?AddProductId=${product.id}`;
+        window.location.href = `/chat/${chatId}/?ToAddProductId=${product.id}`;
+    }
+
+    function AddServcToChat(srvc) {
+        //get returnUrl or chatId
+        const chatId = GetChatIdParameter();
+
+        window.location.href = `/chat/${chatId}/?ToAddServcId=${srvc.id}`;
     }
 
     function GoToView(recipe) {
@@ -197,7 +204,7 @@ function ProductsAndServices() {
                                         style={{ margin: "5px", minWidth: "62px" }}
                                         class="btn btn-primary"
                                         title={langReference(GetLanguaje()).add}
-                                        onClick={() => AddProductToChat(recipe)}>
+                                        onClick={() => AddServcToChat(recipe)}>
                                         <i class="bi-plus-circle"></i>
                                         <div>
                                             {langReference(GetLanguaje()).add}

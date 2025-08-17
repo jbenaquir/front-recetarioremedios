@@ -24,8 +24,42 @@ function MessagesView() {
 
         UpdateMessages();
         GetMessagesTInit();
+
+
+        CheckParametersSendMessage();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
+
+    function CheckParametersSendMessage() {
+        let RequestMessage = "Please,";
+
+        const ToAddProductId = GetToAddProductIdParameter();
+
+        if (ToAddProductId) {
+            //SendMessage withproduct
+            SendMessage(`${RequestMessage} ${ToAddProductId}`);
+        }
+
+        const ToAddServcId = GetToAddServcIdParameter();
+
+        if (ToAddServcId) {
+            //SendMessage withproduct
+            SendMessage(`${RequestMessage} ${ToAddServcId}`);
+        }
+    }
+
+    function GetToAddProductIdParameter() {
+        const params = new URLSearchParams(window.location.search);
+
+        return params.get('ToAddProductId');
+    }
+
+    function GetToAddServcIdParameter() {
+        const params = new URLSearchParams(window.location.search);
+
+        return params.get('ToAddServcId');
+    }
 
     //function in a variable or const 
     const UpdateMessages = () => {
@@ -137,8 +171,8 @@ function MessagesView() {
         clearInterval(intervalLoadMessageT);
     };
 
-    const RedirectToProductsAndServc = () =>{
-        window.location = "/productsandservices";
+    const RedirectToProductsAndServc = () => {
+        window.location = `/productsandservices?chatId=${channelsessionId}`;
     }
 
     const GetMessagesTInit = () => {
@@ -148,9 +182,11 @@ function MessagesView() {
         //filter for channelsessionId by param
     }
 
-    function SendMessage() {
+    function SendMessage(fromParameter) {
+
         if (!channelsessionId) {
             alert(`Channel Session ${langReference(GetLanguaje()).isEmpty}`);
+
             window.location = "/";
             return;
         }
@@ -163,19 +199,36 @@ function MessagesView() {
             return;
         }
 
-        if (MessageText === '') {
-            alert(`${langReference(GetLanguaje()).message} ${langReference(GetLanguaje()).isEmpty}`);
-            return;
+        let chatMessage = {
+            "chatMessage": "string",
+            "channelSessionId": channelsessionId,
+            "messageText": "",
+            "sentBy": userId.toString()
+        }
+
+        if (fromParameter == null) {
+            if (MessageText === '') {
+                alert(`${langReference(GetLanguaje()).message} ${langReference(GetLanguaje()).isEmpty}`);
+                return;
+            }
+
+            chatMessage = {
+                "chatMessage": "string",
+                "channelSessionId": channelsessionId,
+                "messageText": MessageText,
+                "sentBy": userId.toString()
+            }
+        } else {
+            chatMessage = {
+                "chatMessage": "string",
+                "channelSessionId": channelsessionId,
+                "messageText": fromParameter,
+                "sentBy": userId.toString()
+            }
         }
 
         alert(`${langReference(GetLanguaje()).sendingMessage}...`);
 
-        let chatMessage = {
-            "chatMessage": "string",
-            "channelSessionId": channelsessionId,
-            "messageText": MessageText,
-            "sentBy": userId.toString()
-        }
 
         let headers = authentication.GetAuthorizationHeaders();
         headers.append("Content-Type", "application/json");
@@ -207,6 +260,11 @@ function MessagesView() {
                 console.log("Something happended sending message: " + error);
                 alert("Something happended sending message. Message wasn't sent");
             });
+
+
+        if (fromParameter != null) {
+            window.location = `/chat/${channelsessionId}/`;
+        }
     }
 
     function NotImplemented() {
@@ -342,7 +400,7 @@ function MessagesView() {
                                 style={{ margin: "5px" }}
                                 class="btn btn-blue"
                                 title="Send Text Message"
-                                onClick={() => SendMessage()}>
+                                onClick={() => SendMessage(null)}>
                                 <i class="bi-send"></i>
                                 <div>
                                     {langReference(GetLanguaje()).save}
