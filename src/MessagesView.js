@@ -244,9 +244,14 @@ function MessagesView() {
                 if (response.status === 200) {
                     alert(`${langReference(GetLanguaje()).sentMessage}`);
 
-                    setMessageText('');
+                    if (fromParameter != null) {
+                        window.location = `/chat/${channelsessionId}/`;
+                    }else{
+                        setMessageText('');
+                    }
 
                     UpdateMessages();
+            
                     return;
                 }
 
@@ -261,10 +266,6 @@ function MessagesView() {
                 alert("Something happended sending message. Message wasn't sent");
             });
 
-
-        if (fromParameter != null) {
-            window.location = `/chat/${channelsessionId}/`;
-        }
     }
 
     function NotImplemented() {
