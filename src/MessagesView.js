@@ -31,21 +31,50 @@ function MessagesView() {
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
 
-    function CheckParametersSendMessage() {
-        let RequestMessage = "Please,";
+    async function GetProduct(id) {
+        return fetch(`${netapi}/Products/${id}`,
+            {
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
+            })
+            .then(response => response.json())
+            .then(data => {
+                return (data);
+            })
+            .catch((error) => console.log("Something happened getting product: " + error));
+    }
+
+    async function GetRecipe(id) {
+        return fetch(`${netapi}/Recipes/${id}`,
+            {
+                method: 'GET',
+                headers: authentication.GetAuthorizationHeaders()
+            })
+            .then(response => response.json())
+            .then(data => {
+                return (data);
+            })
+            .catch((error) => console.log("Something happened getting recipe: " + error));
+    }
+
+    async function CheckParametersSendMessage() {
+        let RequestMessage = `${langReference(GetLanguaje()).please}, `;
 
         const ToAddProductId = GetToAddProductIdParameter();
 
         if (ToAddProductId) {
             //SendMessage withproduct
-            SendMessage(`${RequestMessage} ${ToAddProductId}`);
+            const product = await GetProduct(ToAddProductId);
+            
+            SendMessage(`${RequestMessage} <a href="/products/${product.id}/${product.name}">${product.name}</a>`);
         }
-
+        
         const ToAddServcId = GetToAddServcIdParameter();
-
+        
         if (ToAddServcId) {
+            const srvc = await GetRecipe(ToAddServcId);
             //SendMessage withproduct
-            SendMessage(`${RequestMessage} ${ToAddServcId}`);
+            SendMessage(`${RequestMessage} <a href="/recipes/${srvc.id}/${srvc.name}">${srvc.name}</a>`);
         }
     }
 
@@ -246,12 +275,12 @@ function MessagesView() {
 
                     if (fromParameter != null) {
                         window.location = `/chat/${channelsessionId}/`;
-                    }else{
+                    } else {
                         setMessageText('');
                     }
 
                     UpdateMessages();
-            
+
                     return;
                 }
 
