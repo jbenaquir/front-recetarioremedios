@@ -12,6 +12,61 @@ function ProductsAndServices() {
     const [recipes, setRecipes] = useState([]);
     const [productSearch, setProductSearch] = useState('');
 
+    function SendMessage(message) {
+        const chatId = GetChatIdParameter();
+
+        if (!chatId) {
+            return;
+        }
+
+        const userId = authentication.GetCurrentUserId();
+
+        if (!userId) {
+            alert("Not user auth");
+            window.location = "/login";
+            return;
+        }
+
+        let chatMessage = {
+            "chatMessage": "string",
+            "channelSessionId": chatId,
+            "messageText": message,
+            "sentBy": userId.toString()
+        }
+
+        alert(`${langReference(GetLanguaje()).sendingMessage}...`);
+
+        let headers = authentication.GetAuthorizationHeaders();
+        headers.append("Content-Type", "application/json");
+
+        fetch(`${netapi}/ChatMessages/send`,
+            {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(chatMessage)
+            })
+            .then(response => {
+
+                if (response.status === 200) {
+                    alert(`${langReference(GetLanguaje()).sentMessage}`);
+
+                    window.location = `/chat/${chatId}/`;
+
+                    return;
+                }
+
+                if (response.status === 400) {
+                    alert('ServerError 400');
+                    return;
+                }
+            })
+            .catch((error) => {
+                console.log("Something happended sending message: " + error);
+                alert("Something happended sending message. Message wasn't sent");
+            });
+
+    }
+
     function GetRecipes() {
         fetch('https://bnetremedios.azurewebsites.net/api/Recipes/search',
             {
@@ -66,17 +121,27 @@ function ProductsAndServices() {
     }
 
     function AddProductToChat(product) {
-        //get returnUrl or chatId
         const chatId = GetChatIdParameter();
 
-        window.location.href = `/chat/${chatId}/?ToAddProductId=${product.id}`;
+        if(!chatId){
+            return;   
+        }
+        const RequestMessage = `${langReference(GetLanguaje()).please}, `;
+        const message = SendMessage(`${RequestMessage} <a href="/products/${product.id}/${product.name}">${product.name}</a>`);
+
+        SendMessage(message);
     }
 
     function AddServcToChat(srvc) {
-        //get returnUrl or chatId
         const chatId = GetChatIdParameter();
 
-        window.location.href = `/chat/${chatId}/?ToAddServcId=${srvc.id}`;
+        if(!chatId){
+            return;   
+        }
+        const RequestMessage = `${langReference(GetLanguaje()).please}, `;
+        const message = `${RequestMessage} <a href="/recipes/${srvc.id}/${srvc.name}">${srvc.name}</a>`;
+
+        SendMessage(message);
     }
 
     function GoToView(recipe) {

@@ -25,70 +25,9 @@ function MessagesView() {
         UpdateMessages();
         GetMessagesTInit();
 
-
-        CheckParametersSendMessage();
-
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
-
-    async function GetProduct(id) {
-        return fetch(`${netapi}/Products/${id}`,
-            {
-                method: 'GET',
-                headers: authentication.GetAuthorizationHeaders()
-            })
-            .then(response => response.json())
-            .then(data => {
-                return (data);
-            })
-            .catch((error) => console.log("Something happened getting product: " + error));
-    }
-
-    async function GetRecipe(id) {
-        return fetch(`${netapi}/Recipes/${id}`,
-            {
-                method: 'GET',
-                headers: authentication.GetAuthorizationHeaders()
-            })
-            .then(response => response.json())
-            .then(data => {
-                return (data);
-            })
-            .catch((error) => console.log("Something happened getting recipe: " + error));
-    }
-
-    async function CheckParametersSendMessage() {
-        let RequestMessage = `${langReference(GetLanguaje()).please}, `;
-
-        const ToAddProductId = GetToAddProductIdParameter();
-
-        if (ToAddProductId) {
-            //SendMessage withproduct
-            const product = await GetProduct(ToAddProductId);
-            
-            SendMessage(`${RequestMessage} <a href="/products/${product.id}/${product.name}">${product.name}</a>`);
-        }
-        
-        const ToAddServcId = GetToAddServcIdParameter();
-        
-        if (ToAddServcId) {
-            const srvc = await GetRecipe(ToAddServcId);
-            //SendMessage withproduct
-            SendMessage(`${RequestMessage} <a href="/recipes/${srvc.id}/${srvc.name}">${srvc.name}</a>`);
-        }
-    }
-
-    function GetToAddProductIdParameter() {
-        const params = new URLSearchParams(window.location.search);
-
-        return params.get('ToAddProductId');
-    }
-
-    function GetToAddServcIdParameter() {
-        const params = new URLSearchParams(window.location.search);
-
-        return params.get('ToAddServcId');
-    }
 
     //function in a variable or const 
     const UpdateMessages = () => {
@@ -470,11 +409,10 @@ function MessagesView() {
                             <button
                                 style={{ margin: "5px" }}
                                 class="btn btn-blue"
-                                title="Voice"
+                                title={langReference(GetLanguaje()).servicesAndProducts}
                                 onClick={() => RedirectToProductsAndServc()}>
                                 <div>
                                     {langReference(GetLanguaje()).servicesAndProducts}
-                                    (At the module of products and return button to this screen)
                                 </div>
                             </button>
                         </div>
