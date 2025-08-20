@@ -1,4 +1,7 @@
-//SCRIPTS
+//to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
+import {
+    langReference, GetLanguaje
+} from "./langs/languajes.js";
 import { useEffect, useState } from "react";
 import { authentication } from './Logical/Authentication';
 import netapi from './variables/apiurls';
@@ -43,7 +46,9 @@ function RecipeProductsView ({recipeId}) {
                         <td>
                             <button
                                 class="btn btn-primary"
-                                onClick={() => {ViewProduct(product)}}>Ver</button>
+                                onClick={() => {ViewProduct(product)}}>
+                                    {langReference(GetLanguaje()).view}
+                            </button>
                         </td>
                     </tr>
                 ))}
