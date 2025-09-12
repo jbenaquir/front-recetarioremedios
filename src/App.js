@@ -11,11 +11,11 @@ import { useState } from "react";
 function App() {
   const [channelId, setChannelId] = useState('');
 
-  function searchChannel (){
-    if(channelId === "")
+  function searchChannel() {
+    if (channelId === "")
       return;
 
-    window.location.href = "/chat/"+channelId;
+    window.location.href = "/chat/" + channelId;
   }
 
 
@@ -25,6 +25,15 @@ function App() {
         <p>
 
           {langReference(GetLanguaje()).slogan}
+        </p>
+        <p>
+          <a
+            className="App-link"
+            href="/Donativos.jpg"
+            rel="noopener noreferrer"
+          >
+            {langReference(GetLanguaje()).donatives}
+          </a>
         </p>
         {
           !authentication.authenticated()
@@ -49,7 +58,7 @@ function App() {
               placeholder={langReference(GetLanguaje()).channel}
               onChange={e => setChannelId(e.target.value)}
               maxLength={30}
-              ></input>
+            ></input>
             <button
               onClick={searchChannel}
             >
