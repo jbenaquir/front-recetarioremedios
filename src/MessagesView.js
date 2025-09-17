@@ -143,6 +143,11 @@ function MessagesView() {
         window.location = `/productsandservices?chatId=${channelsessionId}`;
     }
 
+    
+    const RedirectMore = () => {
+        window.location = `/moreaboutchat/${channelsessionId}`;
+    }
+
     const GetMessagesTInit = () => {
         //UpdateMessages();
         intervalLoadMessageT();
@@ -413,6 +418,15 @@ function MessagesView() {
                                 onClick={() => RedirectToProductsAndServc()}>
                                 <div>
                                     {langReference(GetLanguaje()).servicesAndProducts}
+                                </div>
+                            </button>
+                            <button
+                                style={{ margin: "5px" }}
+                                class="btn btn-blue"
+                                title={langReference(GetLanguaje()).more}
+                                onClick={() => RedirectMore()}>
+                                <div>
+                                    {langReference(GetLanguaje()).more}
                                 </div>
                             </button>
                         </div>
