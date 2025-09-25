@@ -25,7 +25,7 @@ function MessagesView() {
         UpdateMessages();
         GetMessagesTInit();
 
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, []);
 
@@ -78,7 +78,7 @@ function MessagesView() {
 
             let messageDirecction = "Left";
 
-            console.log("currentUserId:" + currentUserId);
+            // console.log("currentUserId:" + currentUserId);
 
             if (Number.parseInt(message.sentBy) === Number.parseInt(currentUserId)) {
                 messageDirecction = "Right";
@@ -114,7 +114,7 @@ function MessagesView() {
                 (containerMessage.getElementsByClassName("hour")[0]).innerHTML = new Date(message.sendAt.toString()).toLocaleString(loc);
             }
 
-            console.log(new Date(message.sendAt.toString()).toDateString());
+            // console.log(new Date(message.sendAt.toString()).toDateString());
 
             // (containerMessage.getElementsByClassName("hour")[0]).innerHTML = Date.parse(message.sendAt.toString());
 
@@ -143,7 +143,7 @@ function MessagesView() {
         window.location = `/productsandservices?chatId=${channelsessionId}`;
     }
 
-    
+
     const RedirectMore = () => {
         window.location = `/moreaboutchat/${channelsessionId}`;
     }
@@ -357,22 +357,21 @@ function MessagesView() {
                             "bottom": "0px",
                             "text-align": "center",
                             "margin": "0 auto",
-                            "width": "auto"
+                            "width": "auto",
+                            "backgroundColor": "#212529"
                         }
                     }
                     >
-                        <div>
+                        <div class="input-group mb-12">
                             <input
                                 class="form-control"
+                                placeholder={langReference(GetLanguaje()).enterYourMessageHere}
                                 name="message"
                                 value={MessageText}
                                 onChange={e => setMessageText(e.target.value)}
                                 maxLength={100} />
-                        </div>
-                        <div style={chatButtonsContainerStyle}>
                             <button
-                                style={{ margin: "5px" }}
-                                class="btn btn-blue"
+                                class="btn btn-blue btn-primary"
                                 title="Send Text Message"
                                 onClick={() => SendMessage(null)}>
                                 <i class="bi-send"></i>
@@ -381,9 +380,11 @@ function MessagesView() {
 
                                 </div>
                             </button>
+                        </div>
+                        <div style={chatButtonsContainerStyle}>
                             <button
-                                style={{ margin: "5px" }}
-                                class="btn btn-blue"
+                                style={{ margin: "5px", display: "none" }}
+                                class="btn btn-dark"
                                 title="Send Text Message"
                                 onClick={() => UpdateMessages()}>
                                 <i class="bi-arrow-clockwise"></i>
@@ -413,18 +414,20 @@ function MessagesView() {
                             </button>
                             <button
                                 style={{ margin: "5px" }}
-                                class="btn btn-blue"
+                                class="btn btn-info"
                                 title={langReference(GetLanguaje()).servicesAndProducts}
                                 onClick={() => RedirectToProductsAndServc()}>
+                                <i class="bi-clipboard-fill"></i>
                                 <div>
                                     {langReference(GetLanguaje()).servicesAndProducts}
                                 </div>
                             </button>
                             <button
                                 style={{ margin: "5px" }}
-                                class="btn btn-blue"
+                                class="btn btn-light"
                                 title={langReference(GetLanguaje()).more}
                                 onClick={() => RedirectMore()}>
+                                <i class="bi-gear"></i>
                                 <div>
                                     {langReference(GetLanguaje()).more}
                                 </div>

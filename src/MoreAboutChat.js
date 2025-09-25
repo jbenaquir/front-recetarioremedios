@@ -17,7 +17,8 @@ function MoreAboutChat() {
         <div>
             <h1>{langReference(GetLanguaje()).more}: </h1>
             <p>
-                <QrCode id={`/chat/${id}`}/>
+                <QrCode id={`/chat/${id}`} />
+                <b>Chat Id:</b> {id}
             </p>
         </div>
     )

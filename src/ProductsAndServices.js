@@ -56,7 +56,7 @@ function ProductsAndServices() {
                 }
 
                 if (response.status === 400) {
-                    alert('ServerError 400');
+                    // alert('ServerError 400');
                     return;
                 }
             })

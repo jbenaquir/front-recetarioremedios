@@ -2,6 +2,8 @@ import { cookiesManagement } from "../Logical/CookiesManagement";
 
 const englishObject = {
     languajeElectorTag: "Languaje"
+    ,loading: "Loading"
+    ,enterYourMessageHere: "Enter your message here"
     ,addAccount: "Create Account"
     ,login: "Log In"
     ,donatives: "Make your donatives here"
@@ -21,7 +23,7 @@ const englishObject = {
     ,home:"Home"
     ,thereAreNOElementsToShow: "There are no elements to show"
     ,servicesAndProducts: "Services and Products"
-    ,more: "More"
+    ,more: "More about this chat"
     ,gettingMessagesFromServer : "Getting messages from server"
     ,delete: "Delete"
     ,back: "Back"
@@ -50,17 +52,21 @@ const englishObject = {
     ,isEmpty: "is empty"
     ,sendingMessage: "Sending message"
     ,sentMessage: "Message sent"
-    ,save: "Save"
+    ,save: "Send"
     ,session: "Session"
     ,search: "Search"
     ,scripts: "Scripts"
     ,steps: "Steps"
     ,update: "Update"
     ,verify: "Verify"
+    ,example: "Example"
+    ,enterChatId: "Enter chat ID"
 };
 
 const spanishObject = {
     languajeElectorTag: "Lenguaje"
+    ,enterYourMessageHere: "Ingrese aquí su mensaje"
+    ,loading: "Cargando"
     ,addAccount: "Crear cuenta"
     ,login: "Acceder"
     ,slogan: "Esta aplicación se realizó para ayudar personas y equipo médico a guiarles en la curación."
@@ -78,7 +84,7 @@ const spanishObject = {
     ,email: "Email o correo electrónico"
     ,please: "Por favor"
     ,choose: "Elegir"
-    ,save: "Salvar"
+    ,save: "Enviar"
     ,donatives: "Haga sus donaciones aquí"
     ,home:"Inicio"
     ,thereAreNOElementsToShow: "No hay objeto que enseñar"
@@ -102,7 +108,7 @@ const spanishObject = {
     ,message: "Mensaje"
     ,my: "Mi"
     ,modify: "Modificar"
-    ,more: "Más"
+    ,more: "Más sobre este chat"
     ,name: "Nombre"
     ,product: "Producto"
     ,description: "Descripción"
@@ -116,10 +122,14 @@ const spanishObject = {
     ,session: "Sesión"
     ,update: "Actualizar"
     ,verify: "Verificar"
+    ,example: "Ejemplo"
+    ,enterChatId: "Introducir chat ID"
 };
 
 const frenchObject = {
     languajeElectorTag: "Langue"
+    ,enterYourMessageHere: "Entrez votre message ici"
+    ,loading: "Chargement"
     ,addAccount: "Créer compte"
     ,login: "Connexion"
     ,close: "Fermer"
@@ -136,12 +146,12 @@ const frenchObject = {
     ,channel: "Channel"
     ,company: "Compagnie"
     ,donatives: "Faites votre don ici"
-    ,more: "Plus"
+    ,more: "Plus sur ce chat"
     ,home:"Début"
     ,edit: "Éditer"
     ,email: "Email"
     ,choose: "Choisir"
-    ,save: "Sauver"
+    ,save: "Envoyer"
     ,thereAreNOElementsToShow: "Il n'y a aucun élément à afficher"
     ,delete: "Supprimer"
     ,back: "Retourner"
@@ -175,6 +185,8 @@ const frenchObject = {
     ,steps: "Mesures"
     ,update: "Mettre à jour"
     ,verify: "Vérifier"
+    ,example: "Exemple"
+    ,enterChatId: "Entre chat ID"
 };
 
 //check if a method has or does

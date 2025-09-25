@@ -50,20 +50,26 @@ function App() {
           authentication.authenticated()
           &&
           <p>
-            {langReference(GetLanguaje()).channel} {langReference(GetLanguaje()).session}ID:
-            <input
-              class="form-control"
-              value={channelId}
-              name="channelId"
-              placeholder={langReference(GetLanguaje()).channel}
-              onChange={e => setChannelId(e.target.value)}
-              maxLength={30}
-            ></input>
-            <button
-              onClick={searchChannel}
-            >
-              {langReference(GetLanguaje()).go}
-            </button>
+            {langReference(GetLanguaje()).enterChatId}:
+            <div class="input-group mb-3">
+              <input
+                class="form-control"
+                value={channelId}
+                name="channelId"
+                placeholder={`${langReference(GetLanguaje()).example}: 123`}
+                onChange={e => setChannelId(e.target.value)}
+                maxLength={30}
+              ></input>
+              <button
+                onClick={searchChannel}
+                class="btn btn-primary"
+              >
+                <i class="bi-chat"></i>
+                <div>
+                  {langReference(GetLanguaje()).go}
+                </div>
+              </button>
+            </div>
           </p>
         }
       </header>
