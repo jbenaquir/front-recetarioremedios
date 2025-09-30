@@ -7,6 +7,7 @@ import {
 import './App.css';
 import { authentication } from './Logical/Authentication';
 import { useState } from "react";
+import Login from "./Login";
 
 function App() {
   const [channelId, setChannelId] = useState('');
@@ -38,13 +39,7 @@ function App() {
         {
           !authentication.authenticated()
           &&
-          <a
-            className="App-link"
-            href="/login"
-            rel="noopener noreferrer"
-          >
-            {langReference(GetLanguaje()).login}
-          </a>
+          <Login />
         }
         {
           authentication.authenticated()

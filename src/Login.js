@@ -45,8 +45,8 @@ function Login() {
         const datefinish = new Date(Date.now() + 500 * 86400);
 
         SetTokenCookie(JSON.stringify(userToken), datefinish);
-        
-        if(returnUrl !== ""){
+
+        if (returnUrl !== "") {
             window.location.href = returnUrl;
             return;
         }
@@ -109,58 +109,44 @@ function Login() {
     }
 
     return (
-        <div class="grid">
-            <div class="row justify-content-start">
+        <div class="border" style={{ "max-width": "300px", "padding": "10px" }}>
+            <div style={{ "padding": "30px" }}>
                 <h1>{langReference(GetLanguaje()).authenticate}</h1>
                 <div class="form-group row">
-                    <div class="col-sm-10">
-                        <label class="col-sm-2 col-form-label">
-                            Username
-                        </label>
-                        <input
-                            class="form-control"
-                            name="name"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                            maxLength={100} />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <label class="col-sm-2 col-form-label">
-                            {langReference(GetLanguaje()).password}
-                        </label>
-                        <input
-                            class="form-control"
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            maxLength={100} />
-                    </div>
+                    <input
+                        class="form-control"
+                        name="name"
+                        placeholder="Username"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        maxLength={100} />
+                    <input
+                        class="form-control"
+                        type="password"
+                        name="password"
+                        placeholder={langReference(GetLanguaje()).password}
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        maxLength={100} />
                 </div>
                 <div class="form-group row" style={{ marginTop: "10px" }}>
                     <button
-                        style={{
-                            minWidth: "100px",
-                            "margin-right": "10px", "margin-left": "10px"
-                        }}
-                        class="btn btn-primary col col-md-auto"
+                        type="button"
+                        class="btn btn-primary btn-block"
                         onClick={Authenticate}>
                         <i style={{ marginRight: "6px" }} class="bi-rocket"></i>
                         <span>
                             {langReference(GetLanguaje()).login}
                         </span>
                     </button>
-                    <div>
+                    <div style={{
+                        "text-align": "center"
+                    }}>
                         -{langReference(GetLanguaje()).or}-
                     </div>
                     <button
-                        style={{
-                            minWidth: "100px",
-                            "margin-right": "10px", "margin-left": "10px"
-                        }}
-                        class="btn btn-primary col col-md-auto"
+                        type="button"
+                        class="btn btn-primary btn-block"
                         onClick={GoToCreateAccount}>
                         <i style={{ marginRight: "6px" }} class="bi-person-fill"></i>
                         <span>
