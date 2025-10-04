@@ -93,6 +93,10 @@ function MessagesView() {
             //}
 
             (containerMessage.getElementsByClassName("messageText")[0]).innerHTML = message.messageText;
+            
+            if(message.sentByUsername !== null){
+                (containerMessage.getElementsByClassName("username")[0]).innerHTML = `<b>${message.sentByUsername}:</b>`;
+            }
 
             const messageDate = message.sendAt.toString();
 
@@ -165,6 +169,7 @@ function MessagesView() {
         }
 
         const userId = authentication.GetCurrentUserId();
+        const username = authentication.GetCurrentUserName();
 
         if (!userId) {
             alert("Not user auth");
@@ -176,27 +181,30 @@ function MessagesView() {
             "chatMessage": "string",
             "channelSessionId": channelsessionId,
             "messageText": "",
-            "sentBy": userId.toString()
+            "sentBy": userId.toString(),
+            "sentByUsername": username.toString()
         }
-
+        
         if (fromParameter == null) {
             if (MessageText === '') {
                 alert(`${langReference(GetLanguaje()).message} ${langReference(GetLanguaje()).isEmpty}`);
                 return;
             }
-
+            
             chatMessage = {
                 "chatMessage": "string",
                 "channelSessionId": channelsessionId,
                 "messageText": MessageText,
-                "sentBy": userId.toString()
+                "sentBy": userId.toString(),
+                "sentByUsername": username.toString()
             }
         } else {
             chatMessage = {
                 "chatMessage": "string",
                 "channelSessionId": channelsessionId,
                 "messageText": fromParameter,
-                "sentBy": userId.toString()
+                "sentBy": userId.toString(),
+                "sentByUsername": username.toString()
             }
         }
 
@@ -213,7 +221,6 @@ function MessagesView() {
                 body: JSON.stringify(chatMessage)
             })
             .then(response => {
-
                 if (response.status === 200) {
                     alert(`${langReference(GetLanguaje()).sentMessage}`);
 
@@ -315,8 +322,8 @@ function MessagesView() {
                             {"<"}
                         </div>
                         <div style={messageTextStyle}>
-                            <div>
-                                <b>Me:</b>
+                            <div className="username">
+                                Me:
                             </div>
                             <div class="messageText">
                                 Message Text Left
@@ -329,10 +336,13 @@ function MessagesView() {
 
                     <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
                         <div style={messageTextStyle}>
-                            <div class="messageText">
+                            <div className="username">
+                                #username:
+                            </div>
+                            <div className="messageText">
                                 Message Text Right
                             </div>
-                            <div class="hour" style={hourStyle}>
+                            <div className="hour" style={hourStyle}>
                                 hour
                             </div>
                         </div>
@@ -384,7 +394,7 @@ function MessagesView() {
                         <div style={chatButtonsContainerStyle}>
                             <button
                                 style={{ margin: "5px", display: "none" }}
-                                class="btn btn-dark"
+                                className="btn btn-dark"
                                 title="Send Text Message"
                                 onClick={() => UpdateMessages()}>
                                 <i class="bi-arrow-clockwise"></i>
@@ -394,7 +404,7 @@ function MessagesView() {
                             </button>
                             <button
                                 style={{ margin: "5px", display: "none" }}
-                                class="btn btn-blue"
+                                className="btn btn-blue"
                                 title="Send Text Message"
                                 onClick={() => StopGettingMessages()}>
                                 <i class="bi-loading"></i>
@@ -404,7 +414,7 @@ function MessagesView() {
                             </button>
                             <button
                                 style={{ margin: "5px", display: "none" }}
-                                class="btn btn-blue"
+                                className="btn btn-blue"
                                 title="Voice"
                                 onClick={() => NotImplemented()}>
                                 <i class="bi-mic"></i>
@@ -414,7 +424,7 @@ function MessagesView() {
                             </button>
                             <button
                                 style={{ margin: "5px" }}
-                                class="btn btn-info"
+                                className="btn btn-info"
                                 title={langReference(GetLanguaje()).servicesAndProducts}
                                 onClick={() => RedirectToProductsAndServc()}>
                                 <i class="bi-clipboard-fill"></i>
@@ -424,7 +434,7 @@ function MessagesView() {
                             </button>
                             <button
                                 style={{ margin: "5px" }}
-                                class="btn btn-light"
+                                className="btn btn-light"
                                 title={langReference(GetLanguaje()).more}
                                 onClick={() => RedirectMore()}>
                                 <i class="bi-gear"></i>
