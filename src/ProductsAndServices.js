@@ -20,8 +20,9 @@ function ProductsAndServices() {
         }
 
         const userId = authentication.GetCurrentUserId();
+        const username = authentication.GetCurrentUserName();
 
-        if (!userId) {
+        if (!userId || !username) {
             alert("Not user auth");
             window.location = "/login";
             return;
@@ -31,7 +32,8 @@ function ProductsAndServices() {
             "chatMessage": "string",
             "channelSessionId": chatId,
             "messageText": message,
-            "sentBy": userId.toString()
+            "sentBy": userId.toString(),
+            "sentByUsername": username.toString()
         }
 
         alert(`${langReference(GetLanguaje()).sendingMessage}...`);
