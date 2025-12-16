@@ -78,23 +78,21 @@ function MessagesView() {
 
             let messageDirecction = "Left";
 
-            // console.log("currentUserId:" + currentUserId);
-
+            //If is my message send message to right
             if (Number.parseInt(message.sentBy) === Number.parseInt(currentUserId)) {
                 messageDirecction = "Right";
             }
 
             let containerMessage = document.getElementById(`containerMessage${messageDirecction}Sample`).cloneNode(true);
 
-            containerMessage.id = "";
+            //containerMessage.id = "";
+            containerMessage.id = message.id;
 
-            //if(messageDirecction == "Right"){
-            //(containerMessage.getElementsByClassName("sendBy")[0]).innerHTML = message.sentBy;
-            //}
+
 
             (containerMessage.getElementsByClassName("messageText")[0]).innerHTML = message.messageText;
-            
-            if(message.sentByUsername !== null){
+
+            if (message.sentByUsername !== null) {
                 (containerMessage.getElementsByClassName("username")[0]).innerHTML = `<b>${message.sentByUsername}:</b>`;
             }
 
@@ -116,11 +114,18 @@ function MessagesView() {
                 }
 
                 (containerMessage.getElementsByClassName("hour")[0]).innerHTML = new Date(message.sendAt.toString()).toLocaleString(loc);
+
+                if (messageDirecction === "Right") {
+
+                    const linkMoreInfo = document.createElement("a");
+                    linkMoreInfo.href = `/MoreAboutMessage/${message.id}/${channelsessionId}`;
+                    linkMoreInfo.innerText = langReference(GetLanguaje()).moreAboutChat;
+
+                    (containerMessage.getElementsByClassName("moreInfo")[0]).appendChild(linkMoreInfo);
+                }
+                //NOTE: Messages are in the opposite side IDK W
+
             }
-
-            // console.log(new Date(message.sendAt.toString()).toDateString());
-
-            // (containerMessage.getElementsByClassName("hour")[0]).innerHTML = Date.parse(message.sendAt.toString());
 
             messagesDivs += containerMessage.outerHTML;
         });
@@ -146,7 +151,6 @@ function MessagesView() {
     const RedirectToProductsAndServc = () => {
         window.location = `/productsandservices?chatId=${channelsessionId}`;
     }
-
 
     const RedirectMore = () => {
         window.location = `/moreaboutchat/${channelsessionId}`;
@@ -184,13 +188,13 @@ function MessagesView() {
             "sentBy": userId.toString(),
             "sentByUsername": username.toString()
         }
-        
+
         if (fromParameter == null) {
             if (MessageText === '') {
                 alert(`${langReference(GetLanguaje()).message} ${langReference(GetLanguaje()).isEmpty}`);
                 return;
             }
-            
+
             chatMessage = {
                 "chatMessage": "string",
                 "channelSessionId": channelsessionId,
@@ -304,6 +308,11 @@ function MessagesView() {
         "display": "flex",
     };
 
+    const moreInfoStyle = {
+        "text-align": "center",
+        "font-size": "16px"
+    }
+
 
     window.onresize = (event) => {
 
@@ -317,39 +326,46 @@ function MessagesView() {
                 <div style={{
                     "height": window.innerHeight
                 }}>
-                    <div style={containerMessageStyle} class="containerMessageRight" id="containerMessageRightSample">
-                        <div style={arrowsMessageTextStyle} className="arrowLeft">
+                    <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
+                        <div style={arrowsMessageTextStyle} className="arrow">
                             {"<"}
                         </div>
-                        <div style={messageTextStyle}>
-                            <div className="username">
-                                Me:
-                            </div>
-                            <div class="messageText">
-                                Message Text Left
-                            </div>
-                            <div class="hour" style={hourStyle}>
-                                hour
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style={containerMessageStyle} class="containerMessageLeft" id="containerMessageLeftSample">
                         <div style={messageTextStyle}>
                             <div className="username">
                                 #username:
                             </div>
                             <div className="messageText">
-                                Message Text Right
+                                Message Text
+                            </div>
+                            <hr />
+                            <div class="moreInfo" style={moreInfoStyle}>
                             </div>
                             <div className="hour" style={hourStyle}>
                                 hour
                             </div>
                         </div>
-                        <div style={arrowsMessageTextStyle} className="arrowRight">
+                    </div>
+
+                    <div style={containerMessageStyle} class="containerMessageRight" id="containerMessageRightSample">
+                        <div style={messageTextStyle}>
+                            <div className="username">
+                                Me:
+                            </div>
+                            <div class="messageText">
+                                Message Text
+                            </div>
+                            <hr />
+                            <div class="moreInfo" style={moreInfoStyle}>
+                            </div>
+                            <div class="hour" style={hourStyle}>
+                                hour
+                            </div>
+                        </div>
+                        <div style={arrowsMessageTextStyle} className="arrow">
                             {">"}
                         </div>
                     </div>
+
 
                     <div style={containerMessagesStyle} class="containerMessages">
 
@@ -387,7 +403,6 @@ function MessagesView() {
                                 <i class="bi-send"></i>
                                 <div>
                                     {langReference(GetLanguaje()).save}
-
                                 </div>
                             </button>
                         </div>

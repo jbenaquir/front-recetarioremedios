@@ -31,6 +31,7 @@ import ChatChannelForm from './ChatChannelForm';
 import ChatChannelView from './ChatChannelView';
 import ProductsAndServices from './ProductsAndServices';
 import MoreAboutChat  from './MoreAboutChat';
+import MoreAboutMessage  from './MoreAboutMessage';
 import { authentication } from './Logical/Authentication';
 import LanguajePicker from './components/LanguajePicker'
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
@@ -62,6 +63,10 @@ routes.push({
 
 routes.push({
   path: "/moreaboutchat/:id", element: <MoreAboutChat />
+});
+
+routes.push({
+  path: "/moreaboutmessage/:id/:channelSessionId", element: <MoreAboutMessage />
 });
 
 if (authentication.authenticated()) {

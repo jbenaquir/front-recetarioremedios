@@ -41,12 +41,12 @@
 /*css flex https://css-tricks.com/snippets/css/a-guide-to-flexbox/*/
 
 .containerMessageLeft {
-  justify-content: end;
+  justify-content: start;
   margin-right: 40px;
 }
 
 .containerMessageRight {
-  justify-content: start;
+  justify-content: end;
   margin-left: 40px;
 }
 
