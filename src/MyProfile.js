@@ -87,39 +87,52 @@ function ProductView() {
                 {user.roleName}
             </p>
             <p>
-                <button
-                    style={{
-                        minWidth: "100px",
-                        "margin-right": "10px", "margin-left": "10px"
-                    }}
-                    class="btn btn-primary col col-md-auto"
-                    onClick={GoToUpdatePassword}>
-                    <i class="bi-lock"></i>
-                    {langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).password}
-                </button>
-                <button
-                    style={{
-                        minWidth: "100px",
-                        "margin-right": "10px", "margin-left": "10px"
-                    }}
-                    class="btn btn-primary col col-md-auto"
-                    onClick={GoToUpdateMyProfile}>
-                    <i class="bi-person"></i>
-                    {langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).profile}
-                </button>
-                <button
-                    style={{
-                        minWidth: "100px",
-                        "margin-right": "10px", "margin-left": "10px"
-                    }}
-                    class="btn btn-primary col col-md-auto"
-                    onClick={GoToChat}>
-                    My Chat
-                    <i i style={{
-                        "padding": "5px"
-                    }} class="bi-chat"></i>
-                </button>
-
+                <table>
+                    <tr>
+                        <td>
+                            <button
+                                style={{
+                                    minWidth: "100px",
+                                    "margin-right": "10px", "margin-left": "10px"
+                                }}
+                                class="btn btn-primary col col-md-auto"
+                                onClick={GoToUpdatePassword}>
+                                <i class="bi-lock"></i>
+                                {langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).password}
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button
+                                style={{
+                                    minWidth: "100px",
+                                    "margin-right": "10px", "margin-left": "10px"
+                                }}
+                                class="btn btn-primary col col-md-auto"
+                                onClick={GoToUpdateMyProfile}>
+                                <i class="bi-person"></i>
+                                {langReference(GetLanguaje()).modify} {langReference(GetLanguaje()).profile}
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button
+                                style={{
+                                    minWidth: "100px",
+                                    "margin-right": "10px", "margin-left": "10px"
+                                }}
+                                class="btn btn-primary col col-md-auto"
+                                onClick={GoToChat}>
+                                My Chat
+                                <i i style={{
+                                    "padding": "5px"
+                                }} class="bi-chat"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
             </p>
         </div>
     )
