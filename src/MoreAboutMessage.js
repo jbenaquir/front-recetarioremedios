@@ -141,6 +141,11 @@ function MoreAboutMessage() {
                     {"<"}
                 </div>
                 <div style={messageTextStyle}>
+                    <div className="username">
+                        <b>
+                            {chatMessage.sentByUsername}:
+                        </b>
+                    </div>
                     <div className="messageText">
                         {chatMessage.messageText}
                     </div>
@@ -158,7 +163,7 @@ function MoreAboutMessage() {
                 onClick={() => DeleteThisMessage(this)}>
                 <i class="bi bi-x-circle"></i>
                 <div>
-                    Delete
+                    {langReference(GetLanguaje()).delete}
                 </div>
             </button>
         </div>
