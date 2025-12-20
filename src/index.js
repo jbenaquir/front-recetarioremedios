@@ -30,13 +30,14 @@ import ChatChannels from './ChatChannels';
 import ChatChannelForm from './ChatChannelForm';
 import ChatChannelView from './ChatChannelView';
 import ProductsAndServices from './ProductsAndServices';
-import MoreAboutChat  from './MoreAboutChat';
-import MoreAboutMessage  from './MoreAboutMessage';
+import MoreAboutChat from './MoreAboutChat';
+import MoreAboutMessage from './MoreAboutMessage';
+import Subscriptions from './Subscriptions';
 import { authentication } from './Logical/Authentication';
 import LanguajePicker from './components/LanguajePicker'
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
 import {
-    langReference, GetLanguaje
+  langReference, GetLanguaje
 } from "./langs/languajes.js";
 
 const routes = [
@@ -150,6 +151,11 @@ if (authentication.authenticated()) {
     path: "/chatchannels/:id/view", element: <ChatChannelView />
   });
 
+  
+  routes.push({
+    path: "/subscriptions", element: <Subscriptions />
+  });
+
 
 }
 
@@ -202,6 +208,9 @@ root.render(
                       <a class="nav-link active" aria-current="page" href="/">{langReference(GetLanguaje()).home}</a>
                     </li>
                     <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/subscriptions">Chat:{langReference(GetLanguaje()).subscriptions}</a>
+                    </li>
+                    <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="/chatchannels">Chat:{langReference(GetLanguaje()).channel}s</a>
                     </li>
                     <li class="nav-item">
@@ -251,7 +260,7 @@ root.render(
             :
             <></>
         }
-        
+
       </div>
     </nav>
     <div class="container-sm" style={{ paddingTop: "60px" }}>

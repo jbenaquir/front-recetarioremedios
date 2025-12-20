@@ -64,6 +64,9 @@ const englishObject = {
     ,verify: "Verify"
     ,example: "Example"
     ,enterChatId: "Enter chat ID"
+    ,promptDeleteSubscription: "Do you want to delete this subcription?"
+    ,subscriptions: "Subscriptions"
+    ,scanThisQRCodeW: "Scan or share this qr code with your phone"
 };
 
 const spanishObject = {
@@ -130,6 +133,9 @@ const spanishObject = {
     ,verify: "Verificar"
     ,example: "Ejemplo"
     ,enterChatId: "Introducir chat ID"
+    ,promptDeleteSubscription: "¿Desea borrar esta subcripción?"
+    ,subscriptions: "Suscripciones"
+    ,scanThisQRCodeW: "Escanee o comparta este código QR con su celular"
 };
 
 const frenchObject = {
@@ -196,6 +202,9 @@ const frenchObject = {
     ,verify: "Vérifier"
     ,example: "Exemple"
     ,enterChatId: "Entre chat ID"
+    ,promptDeleteSubscription: "Voulez-vous supprimer cet abonnement?"
+    ,subscriptions: "Abonnements"
+    ,scanThisQRCodeW: "Scannez ou partagez ce code QR avec votre téléphone portable"
 };
 
 //check if a method has or does
