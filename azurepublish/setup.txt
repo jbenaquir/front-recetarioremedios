@@ -1,3 +1,6 @@
 inside react site in WWWroot folder (azure app )
 
+
+Add /build folder and next file:
+
 web.config
