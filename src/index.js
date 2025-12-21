@@ -208,10 +208,10 @@ root.render(
                       <a class="nav-link active" aria-current="page" href="/">{langReference(GetLanguaje()).home}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/subscriptions">Chat:{langReference(GetLanguaje()).subscriptions}</a>
+                      <a class="nav-link active" aria-current="page" href="/subscriptions">Chat: {langReference(GetLanguaje()).subscriptions}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="/chatchannels">Chat:{langReference(GetLanguaje()).channel}s</a>
+                      <a class="nav-link active" aria-current="page" href="/chatchannels">Chat: {langReference(GetLanguaje()).channel}s</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="/products">{langReference(GetLanguaje()).product}</a>

@@ -11,9 +11,7 @@ function Subscriptions() {
     const [subscriptions, setSubscriptions] = useState([]);
 
     function GetSubscriptions() {
-        return;
-
-        fetch(`${netapi}/Subscriptions/search`,
+        fetch(`${netapi}/Subscriptions/GetByUserId/${authentication.GetCurrentUserId().toString()}`,
             {
                 method: 'GET',
                 headers: authentication.GetAuthorizationHeaders()

@@ -66,7 +66,10 @@ const englishObject = {
     ,enterChatId: "Enter chat ID"
     ,promptDeleteSubscription: "Do you want to delete this subcription?"
     ,subscriptions: "Subscriptions"
-    ,scanThisQRCodeW: "Scan or share this qr code with your phone"
+    ,scanThisQRCodeW: "Scan this qr code with your phone"
+    ,shareThisQRCodeW: "Scan or share this qr code with your phone"
+    ,youHaveSubscribed: "You have subscribed to this Chat"
+    ,subscribeThisChat: "Subscribe to this Chat"
 };
 
 const spanishObject = {
@@ -135,7 +138,10 @@ const spanishObject = {
     ,enterChatId: "Introducir chat ID"
     ,promptDeleteSubscription: "¿Desea borrar esta subcripción?"
     ,subscriptions: "Suscripciones"
-    ,scanThisQRCodeW: "Escanee o comparta este código QR con su celular"
+    ,scanThisQRCodeW: "Escanee este código QR con su celular"
+    ,shareThisQRCodeW: "Escanee o comparta este código QR con su celular"
+    ,youHaveSubscribed: "Te has suscrito a este Chat"
+    ,subscribeThisChat: "Suscribirse a este Chat"
 };
 
 const frenchObject = {
@@ -204,7 +210,10 @@ const frenchObject = {
     ,enterChatId: "Entre chat ID"
     ,promptDeleteSubscription: "Voulez-vous supprimer cet abonnement?"
     ,subscriptions: "Abonnements"
-    ,scanThisQRCodeW: "Scannez ou partagez ce code QR avec votre téléphone portable"
+    ,scanThisQRCodeW: "Scannez ce code QR avec votre téléphone portable"
+    ,shareThisQRCodeW: "Scannez ou partagez ce code QR avec votre téléphone portable"
+    ,youHaveSubscribed: "Vous vous êtes abonné à ce Chat"
+    ,subscribeThisChat: "Abonnez-vous à ce chat"
 };
 
 //check if a method has or does

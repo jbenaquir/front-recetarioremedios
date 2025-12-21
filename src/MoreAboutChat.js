@@ -4,7 +4,8 @@ import QrCode from './QrCode';
 import {
     langReference, GetLanguaje
 } from "./langs/languajes.js";
-
+import netapi from './variables/apiurls';
+import { authentication } from './Logical/Authentication';
 
 function MoreAboutChat() {
     const { id } = useParams();
@@ -14,6 +15,29 @@ function MoreAboutChat() {
     }, []);
 
     const Subscribe = () => {
+        const subscription = {
+            userId: authentication.GetCurrentUserId().toString(),
+            chatId: id
+        };
+
+        let headers = authentication.GetAuthorizationHeaders();
+        headers.append("Content-Type", "application/json");
+
+        fetch(`${netapi}/Subscriptions/save`,
+            {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(subscription)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    alert(langReference(GetLanguaje()).youHaveSubscribed);
+
+                }
+
+                window.location = "/subscriptions";
+            })
+            .catch((error) => console.log("Something happened saving product: " + error));
 
     }
 
@@ -28,18 +52,22 @@ function MoreAboutChat() {
             <p>
                 <b>Chat Id:</b> {id}
             </p>
-            <button
-                style={{
-                    minWidth: "100px",
-                    "margin-right": "10px", "margin-left": "10px"
-                }}
-                class="btn btn-primary col col-md-auto"
-                onClick={Subscribe}>
-                Subscribe to this Chat
-                <i i style={{
-                    "padding": "5px"
-                }} class="bi-pin-angle"></i>
-            </button>
+            {
+                authentication.authenticated()
+                &&
+                <button
+                    style={{
+                        minWidth: "100px",
+                        "margin-right": "10px", "margin-left": "10px"
+                    }}
+                    class="btn btn-primary col col-md-auto no-print"
+                    onClick={Subscribe}>
+                    {langReference(GetLanguaje()).subscribeThisChat}
+                    <i i style={{
+                        "padding": "5px"
+                    }} class="bi-pin-angle"></i>
+                </button>
+            }
         </div>
     )
 }

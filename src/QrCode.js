@@ -14,8 +14,11 @@ function QrCode(params) {
 
     return (
         <div>
-            <p>
+            <p class="only-print">
                 {langReference(GetLanguaje()).scanThisQRCodeW}
+            </p>
+            <p class="no-print">
+                {langReference(GetLanguaje()).shareThisQRCodeW}
             </p>
             <QRCode value={`https://${document.domain}/chat/${id}`} />
         </div>

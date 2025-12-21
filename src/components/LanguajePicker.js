@@ -48,7 +48,7 @@ function LanguajePicker() {
 
     return (
         <>
-            <div>
+            <div class="no-print">
 
                 <label htmlFor="languaje" >
                     {langReference(GetLanguaje()).languajeElectorTag}:

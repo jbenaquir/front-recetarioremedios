@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -50,6 +51,24 @@
   margin-left: 40px;
 }
 
-#containerMessageRightSample, #containerMessageLeftSample{
+#containerMessageRightSample,
+#containerMessageLeftSample {
   display: none !important;
+}
+
+.only-print {
+  display: none !important;
+  /* Completely removes the element from print */
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+    /* Completely removes the element from print */
+  }
+
+  .only-print {
+    display: block !important;
+    /* Completely removes the element from print */
+  }
 }
