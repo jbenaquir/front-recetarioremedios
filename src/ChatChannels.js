@@ -201,7 +201,7 @@ function ChatChannels() {
                                 <td style={{ textAlign: "center" }}>
                                     <>
                                         {
-                                            (authentication.GetCurrentRoleId() == 1)
+                                            (authentication.GetCurrentRoleId() === 1)
                                                 ?
                                                 <>
                                                     <button
