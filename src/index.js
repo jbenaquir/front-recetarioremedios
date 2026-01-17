@@ -33,6 +33,9 @@ import ProductsAndServices from './ProductsAndServices';
 import MoreAboutChat from './MoreAboutChat';
 import MoreAboutMessage from './MoreAboutMessage';
 import Subscriptions from './Subscriptions';
+import Images from './Images';
+import ImageForm from './ImageForm';
+import ImageView from './ImageView';
 import { authentication } from './Logical/Authentication';
 import LanguajePicker from './components/LanguajePicker'
 //to implement languaje in component copy this and replace text with langReference(GetLanguaje()).variable should added
@@ -151,12 +154,25 @@ if (authentication.authenticated()) {
     path: "/chatchannels/:id/view", element: <ChatChannelView />
   });
 
-  
   routes.push({
     path: "/subscriptions", element: <Subscriptions />
   });
 
+  routes.push({
+    path: "/images", element: <Images />
+  });
 
+  routes.push({
+    path: "/images/:id/:name", element: <ImageView />
+  });
+
+  routes.push({
+    path: "/images/create", element: <ImageForm />
+  });
+
+  routes.push({
+    path: "/images/:id/:name/edit", element: <ImageForm />
+  });
 }
 
 if (authentication.authenticated() && authentication.IsAdmin()) {
@@ -219,6 +235,10 @@ root.render(
                     <li class="nav-item">
                       <a class="nav-link active" aria-current="page" href="/recipes">{langReference(GetLanguaje()).recipes}</a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/images">{langReference(GetLanguaje()).images}</a>
+                    </li>
+
                     {
                       (authentication.IsAdmin() || authentication.IsCompanyOwner())
                         ?
